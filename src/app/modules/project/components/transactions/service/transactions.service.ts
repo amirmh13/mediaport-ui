@@ -12,29 +12,29 @@ export class TransactionsService {
 
     constructor(
         private _http: HttpClient,
-    ) {}
+    ) { }
 
-    addTransactionCategory(body: AddTransactionCategoryPostBody): Observable < unknown > {
+    addTransactionCategory(body: AddTransactionCategoryPostBody): Observable<unknown> {
         return this._http.post(`${environment.apiBaseUrl}/v1/Project/Transactions/AddTransactionCategory`, body)
     }
 
-    editTransactionCategory(body: EditTransactionCategoryPostBody): Observable < unknown > {
+    editTransactionCategory(body: EditTransactionCategoryPostBody): Observable<unknown> {
         return this._http.post(`${environment.apiBaseUrl}/v1/Project/Transactions/EditTransactionCategory`, body)
     }
 
-    addTransaction(body: AddTransactionPostBody): Observable < unknown > {
+    addTransaction(body: AddTransactionPostBody): Observable<unknown> {
         return this._http.post(`${environment.apiBaseUrl}/v1/Project/Transactions/AddTransaction`, body)
     }
 
-    editTransaction(body: EditTransactionPostBody): Observable < unknown > {
+    editTransaction(body: EditTransactionPostBody): Observable<unknown> {
         return this._http.post(`${environment.apiBaseUrl}/v1/Project/Transactions/EditTransaction`, body)
     }
 
-    getListOfProjectTransactionCategories(projectId: number): Observable < TransactionCategoryDto[] > {
-        return this._http.get < TransactionCategoryDto[] > (`${environment.apiBaseUrl}/v1/Project/Transactions/GetListOfProjectTransactionCategories`, { params: { projectId } })
+    getListOfProjectTransactionCategories(projectId: number): Observable<TransactionCategoryDto[]> {
+        return this._http.get<TransactionCategoryDto[]>(`${environment.apiBaseUrl}/v1/Project/Transactions/GetListOfProjectTransactionCategories`, { params: { projectId } })
     }
 
-    getListOfProjectTransactions(body: TransactionListPostBody): Observable < PaginateDto < TransactionDto > > {
-        return this._http.post < PaginateDto < TransactionDto > > (`${environment.apiBaseUrl}/v1/Project/Transactions/GetListOfProjectTransactions`, body)
+    getListOfProjectTransactions(body: TransactionListPostBody): Observable<PaginateDto<TransactionDto>> {
+        return this._http.post<PaginateDto<TransactionDto>>(`${environment.apiBaseUrl}/v1/Project/Transactions/GetListOfProjectTransactions`, body)
     }
 }
