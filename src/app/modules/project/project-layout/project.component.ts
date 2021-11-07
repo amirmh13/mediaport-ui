@@ -13,9 +13,9 @@ export class ProjectComponent implements OnInit {
 
     constructor(
         private _route: ActivatedRoute,
-        private _store: Store < { projectId: number } > ,
-        private _router:Router
-    ) {}
+        private _store: Store<{ projectId: number }>,
+        private _router: Router
+    ) { }
 
     setProjectIdToStore(): void {
         this._route.params.subscribe(({ projectId }) => {
