@@ -1,0 +1,20 @@
+<div class="element-card row bg-white border rounded-3 py-4 px-4 position-relative">
+    <div class="col-12 row justify-content-end cursor-pointer position-absolute top-0 start-0 mt-3 ms-2">
+        <button (click)="$event.stopPropagation()" class="position-absolute top-0 start-0 px-0" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+    <div class="col-12 d-flex px-0 mt-2">
+        <img width="68" height="81" class="col-auto" src="/assets/images/member.svg" alt="">
+        <div class="col row">
+            <div (click)="elementTypeClickEmitter.emit(elementType)" class="cursor-pointer">{{elementType?.name}}</div>
+            <div class="text-muted">{{elementType?.elementCount}} مورد</div>
+        </div>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2 py-0">
+    <div class="row py-0">
+        <span (click)="removeEmitter.emit()" class="row align-items-center cursor-pointer"> حذف</span>
+    </div>
+</mat-menu>

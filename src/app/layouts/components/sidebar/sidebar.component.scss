@@ -1,0 +1,32 @@
+$sidebar_text_color : #828284;
+
+.sidebar-items {
+    .sidebar-item {
+        color: $sidebar_text_color;
+
+        svg {
+            fill: $sidebar_text_color;
+        }
+
+        &.sidebar-item-active {
+            color: white;
+            position: relative;
+
+            svg {
+                fill: white !important;
+            }
+
+            &::before {
+                content: "";
+                width: 7px;
+                height: 7px;
+                background-color: white;
+                border-radius: 50%;
+                position: absolute;
+                top: 50%;
+                right: -20px;
+                transform: translateY(-50%);
+            }
+        }
+    }
+}

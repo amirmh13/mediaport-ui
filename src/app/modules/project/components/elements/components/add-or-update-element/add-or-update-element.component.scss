@@ -1,0 +1,5 @@
+@import '_base';
+
+.elements-wrapper {
+    @include customScrollbar(5px, #828284);
+}

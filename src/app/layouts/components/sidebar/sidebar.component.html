@@ -1,0 +1,15 @@
+<div class="col-12 row py-5 px-4">
+    <div class="col-12 d-flex align-items-center text-white px-0 mb-5">
+        <img class="ms-4" width="61" height="32" src="/assets/images/logo-primary.svg" alt="مدیاپورت">
+        <span class="col cfs-20 px-0">مدیاپورت</span>
+    </div>
+
+    <div class="sidebar-items col-12 row px-0">
+        <a (click)="onSidebarItemClick(item)" [routerLink]="['/projects', currentProjectId, item.route]" routerLinkActive="sidebar-item-active" [routerLinkActiveOptions]="{exact: false}" *ngFor="let item of sidebarItems" class="sidebar-item col-12 d-flex align-items-center cfs-16 d-flex px-0 mb-4">
+            <svg width="16" height="16" class="ms-4">
+                <use [attr.xlink:href]="'/assets/images/svgs.svg#' + item.iconName"></use>
+            </svg>
+            <span class="col px-0">{{item.title}}</span>
+        </a>
+    </div>
+</div>

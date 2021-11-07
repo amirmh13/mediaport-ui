@@ -1,0 +1,22 @@
+@import '_base';
+
+
+.contact-list {
+    .contact-list-actions {
+        .contacts-count {
+            background-color: #EDEEF4;
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .more-menu {
+        visibility: hidden;
+    }
+
+    &:hover {
+        .more-menu {
+            visibility: visible;
+        }
+    }
+}

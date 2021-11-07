@@ -1,0 +1,17 @@
+<div (keyup.enter)="onChangeNameClick()" (clickOutside)="clickOutsideEvent()" class="col-12 row hstack px-0 py-2">
+    <span *ngIf="mode == 'default'" class="col text-black">{{element?.name}}</span>
+    <input *ngIf="mode == 'add'" type="text" class="col text-muted form-control border-0 py-1" [(ngModel)]="element.name">
+    <div class="col row hstack">
+        <span class="col px-0text-black">21 صحنه</span>
+        <button (click)="$event.stopPropagation()" class="col-auto px-0" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+
+    <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2 py-0">
+        <div class="row py-2">
+            <span (click)="onDeleteElementClick()" class="row align-items-center cursor-pointer mb-2"> حذف</span>
+            <span (click)="onChangeModeClick('add')" class="row align-items-center cursor-pointer"> ویرایش نام</span>
+        </div>
+    </mat-menu>
+</div>

@@ -1,0 +1,19 @@
+<section class="locations col-12 row px-0">
+    <div class="col-12 row justify-content-center justify-content-lg-end border-bottom px-0 py-3">
+        <button mat-raised-button color="primary" (click)="openAddLocationDialogClick()" class="col-auto rounded-2 px-4">
+            + افزودن لوکیشن جدید
+        </button>
+    </div>
+    
+    <div *ngIf="locationsList?.length" class="locations-card-wrapper col-12 row px-0 mt-3">
+        <app-location-card *ngFor="let location of locationsList;let i = index" class="col-12 row px-0 mb-3"
+        [location]="location"
+        (editEmitter)="onLocationCardClick(location)"
+        (removeEmitter)="onDeletedLocationClick(location)"
+        (callListEmitter)="getListOfLocations()"
+        ></app-location-card>
+    </div>
+</section>
+
+<!-- <div id="map" #map></div> -->
+

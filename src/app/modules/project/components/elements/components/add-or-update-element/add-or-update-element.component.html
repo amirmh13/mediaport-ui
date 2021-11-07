@@ -1,0 +1,45 @@
+<h2 mat-dialog-title class="text-black fw-bold border-primary border-bottom pb-2">
+    {{elementPostBody?.id ? 'لیست عناصر ' + elementPostBody.name : 'ایجاد عنصر جدید'}}
+</h2>
+
+<form class="" >
+    <mat-dialog-content class="px-2 px-lg-4">
+        <div class="col-12 row px-0 mb-4">
+            <label for="title" class="form-label text-black px-0">
+                نام جز را وارد کنید
+            </label>
+            <input type="text" id="title" name="title" [(ngModel)]="elementPostBody.name" class="form-control rounded-2 border-0" required>
+        </div>
+        <div class="col-12 row px-0">
+            <label for="title" class="form-label text-black px-0 mb-3">
+                انتحاب رنگ برای جز
+            </label>
+            
+            <div class="col-12 row justify-content-between align-items-center px-0">
+                <span *ngFor="let color of colors" 
+                class="col-auto px-0 cursor-pointer rounded-circle"
+                (click)="onColorClick(color)"
+                [style.backgroundColor]="color"
+                [style.width]="'#'+elementPostBody.color == color ? '30px' : '16px'"
+                [style.height]="'#'+elementPostBody.color == color ? '30px' : '16px'"
+                ></span>
+            </div>
+        </div>
+
+
+        <!-- Elements Section -->
+        <div *ngIf="elements?.length" class="elements-wrapper col-12 row px-0 overflow-auto border-top mt-4" style="max-height: 270px;">
+            <app-element-row
+            *ngFor="let element of elements;let last = last"
+            [element]="element"
+            (deleteEmitter)="onDeleteElementClick(element)"
+            (editEmitter)="onEditElementClick($event)"
+            class="col-12 row hstack px-0"
+            [ngClass]="{'border-bottom': !last}"
+            ></app-element-row>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center" class="mt-4">
+        <button class="col-4" mat-raised-button color="primary" (click)="onSubmitClick()" [disabled]="!(elementPostBody.name && elementPostBody.color)" type="submit">تایید</button>
+    </mat-dialog-actions>
+</form>

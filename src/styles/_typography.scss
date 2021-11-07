@@ -1,0 +1,8 @@
+$custom_font_size_start : 10;
+$custom_font_size_end : 23;
+
+@for $var from $custom_font_size_start to $custom_font_size_end {
+    .cfs-#{$var} {
+        font-size: #{$var}px !important;
+    }
+}

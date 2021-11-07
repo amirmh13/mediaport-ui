@@ -1,0 +1,82 @@
+<div class="col-12 row bg-white border rounded-2 p-3 position-relative">
+    <button (click)="$event.stopPropagation()" class="position-absolute top-0 start-0 mt-2 ms-2 px-0" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+    <div class="mini-map col-12 col-lg-auto rounded-2 mx-auto mb-3 mb-lg-0" id="mini-map-{{mapId}}"></div>
+    <div class="col-12 col-lg row px-0 px-lg-2">
+        <h2 class="text-black fw-bold fs-5 mb-2">{{location?.title}}</h2>
+
+        <span class="text-muted mb-3">
+            <svg width="16" height="16" class="ms-1">
+                <use xlink:href="/assets/images/svgs.svg#location-secondary"></use>
+            </svg>
+            {{location?.address}}
+        </span>
+        <span class="text-muted mb-3">
+            <svg width="16" height="16" class="ms-1">
+                <use xlink:href="/assets/images/svgs.svg#phone-secondary"></use>
+            </svg>
+            {{location?.phoneNumber}}
+        </span>
+        <span class="text-muted">
+            <svg width="16" height="16" class="ms-1">
+                <use xlink:href="/assets/images/svgs.svg#note-secondary"></use>
+            </svg>
+            {{location?.description}}
+        </span>
+        <div class="col-12 row justify-content-lg-end justify-content-center mt-2 mt-lg-0">
+            <input [hidden]="true" type="checkbox" [value]="false" #locationToggle>
+            <div [@openCloseAnimation]="locationToggle.checked" class="col-12 row align-items-center my-3 position-relative">
+                <div *ngIf="!location.subLocations?.length;else subLocationTemp" class="col-12 row border rounded-2 p-2 p-lg-3">
+                    <div class="col-12 col-lg-6 row align-items-center mb-3 mb-lg-0">
+                        <label for="subLocation" class="form-label text-black px-0">
+                            عنوان لوکیشن فرعی
+                        </label>
+                        <input type="text" id="subLocation" name="subLocation" class="form-control rounded-2 border-0" #subLocationInput>
+                    </div>
+                     <div class="row justify-content-lg-end justify-content-center ms-0 me-auto">
+                        <a (click)="locationToggle.checked = false" class="col-auto text-danger">بستن</a>
+                        <a (click)="onAddSubLocationClick(subLocationInput.value)" class="col-auto text-success">تایید</a>
+                    </div>
+                </div>
+
+                <ng-template #subLocationTemp>
+                    <div *ngFor="let subLocation of location.subLocations;let last = last" class="col-12 row align-items-center border rounded-2 p-2 p-lg-3" [class.mb-2]="!last">
+                        <div class="col-12 col-lg row align-items-center mb-3 mb-lg-0">
+                            <div class="col-12 col-lg-6 row align-items-center mb-3 mb-lg-0">
+                                <label class="form-label text-black px-0 mb-0">
+                                    عنوان لوکیشن فرعی
+                                    <span class="text-muted me-3">{{subLocation.title}}</span>
+                                </label>
+                            </div>
+                            <div class="col-12 col-lg-6 row align-items-center mb-3 mb-lg-0">
+                                <label for="address" class="form-label text-black px-0 mb-0">
+                                    سکانس‌ها
+                                    <span *ngFor="let scene of subLocation.Scenes;let last = last" class="text-muted me-3">
+                                        {{scene.title}} {{!last ? ' ,' : ''}}
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+        
+                        <a (click)="onDeleteSubLocationClick(subLocation.id)" class="col-auto text-danger mx-auto">حذف</a>
+                    </div>
+                    
+                </ng-template>
+
+
+            </div>
+            <a (click)="locationToggle.checked = !locationToggle.checked" class="text-primary col-auto px-0 cursor-pointer">
+                + افزودن لوکیشن فرعی
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
+    <div class="row">
+        <span (click)="removeEmitter.emit()" class="row align-items-center cursor-pointer mb-2"> حذف</span>
+        <span (click)="editEmitter.emit()" class="cursor-pointer">ویرایش</span>
+    </div>
+</mat-menu>

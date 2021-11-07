@@ -1,0 +1,43 @@
+<div class="col-12 row justify-content-center justify-content-lg-between py-2 px-0 mt-2">
+    <div class="col-auto d-flex align-items-center mb-2 mb-lg-0">
+        <span class="col-auto d-flex bg-white rounded-2 py-1 px-2 ms-2">
+            <svg width="16" height="16" class="m-1">
+                <use xlink:href="/assets/images/svgs.svg#folder"></use>
+            </svg>
+        </span>
+
+        <div class="col-auto d-flex align-items-center">
+            <a [routerLink]="['/projects']" routerLinkActive="router-link-active" class="linkprimary">پروژه‌ها</a>
+            <svg width="16" height="16" class="mt-2 ms-2">
+                <use xlink:href="/assets/images/svgs.svg#arrow"></use>
+            </svg>
+            <a class="linkprimary">تونل ترور</a>
+            <svg width="16" height="16" class="mt-2 ms-2">
+                <use xlink:href="/assets/images/svgs.svg#arrow"></use>
+            </svg>
+            <a *ngIf="currentRoute" class="linkprimary">{{currentRoute}}</a>
+        </div>
+    </div>
+
+    <div class="col-auto row align-items-center px-0">
+        <span class="col-auto d-flex bg-white rounded-2 py-1 px-2 cursor-pointer">
+            <svg width="16" height="16" class="m-1">
+                <use xlink:href="/assets/images/svgs.svg#chat-info"></use>
+            </svg>
+        </span>
+        <span class="col-auto d-flex bg-white rounded-2 py-1 px-2 mx-2 cursor-pointer">
+            <svg width="16" height="16" class="m-1">
+                <use xlink:href="/assets/images/svgs.svg#notification"></use>
+            </svg>
+        </span>
+
+        <div class="col-auto hstack user-info-custom-select cursor-pointer">
+            <svg width="8" height="8" class="ms-2">
+                <use xlink:href="/assets/images/svgs.svg#noun-arrows"></use>
+            </svg>
+            شقایق محمدی
+        </div>
+
+        <img width="40" height="40" src="/assets/images/avatar.svg" class="col-auto px-0">
+    </div>
+</div>

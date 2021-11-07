@@ -1,0 +1,34 @@
+@import '_base';
+
+$layout_bg_color: #232227;
+
+.main-layout {
+    .main-layout__sidebar {
+        position: sticky;
+        top: 0;
+        background-color: $layout_bg_color;
+        width: 260px;
+        height: 100vh;
+        z-index: 1;
+        overflow-y: auto;
+        @include hideDefaultScrollbar();
+
+        @include responsive(768px) {
+            position: fixed;
+            transform: translateX(-10000px);
+        }
+    }
+
+    .main-layout__main-section-wrapper{
+        background-color: $layout_bg_color;
+
+        header {
+            z-index: 999;
+            background-color: $body-bg;
+        }
+
+        .main-section {
+            background-color: $body-bg;;
+        }
+    }
+}

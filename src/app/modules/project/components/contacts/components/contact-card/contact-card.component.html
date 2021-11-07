@@ -1,0 +1,26 @@
+<div class="contact-card col-md-12 d-flex justify-content-between align-items-center bg-white rounded-2 border border-2 py-2 px-3 mb-2">
+    <div class="col-lg-1 text-end px-0">
+        <img width="60" height="60" src="/assets/images/avatar.svg">
+    </div>
+    <div class="contact-cell-lg col-lg-4">
+        <span class="mx-0">{{contact?.fullName}}</span>
+    </div>
+
+    <div class="contact-cell col-lg-2">{{contact?.mobile}}</div>
+    <div class="contact-cell col-lg-2">{{contact?.role}}</div>
+    <div class="contact-cell col-lg-2">بازیگران</div>
+
+    <div class="col-lg-1 d-flex justify-content-end position-relative">
+        <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="before" direction="rtl">
+    <div class="row">
+        <!-- <span class="cursor-pointer mb-2">ویرایش</span> -->
+        <span (click)="MoveToListEmitter.emit()" class="cursor-pointer mb-2">انتقال به</span>
+        <span (click)="deleteContactEmitter.emit()" class="cursor-pointer">حذف</span>
+    </div>
+</mat-menu>

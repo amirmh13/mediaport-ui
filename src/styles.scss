@@ -1,0 +1,38 @@
+@import './assets/fonts/iransans/css/fontiran.css';
+
+@import './styles/typography';
+@import './styles/bootstrap.scss';
+@import './styles/material';
+
+@import "../node_modules/leaflet/dist/leaflet.css";
+
+body {
+    direction: rtl;
+    text-align: right;
+    // font-size: map-get($font-sizes, 5);
+    background-color: #f8f9fa;
+    line-height: 24px;
+    height: 100%;
+    @include customScrollbar(7px);
+}
+
+select {
+    @include selectCustomAppearance();
+}
+
+a {
+    cursor: pointer !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
+.mat-dialog-content {
+    @include customScrollbar(7px);
+}
+
+.mat-menu-panel {
+    min-height: auto !important;
+}

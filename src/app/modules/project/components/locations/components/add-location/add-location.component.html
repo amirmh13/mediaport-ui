@@ -1,0 +1,38 @@
+<h2 mat-dialog-title class="text-black fw-bold border-primary border-bottom pb-2">افزودن لوکیشین جدید</h2>
+
+<form class="" #locationFrom="ngForm">
+    <mat-dialog-content class="px-2 px-lg-4">
+        <div class="col-12 row px-0 mb-3">
+            <label for="title" class="form-label text-black px-0">
+                عنوان
+            </label>
+            <input type="text" id="title" name="title" [(ngModel)]="location.title" class="form-control rounded-2 border-0" required>
+        </div>
+        <div class="col-12 row px-0 mb-3">
+            <label for="address" class="form-label text-black px-0">
+                آدرس پستی
+            </label>
+            <input type="text" id="address" name="address" [(ngModel)]="location.address" class="form-control rounded-2 border-0" required>
+        </div>
+        <div class="col-12 row px-0 mb-3">
+            <label for="phoneNumber" class="form-label text-black px-0">
+                شماره تماس
+            </label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" [(ngModel)]="location.phoneNumber" class="form-control rounded-2 border-0" required>
+        </div>
+        <div class="col-12 row px-0 mb-3">
+            <label for="description" class="form-label text-black px-0">
+                توضیحات
+            </label>
+            <textarea name="description" id="description" cols="30" rows="3" [(ngModel)]="location.description" class="form-control rounded-2 border-0" required></textarea>
+        </div>
+        <div class="col-12 row mb-3">
+            <label for="description" class="form-label text-black px-0">موقعیت جغرافیایی
+            </label>
+            <div class="col-12 col-lg-auto rounded-2 mx-auto mb-3 mb-lg-0" id="map"></div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button class="col-4" mat-raised-button color="primary" [disabled]="locationFrom.invalid || !(location.coordinates.latitude > 0)" type="submit" (click)="onSubmitFormClick(locationFrom)">تایید</button>
+    </mat-dialog-actions>
+</form>

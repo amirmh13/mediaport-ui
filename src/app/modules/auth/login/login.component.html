@@ -1,0 +1,41 @@
+<section class="container">
+    <div class="row align-items-center vh-100">
+        <div class="login-container row justify-content-center py-4">
+            <img class="mb-4" width="100" height="54" src="/assets/images/logo-primary.svg" alt="logo">
+            <form class="login-wrapper row align-items-start bg-white shadow rounded-3 py-4 px-3 px-lg-4" #loginForm="ngForm" (ngSubmit)="onFormSubmit(loginForm)">
+                <h1 class="cfs-22 fw-bold py-3 border-bottom">ورود به حساب کاربری</h1>
+                <p class=" my-3">برای ورود به پنل اطلاعات خود را وارد کنید</p>
+
+                <div class="col-12 mb-4 px-0">
+                    <input type="text" name="username" class="form-control rounded-3" [ngClass]="{'border-danger': emailInput.invalid && loginForm.submitted, 'border-0': !loginForm.submitted}" [(ngModel)]="loginPostBody.username" #emailInput="ngModel" placeholder="شماره تماس / ایمیل شما" required>
+                    <small [ngClass]="{'d-block': emailInput.invalid && loginForm.submitted}" class="invalid-feedback">
+                        نام کاربری معتبر نیست
+                    </small>
+                </div>
+                <div class="col-12 mb-2 px-0">
+                    <div class="position-relative">
+                        <input type="checkbox" hidden #showPassToggle>
+
+                        <input [type]="showPassToggle.checked ? 'text' : 'password'" name="password" [ngClass]="{'border-danger': passInput.invalid && loginForm.submitted, 'border-0': !loginForm.submitted}" [(ngModel)]="loginPostBody.password" #passInput="ngModel" class="form-control rounded-3" placeholder="رمز عبور" required>
+                        <img (click)="showPassToggle.checked = !showPassToggle.checked" class="position-absolute top-50 start-0 translate-middle-y cursor-pointer ms-3" width="20" height="20" src="/assets/images/{{showPassToggle.checked ? 'hide' : 'show'}}-pass.svg">
+                    </div>
+                    <small [ngClass]="{'d-block': passInput.invalid && loginForm.submitted}" class="invalid-feedback">
+                        رمز معتبر نیست
+                    </small>
+                </div>
+
+                <div class="col-12 mb-4 px-0">
+                    <label class="cursor-pointer">
+                        <input class="form-check-input ms-2" type="checkbox" value="">
+                        <span class="">من را به خاطر بسپار</span>
+                    </label>
+                </div>
+
+                <div class="col-12 mb-4 px-0">
+                    <a href="" class="">رمز عبور خود را فراموش کرده اید؟</a>
+                </div>
+                <button class="btn btn-primary rounded-3 col-12 py-2" type="submit">ورود</button>
+            </form>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,53 @@
+<section class="contacts col-12 row px-0 mt-2">
+    <div class="col-lg-2 row position-sticky px-0" style="top: 80px;">
+        <div class="col-12 row bg-white p-3 h-100">
+            <app-contact-list class="col-12 row px-0"
+            [currentListId]="this.contactsPostBody.listId"
+            [contactsList]="contactsList"
+            ></app-contact-list>
+        </div>
+    </div>
+    <div class="col-lg-10 row align-items-start align-content-start ps-0" style="height: 1000px;">
+        <div class="top-section col-12 row justify-content-end px-0 pb-2 border-bottom">
+            <div class="d-flex col-lg-auto px-0">
+                <div class="position-relative col-auto px-0 mx-3">
+                    <svg width="16" height="16" class="position-absolute top-50 end-30 me-3 translate-middle-y">
+                        <use xlink:href="/assets/images/svgs.svg#search-secondary"></use>
+                    </svg>
+                    <input type="search" [(ngModel)]="contactsPostBody.searchKeyword" (keyup.enter)="getListOfContacts()"
+                        name="search" class="form-control bg-white border-0 rounded-2 pe-5" placeholder="جستجو مخاطبین">
+                </div>
+
+                <!-- <div class="col px-0">
+                    <select name="sort" class="form-control bg-white border-0" aria-label="Default select example">
+                        <option value="1">الویت</option>
+                        <option value="1">اولویت خیلی بزرگ و طولانی</option>
+                        <option value="1">الویت</option>
+                    </select>
+                </div> -->
+            </div>
+        </div>
+
+        <div *ngIf="contacts?.length" class="table-responsive overflow-auto px-0">
+            <div class="col-md-12 d-inline-flex d-md-flex justify-content-lg-between text-muted my-3">
+                <div class="col-1 col-md-1 px-0 ms-4 ms-lg-0"></div>
+                <div class="contact-cell-lg col-md-4">نام و نام خانوادگی</div>
+                <div class="contact-cell col-md-2">شماره تماس</div>
+                <div class="contact-cell col-md-2">نقش</div>
+                <div class="contact-cell col-md-2">لیست</div>
+                <div class="contact-cell col-md-1"></div>
+            </div>
+
+            <app-contact-card
+            *ngFor="let contact of contacts;let i = index"
+            [contact]="contact"
+            (deleteContactEmitter)="onDeleteContactClick(contact)"
+            (MoveToListEmitter)="onOpenMoveToListModal(contact)"
+            class="d-flex px-0"
+            ></app-contact-card>
+        </div>
+
+
+
+    </div>
+</section>

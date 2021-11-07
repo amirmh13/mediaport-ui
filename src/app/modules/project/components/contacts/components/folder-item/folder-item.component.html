@@ -1,0 +1,47 @@
+<div class="col-12 d-flex align-items-start px-0">
+    <svg *ngIf="folderItem?.children?.length" (click)="showChildrenToggle.checked = !showChildrenToggle.checked" class="col-auto px-0" width="8" height="8" class="ms-2 mt-2" [ngClass]="{'rotate-90': !showChildrenToggle.checked}">
+        <use xlink:href="/assets/images/svgs.svg#noun-arrows"></use>
+    </svg>
+    <div class="col row justify-content-between align-items-center px-0">
+        <div class="contact-list col d-flex justify-content-between align-items-center px-0">
+            <a>
+                <svg width="16" height="16" class="col-auto ms-2 px-0">
+                    <use xlink:href="/assets/images/svgs.svg#document"></use>
+                </svg>
+                <span class="col px-0">
+                    {{folderItem?.name}}
+                </span>
+            </a>
+    
+            <div class="contact-list-actions col-auto d-flex align-items-center px-0">
+                <span class="contacts-count d-flex justify-content-center rounded-circle">{{folderItem?.contactCounts}}</span>
+                <svg width="16" height="16" class="more-menu">
+                    <use xlink:href="/assets/images/svgs.svg#menu"></use>
+                </svg>
+            </div>
+        </div>
+
+
+        <div *ngIf="showChildrenToggle.checked" class="col-12 row px-0 mt-2">
+            <div *ngFor="let folderChild of folderItem?.children" class="contact-list col d-flex justify-content-between align-items-center px-0">
+                <a>
+                    <svg width="16" height="16" class="col-auto ms-2 px-0">
+                        <use xlink:href="/assets/images/svgs.svg#document"></use>
+                    </svg>
+                    <span class="col px-0">
+                        {{folderChild?.name}}
+                    </span>
+                </a>
+        
+                <div class="contact-list-actions col-auto d-flex align-items-center px-0">
+                    <span class="contacts-count d-flex justify-content-center rounded-circle">{{folderChild?.contactCounts}}</span>
+                    <svg width="16" height="16" class="more-menu">
+                        <use xlink:href="/assets/images/svgs.svg#menu"></use>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <input [hidden]="true" type="checkbox" [checked]="false" #showChildrenToggle>
+</div>

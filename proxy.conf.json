@@ -1,0 +1,8 @@
+{
+	"/api": {
+		"target": "http://mediaportapi.woco.ir",
+		"secure": false,
+		"logLevel": "debug",
+		"changeOrigin": true
+	}
+}

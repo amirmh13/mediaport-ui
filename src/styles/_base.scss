@@ -1,0 +1,132 @@
+//  Colors
+$primary: #3848E9;
+$text-muted: #828284;
+
+// Body
+$font-family-base: iransans, sans-serif;
+$body-bg: #F7F8FD;
+$font-size-base: .875rem; // .875rem == 14px
+
+// Borders
+$border-radius:               7px;
+$border-radius-sm:            10px;
+$border-radius-lg:            30px;
+$border-radius-pill:          50rem;
+
+// Forms
+$input-bg: #F5F6FA;
+$input-focus-bg:                        null;
+$input-focus-border-color:              null;
+$input-focus-color:                     null;
+$input-focus-width:                     null;
+$input-focus-box-shadow:                none;
+$input-padding-y:                       .75rem;
+$input-font-size:                       14px;
+
+//  Links
+$link-decoration :           none;
+$link-hover-decoration:      none;
+
+$rotates: 45, 90, 180, 270, 360;
+
+// MIXINS
+@mixin transition ($transition : 200ms all ease-in-out) {
+    -moz-transition: $transition;
+    -o-transition: $transition;
+    -webkit-transition: $transition;
+    transition: $transition;
+}
+
+@mixin growScaleAnimation($animation-duration) {
+    -moz-animation: growScale $animation-duration;
+    -o-animation: growScale $animation-duration;
+    -webkit-animation: growScale $animation-duration;
+    animation: growScale $animation-duration;
+}
+
+@mixin hideDefaultScrollbar() {
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    & {
+        -ms-overflow-style: none !important;
+        scrollbar-width: none !important;
+    }
+}
+
+@mixin customScrollbar($width:15px, $color: rgb(151, 151, 151)) {
+    &::-webkit-scrollbar {
+        width: $width;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: $color;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    scrollbar-color: $color #dee0e2;
+}
+
+@mixin responsive ($size) {
+    @media only screen and (max-width: #{$size}) {
+        @content
+    }
+};
+
+@mixin fromToScreenSize($from, $to) {
+    @media only screen and (min-width: #{$from}) and (max-width: #{$to}) {
+        @content
+    }
+};
+
+@mixin selectCustomAppearance($left:.5rem, $top:1.2rem, $right: .5rem) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    @if $left > 0 {
+        background: url("/assets/images/noun-arrows.svg") left $left top $top no-repeat #fff;
+    } @else {
+        background: url("/assets/images/noun-arrows.svg") right $right top $top no-repeat #fff;
+        background-color: #F8F9FA;
+    }
+};
+
+// CLASSES
+@each $rotate in $rotates {
+    .rotate-#{$rotate} {
+      transform: rotate(#{$rotate}deg);
+      -webkit-transform: rotate(#{$rotate}deg);
+      -moz-transform: rotate(#{$rotate}deg);
+      -o-transform: rotate(#{$rotate}deg);
+    }
+}
+
+// ANIMATIONS
+@keyframes growScale {
+    0% {
+        transform: scale(0);
+    }
+
+    25% {
+        transform: scale(0.25);
+    }
+
+    50% {
+        transform: scale(0.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
