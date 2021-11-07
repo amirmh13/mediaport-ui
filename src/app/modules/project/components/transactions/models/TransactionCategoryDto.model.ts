@@ -4,6 +4,6 @@ export interface TransactionCategoryDto {
     code: string;
     amount: number;
     estimatedAmount: number;
-    parentId: number;
-    childs: TransactionCategoryDto[];
+    parentId?: number;
+    children?: TransactionCategoryDto[];
 }

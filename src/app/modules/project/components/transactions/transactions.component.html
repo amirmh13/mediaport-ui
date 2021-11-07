@@ -1,1 +1,21 @@
-<p>transactions works!</p>
+<section class="transactions col-12 row px-0">
+    <div class="col-12 row justify-content-center justify-content-lg-end border-bottom px-0 py-3">
+        <button mat-raised-button color="primary" (click)="openAddTransactionCategoryDialogClick()"
+            class="col-auto rounded-2 px-4">
+            + افزودن کد
+        </button>
+    </div>
+
+    <div class="col-12">
+        <div class="col-12 row p-3 py-1 mt-2">
+            <div class="col-1 d-flex justify-content-end align-items-center">کد</div>
+            <div class="col-4 d-flex justify-content-center align-items-center">عنوان هزینه</div>
+            <div class="col-2 d-flex justify-content-center align-items-center">مبلغ تعیین شده</div>
+            <div class="col-2 d-flex justify-content-center align-items-center">مبلغ نهایی</div>
+        </div>
+        <ng-container *ngFor="let item of transactionCategories">
+            <app-category-row [transactionCategory]="item"></app-category-row>
+        </ng-container>
+    </div>
+
+</section>
