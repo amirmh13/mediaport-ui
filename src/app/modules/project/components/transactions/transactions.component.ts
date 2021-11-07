@@ -12,7 +12,6 @@ import { TransactionCategoryDto } from './models';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
-
   projectId: number = 0;
   transactionCategories: TransactionCategoryDto[]=[];
 
@@ -26,7 +25,7 @@ export class TransactionsComponent implements OnInit {
   }
 
   openAddTransactionCategoryDialogClick() {
-   
+
   }
 
   ngOnInit(): void {
