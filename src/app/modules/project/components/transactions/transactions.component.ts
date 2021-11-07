@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { RootState } from 'src/app/state/App.reducers';
+import { selectProjectId } from '../../state/Project.selectors';
+import { TransactionsService } from './service/transactions.service';
 
 @Component({
   selector: 'app-transactions',
@@ -7,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionsComponent implements OnInit {
 
-  constructor() { }
+  currentProjectId: number = 0;
+
+  constructor(
+    private _store: Store<RootState>,
+    private _transactionsService: TransactionsService,
+  ) { }
 
   ngOnInit(): void {
+    this._store.pipe(
+      select(selectProjectId)
+    ).subscribe(projectId => {
+      this.currentProjectId = projectId;
+    })
+
   }
 
 }
