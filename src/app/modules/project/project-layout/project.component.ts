@@ -12,25 +12,25 @@ import { ProjectIdAction } from '../state/Project.actions';
 export class ProjectComponent implements OnInit {
 
     constructor(
-        private route: ActivatedRoute,
-        private store: Store < { projectId: number } > ,
-        private router:Router
+        private _route: ActivatedRoute,
+        private _store: Store < { projectId: number } > ,
+        private _router:Router
     ) {}
 
-    setProjectIdTpStore(): void {
-        this.route.params.subscribe(({ projectId }) => {
-            this.store.dispatch(ProjectIdAction({ projectId: +projectId }));
+    setProjectIdToStore(): void {
+        this._route.params.subscribe(({ projectId }) => {
+            this._store.dispatch(ProjectIdAction({ projectId: +projectId }));
         })
     }
 
     setRouteNameToStore(): void {
-        this.route.firstChild?.data.subscribe(data => {
-            this.store.dispatch(currentRouteAction({ currentRoute: data.name }))
+        this._route.firstChild?.data.subscribe(data => {
+            this._store.dispatch(currentRouteAction({ currentRoute: data.name }))
         })
     }
 
     ngOnInit(): void {
-        this.setProjectIdTpStore();
+        this.setProjectIdToStore();
 
         this.setRouteNameToStore();
     }
