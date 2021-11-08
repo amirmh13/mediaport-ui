@@ -13,8 +13,8 @@
             <label for="description" class="form-label text-black px-0">
                 توضیحات
             </label>
-             <textarea class="form-control" class="form-control rounded-2 border-0" id="description"
-                name="description" rows="3" [(ngModel)]="transactionBody.description"></textarea>
+            <textarea class="form-control" class="form-control rounded-2 border-0" id="description" name="description"
+                rows="3" [(ngModel)]="transactionBody.description"></textarea>
         </div>
         <div class="col-12 row px-0 mb-3">
             <label for="estimatedAmount" class="form-label text-black px-0">
@@ -34,12 +34,13 @@
             <label for="transactionTime" class="form-label text-black px-0">
                 تاریخ تراکنش
             </label>
-            <input type="text" id="transactionTime" name="transactionTime" [(ngModel)]="transactionBody.transactionTime"
-                class="form-control rounded-2 border-0" required>
+            <input matInput [matDatepicker]="transactionDatePicker" (click)="transactionDatePicker.open()"
+                class="form-control rounded-2 border-0" readonly id="transactionTime" name="transactionTime"
+                [(ngModel)]="transactionBody.transactionTime">
+            <mat-datepicker #transactionDatePicker></mat-datepicker>
         </div>
     </mat-dialog-content>
     <mat-dialog-actions align="center">
-        <button class="col-4" mat-raised-button color="primary" type="submit"
-            (click)="onSubmitFormClick(transactionFrom)">تایید</button>
+        <button class="col-4" mat-raised-button color="primary" type="submit" (click)="onSubmitFormClick(transactionFrom)">تایید</button>
     </mat-dialog-actions>
 </form>

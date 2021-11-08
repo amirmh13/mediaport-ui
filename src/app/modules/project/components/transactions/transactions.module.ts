@@ -9,6 +9,7 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { FormsModule } from '@angular/forms';
 import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatDatepickerModule} from '@angular/material/datepicker';
 import { AddTransactionComponent } from './components/add-transaction/add-transaction.component';
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AddTransactionComponent } from './components/add-transaction/add-transa
     MATERIAL_COMMON_MODULES,
     MatPaginatorModule,
     ChangeToCurrencyModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule
   ]
 })
 export class TransactionsModule { }
