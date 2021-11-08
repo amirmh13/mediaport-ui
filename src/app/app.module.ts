@@ -2,6 +2,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +13,7 @@ import { ErrorInterceptor } from '@shared/interceptors/error/error.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
+import { getPersianPaginatorIntl } from './MaterialModulesArray.const';
 import { projectReducer } from './modules/project/state/Project.reducers';
 import { ErrorSnackBarComponent } from './shared/interceptors/error/error-snack-bar/error-snack-bar.component';
 import { AlertComponent } from './shared/services/alert/alert/alert.component';
@@ -39,6 +41,7 @@ import { appReducer } from './state/App.reducers';
         { provide: HTTP_INTERCEPTORS, useClass: AppInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+        { provide: MatPaginatorIntl, useValue: getPersianPaginatorIntl() }
     ],
     bootstrap: [AppComponent]
 })

@@ -13,7 +13,7 @@ import { selectProjectId } from 'src/app/modules/project/state/Project.selectors
 })
 export class AddCategoryComponent implements OnInit {
 
-  @Input() transactionCategory: TransactionCategoryDto = { id: 0, amount: 0, code: "0", estimatedAmount: 0, name: "" };
+  @Input() transactionCategory!: TransactionCategoryDto;
   @Input() modalHeader: string = "";
 
   @Output() transactionCategoryEmitter = new EventEmitter<void>();

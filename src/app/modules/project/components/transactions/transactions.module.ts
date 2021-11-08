@@ -8,6 +8,7 @@ import { ChangeToCurrencyModule } from '@shared/pipes/change-to-currency/change-
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { FormsModule } from '@angular/forms';
 import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TransactionsListComponent } from './components/transactions-list/transa
     CommonModule,
     TransactionsRoutingModule,
     MATERIAL_COMMON_MODULES,
+    MatPaginatorModule,
     ChangeToCurrencyModule,
     FormsModule
   ]

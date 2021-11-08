@@ -1,17 +1,17 @@
 <div class="col-12 row p-3 mt-2 border rounded-2 bg-white">
     <div class="col-1 d-flex justify-content-between align-items-center">
         <a (click)="openDetail=!openDetail">
-            <img src="/assets/images/arrow-down.svg" *ngIf="transactionCategory.children?.length!=0">
+            <img src="/assets/images/arrow-down.svg" *ngIf="transactionCategory?.children?.length!=0">
         </a>
-        <span class="mr-2">{{transactionCategory.code}}</span>
+        <span class="mr-2">{{transactionCategory?.code}}</span>
     </div>
-    <div class="col-4 d-flex justify-content-center align-items-center">{{transactionCategory.name}}</div>
-    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory.estimatedAmount |
+    <div class="col-4 d-flex justify-content-center align-items-center">{{transactionCategory?.name}}</div>
+    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory?.estimatedAmount |
         changeToCurrency}}</div>
-    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory.amount |
+    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory?.amount |
         changeToCurrency}}</div>
     <div class="col-2 d-flex justify-content-center align-items-center">
-        <a class="text-primary col-auto px-0 cursor-pointer" (click)="addSubCategory(transactionCategory.id)">+ افزودن
+        <a class="text-primary col-auto px-0 cursor-pointer" (click)="addSubCategory(transactionCategory?.id)">+ افزودن
             زیر کد</a>
     </div>
     <div class="col-1 d-flex justify-content-end align-items-center">
@@ -21,11 +21,11 @@
         </button>
     </div>
     <div class="col-12 px-0 mt-2" [@openCloseAnimation]="openDetail">
-        <ng-container *ngFor="let childCategory of transactionCategory.children">
+        <ng-container *ngFor="let childCategory of transactionCategory?.children">
             <div class="row border-top pt-2">
                 <div class="col-1 d-flex justify-content-between align-items-center">
                     <span>زیر کد</span>
-                    <span class="mr-2">{{childCategory.code}} - {{transactionCategory.code}}</span>
+                    <span class="mr-2">{{childCategory.code}} - {{transactionCategory?.code}}</span>
                 </div>
                 <div class="col-4 d-flex justify-content-center align-items-center">{{childCategory.name}}</div>
                 <div class="col-2 d-flex justify-content-center align-items-center">{{childCategory.estimatedAmount |
@@ -48,7 +48,7 @@
 <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
     <ng-template matMenuContent let-category="category">
         <div class="row">
-            <span class="cursor-pointer" (click)="editCategory(category)">ویرایش</span>
+            <a class="cursor-pointer text-black" (click)="editCategory(category)">ویرایش</a>
         </div>
     </ng-template>
 </mat-menu>
@@ -56,10 +56,13 @@
 <mat-menu #subMenu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
     <ng-template matMenuContent let-category="category">
         <div class="row">
-            <span class="cursor-pointer" (click)="editCategory(category)">ویرایش</span>
+            <a class="cursor-pointer text-black" (click)="editCategory(category)">ویرایش</a>
         </div>
         <div class="row">
-            <span class="cursor-pointer">افزودن هزینه</span>
+            <a class="cursor-pointer text-black">افزودن هزینه</a>
+        </div>
+        <div class="row">
+            <a [routerLink]="['/projects', projectId, 'transactions',category.id]" class="cursor-pointer text-black">لیست تراکنش ها</a>
         </div>
     </ng-template>
 </mat-menu>

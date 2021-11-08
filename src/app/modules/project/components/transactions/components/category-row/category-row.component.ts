@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TransactionCategoryDto } from '../../models';
 import { openCloseAnimation } from '@shared/animations'
+import { select, Store } from '@ngrx/store';
+import { RootState } from 'src/app/state/App.reducers';
+import { selectProjectId } from 'src/app/modules/project/state/Project.selectors';
 @Component({
   selector: 'app-category-row',
   templateUrl: './category-row.component.html',
@@ -9,15 +12,18 @@ import { openCloseAnimation } from '@shared/animations'
 })
 export class CategoryRowComponent implements OnInit {
 
-  @Input() transactionCategory: TransactionCategoryDto = { id: 0, amount: 0, code: "0", estimatedAmount: 0, name: "" };
+  @Input() transactionCategory: TransactionCategoryDto  | undefined;
   @Output() addSubCategoryEmitter = new EventEmitter<number>();
   @Output() editCategoryEmiiter = new EventEmitter<TransactionCategoryDto>();
 
   openDetail: boolean = false;
-
-  constructor() { }
+  projectId: number = 0;
+  constructor(   private _store: Store<RootState>) { }
 
   ngOnInit(): void {
+    this._store.pipe(select(selectProjectId)).subscribe(projectId => {
+      this.projectId = projectId;
+    });
   }
 
   addSubCategory(parentId?: number) {
