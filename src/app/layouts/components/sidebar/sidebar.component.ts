@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
         { title: 'تقویم پروژه', iconName: 'date', route: '' },
         { title: 'مخاطبین پروژه', iconName: 'contact', route: 'contacts' },
         { title: 'فیلم نامه', iconName: 'reader', route: '' },
-        { title: 'برنامه ریزی', iconName: 'page-collection', route: '' },
+        { title: 'برنامه ریزی', iconName: 'page-collection', route: 'shooting-schedule' },
         { title: 'گزارش برنامه ریزی', iconName: 'clipboard', route: '' },
         { title: 'اجزای فیلم', iconName: 'setting', route: 'elements' },
         { title: 'لوکیشن‌ها', iconName: 'location', route: 'locations' },
