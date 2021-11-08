@@ -27,9 +27,7 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
-  openAddTransactionCategoryDialogClick() {
-
-  }
+  openAddTransactionCategoryDialogClick() {}
 
   ngOnInit(): void {
     this._store.pipe(select(selectProjectId)).subscribe(projectId => {
