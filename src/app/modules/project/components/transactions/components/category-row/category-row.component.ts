@@ -5,13 +5,13 @@ import { openCloseAnimation } from '@shared/animations'
   selector: 'app-category-row',
   templateUrl: './category-row.component.html',
   styleUrls: ['./category-row.component.scss'],
-  animations:[openCloseAnimation]
+  animations: [openCloseAnimation]
 })
 export class CategoryRowComponent implements OnInit {
 
-  @Input() transactionCategory : TransactionCategoryDto= {id:0,amount:0,code:"0",estimatedAmount:0,name:""};
+  @Input() transactionCategory: TransactionCategoryDto = { id: 0, amount: 0, code: "0", estimatedAmount: 0, name: "" };
 
-  openDetail:boolean=false;
+  openDetail: boolean = false;
 
   constructor() { }
 
