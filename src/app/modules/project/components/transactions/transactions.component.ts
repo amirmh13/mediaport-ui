@@ -12,15 +12,18 @@ import { TransactionCategoryDto } from './models';
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
+
   projectId: number = 0;
-  transactionCategories: TransactionCategoryDto[]=[];
+  transactionCategories: TransactionCategoryDto[] = [];
 
-  constructor(private store: Store<RootState>,
-    private _transactionService: TransactionsService) { }
+  constructor(
+    private _store: Store<RootState>,
+    private _transactionService: TransactionsService,
+  ) { }
 
-  getListOfTranscationCategories() {
+  getListOfTransactionCategories() {
     this._transactionService.getListOfProjectTransactionCategories(this.projectId).subscribe(res => {
-      this.transactionCategories=res;
+      this.transactionCategories = res;
     });
   }
 
@@ -29,10 +32,10 @@ export class TransactionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(selectProjectId)).subscribe(res => {
-      this.projectId = res;
+    this._store.pipe(select(selectProjectId)).subscribe(projectId => {
+      this.projectId = projectId;
     });
 
-    this.getListOfTranscationCategories();
+    this.getListOfTransactionCategories();
   }
 }
