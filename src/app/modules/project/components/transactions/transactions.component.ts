@@ -5,6 +5,7 @@ import { selectProjectId } from '../../state/Project.selectors';
 import { TransactionsService } from './service/transactions.service'
 import { MatDialog } from '@angular/material/dialog';
 import { TransactionCategoryDto } from './models';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 @Component({
   selector: 'app-transactions',
@@ -13,20 +14,46 @@ import { TransactionCategoryDto } from './models';
 })
 export class TransactionsComponent implements OnInit {
   projectId: number = 0;
-  transactionCategories: TransactionCategoryDto[]=[];
+  transactionCategories: TransactionCategoryDto[] = [];
 
   constructor(private store: Store<RootState>,
+    public dialog: MatDialog,
     private _transactionService: TransactionsService) { }
 
   getListOfTranscationCategories() {
     this._transactionService.getListOfProjectTransactionCategories(this.projectId).subscribe(res => {
-      this.transactionCategories=res;
+      this.transactionCategories = res;
     });
   }
 
   openAddTransactionCategoryDialogClick() {
-
+    this.openAddTransactionCategoryDialog("افزودن کد جدید");
   }
+
+  openAddTransactionSubCategoryClick(parentId: number) {
+    const categoryClone = { id: 0, amount: 0, code: "", estimatedAmount: 0, name: "", parentId: parentId };
+    this.openAddTransactionCategoryDialog("افزودن زیر کد جدید", categoryClone);
+  }
+
+  openEditTransactionCategoryClick(category: TransactionCategoryDto) {
+    this.openAddTransactionCategoryDialog("ویرایش کد", category);
+  }
+
+  openAddTransactionCategoryDialog(headerText: string, category?: TransactionCategoryDto): void {
+    const dialogRef = this.dialog.open(AddCategoryComponent, {
+      width: '500px',
+      direction: 'rtl',
+    });
+
+    const categoryClone = category || { id: 0, amount: 0, code: "", estimatedAmount: 0, name: "" };
+    dialogRef.componentInstance.transactionCategory = { ...categoryClone };
+    dialogRef.componentInstance.modalHeader = headerText;
+    dialogRef.componentInstance.transactionCategoryEmitter.subscribe(res => {
+      this.getListOfTranscationCategories();
+      dialogRef.close();
+    });
+  }
+
 
   ngOnInit(): void {
     this.store.pipe(select(selectProjectId)).subscribe(res => {

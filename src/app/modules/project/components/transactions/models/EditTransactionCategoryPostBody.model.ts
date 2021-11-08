@@ -1,6 +1,6 @@
 export interface EditTransactionCategoryPostBody {
     id: number;
     projectId: number;
-    code: number;
+    code: string;
     name: string;
 }

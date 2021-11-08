@@ -5,17 +5,21 @@ import { TransactionsRoutingModule } from './transactions-routing.module';
 import { TransactionsComponent } from './transactions.component';
 import { CategoryRowComponent } from './components/category-row/category-row.component';
 import { ChangeToCurrencyModule } from '@shared/pipes/change-to-currency/change-to-currency.module';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     TransactionsComponent,
-    CategoryRowComponent
+    CategoryRowComponent,
+    AddCategoryComponent
   ],
   imports: [
     CommonModule,
     TransactionsRoutingModule,
     MATERIAL_COMMON_MODULES,
-    ChangeToCurrencyModule
+    ChangeToCurrencyModule,
+    FormsModule
   ]
 })
 export class TransactionsModule { }

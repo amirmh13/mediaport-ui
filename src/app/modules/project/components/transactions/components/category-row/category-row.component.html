@@ -1,27 +1,22 @@
 <div class="col-12 row p-3 mt-2 border rounded-2 bg-white">
     <div class="col-1 d-flex justify-content-between align-items-center">
         <a (click)="openDetail=!openDetail">
-             <svg xmlns="http://www.w3.org/2000/svg"*ngIf="transactionCategory.children?.length!=0" width="8.547" height="6.944"
-                viewBox="0 0 8.547 6.944">
-                <g id="noun_arrows_2131436" transform="translate(8.547 6.944) rotate(-180)">
-                    <g id="Group_88" data-name="Group 88" transform="translate(0 0)">
-                        <path id="Path_43" data-name="Path 43"
-                            d="M8.4,5.078,5.259.631a1.068,1.068,0,0,0-1.949,0L.152,5.078a1.244,1.244,0,0,0,.985,1.865H2.49c.027.008,3.575-.027,3.569,0H7.413A1.257,1.257,0,0,0,8.4,5.078Z"
-                            fill="#828284" />
-                    </g>
-                </g>
-            </svg>
+            <img src="/assets/images/arrow-down.svg" *ngIf="transactionCategory.children?.length!=0">
         </a>
         <span class="mr-2">{{transactionCategory.code}}</span>
     </div>
     <div class="col-4 d-flex justify-content-center align-items-center">{{transactionCategory.name}}</div>
-    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory.estimatedAmount  | changeToCurrency}}</div>
-    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory.amount  | changeToCurrency}}</div>
+    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory.estimatedAmount |
+        changeToCurrency}}</div>
+    <div class="col-2 d-flex justify-content-center align-items-center">{{transactionCategory.amount |
+        changeToCurrency}}</div>
     <div class="col-2 d-flex justify-content-center align-items-center">
-        <a class="text-primary col-auto px-0 cursor-pointer ng-tns-c100-0">+ افزودن زیر کد</a>
+        <a class="text-primary col-auto px-0 cursor-pointer" (click)="addSubCategory(transactionCategory.id)">+ افزودن
+            زیر کد</a>
     </div>
     <div class="col-1 d-flex justify-content-end align-items-center">
-        <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+        <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu"
+            [matMenuTriggerData]="transactionCategory" dir="rtl">
             <mat-icon>more_vert</mat-icon>
         </button>
     </div>
@@ -30,15 +25,16 @@
             <div class="row border-top pt-2">
                 <div class="col-1 d-flex justify-content-between align-items-center">
                     <span>زیر کد</span>
-                    <span class="mr-2">{{childCategory.code}}</span>
+                    <span class="mr-2">{{childCategory.code}} - {{transactionCategory.code}}</span>
                 </div>
                 <div class="col-4 d-flex justify-content-center align-items-center">{{childCategory.name}}</div>
-                <div class="col-2 d-flex justify-content-center align-items-center">{{childCategory.estimatedAmount  | changeToCurrency}}
-                </div>
-                <div class="col-2 d-flex justify-content-center align-items-center">{{childCategory.amount  | changeToCurrency}}</div>
-    
+                <div class="col-2 d-flex justify-content-center align-items-center">{{childCategory.estimatedAmount |
+                    changeToCurrency}}</div>
+                <div class="col-2 d-flex justify-content-center align-items-center">{{childCategory.amount |
+                    changeToCurrency}}</div>
                 <div class="col-3 d-flex justify-content-end align-items-center">
-                    <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+                    <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="subMenu"
+                        [matMenuTriggerData]="childCategory" dir="rtl">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                 </div>
@@ -49,7 +45,20 @@
 </div>
 
 <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
-    <div class="row">
-        <span class="cursor-pointer">ویرایش</span>
-    </div>
+    <ng-template matMenuContent let-name="name" let-id="id" let-code="code">
+        <div class="row">
+            <span class="cursor-pointer" (click)="editCategory({id:id,name:name,code:code})">ویرایش</span>
+        </div>
+    </ng-template>
+</mat-menu>
+
+<mat-menu #subMenu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
+    <ng-template matMenuContent let-name="name" let-id="id" let-code="code">
+        <div class="row">
+            <span class="cursor-pointer" (click)="editCategory({id:id,name:name,code:code})">ویرایش</span>
+        </div>
+        <div class="row">
+            <span class="cursor-pointer">افزودن هزینه</span>
+        </div>
+    </ng-template>
 </mat-menu>

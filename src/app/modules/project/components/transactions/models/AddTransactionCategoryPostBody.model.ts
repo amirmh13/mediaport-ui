@@ -1,6 +1,6 @@
 export interface AddTransactionCategoryPostBody {
     projectId: number;
-    code: number;
+    code: string;
     name: string;
-    parentId: number;
+    parentId?: number;
 }
