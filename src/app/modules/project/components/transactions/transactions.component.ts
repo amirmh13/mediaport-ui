@@ -17,7 +17,7 @@ export class TransactionsComponent implements OnInit {
   projectId: number = 0;
   transactionCategories: TransactionCategoryDto[] = [];
 
-  constructor(private store: Store<RootState>,
+  constructor(
     public dialog: MatDialog,
     private _store: Store<RootState>,
     private _transactionService: TransactionsService,
