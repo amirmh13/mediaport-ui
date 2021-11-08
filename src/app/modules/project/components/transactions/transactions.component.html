@@ -17,7 +17,8 @@
             <app-category-row 
             [transactionCategory]="item"
             (addSubCategoryEmitter)="openAddTransactionSubCategoryClick($event)"
-            (editCategoryEmiiter)="openEditTransactionCategoryClick($event)">
+            (editCategoryEmiiter)="openEditTransactionCategoryClick($event)"
+            (addTranscationEmiiter)="addTranscationEvent()">
             </app-category-row>
         </ng-container>
     </div>

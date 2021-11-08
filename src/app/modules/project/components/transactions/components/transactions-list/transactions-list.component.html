@@ -1,6 +1,6 @@
 <section class="transactions col-12 row px-0">
     <div class="col-12 row justify-content-center justify-content-lg-end border-bottom px-0 py-3">
-        <button mat-raised-button color="primary" class="col-auto rounded-2 px-4">
+        <button mat-raised-button color="primary" class="col-auto rounded-2 px-4" (click)="openAddTransactionDialogClick()">
             + افزودن هزینه
         </button>
     </div>
@@ -9,26 +9,33 @@
     <table class="table transaction-table mb-0">
         <thead>
             <tr class="bg-white rounded-2 border-row">
-                <td class="p-3">شناسه</td>
-                <td class="p-3">تاريخ/ زمان ایجاد</td>
+                <td class="p-3">عنوان</td>
+                <td class="p-3">تاريخ/ زمان تراکنش</td>
                 <td class="p-3">مبلغ تعیین شده (تومان)</td>
                 <td class="p-3">مبلغ نهایی (تومان)</td>
                 <td class="p-3">کد</td>
                 <td class="p-3">زیر کد</td>
                 <td class="p-3">زمان ثبت</td>
                 <td class="p-3">توضیحات</td>
+                <td class="p-3"></td>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let transaction of transactions?.data" class="bg-white rounded-2 border-row">
-                <td class="p-3">{{transaction.id}}</td>
-                <td class="p-3">{{transaction.transactionTime}}</td>
-                <td class="p-3">{{transaction.amount | changeToCurrency}}</td>
+                <td class="p-3">{{transaction.title}}</td>
+                <td class="p-3">{{transaction.transactionTimeStr}}</td>
                 <td class="p-3">{{transaction.estimatedAmount | changeToCurrency}}</td>
+                <td class="p-3">{{transaction.amount | changeToCurrency}}</td>
                 <td class="p-3">{{transaction.code}}</td>
                 <td class="p-3">{{transaction.code}} - {{transaction.subCode}}</td>
-                <td class="p-3">{{transaction.createdAt}}</td>
+                <td class="p-3">{{transaction.createdAtStr}}</td>
                 <td class="p-3">{{transaction.description}}</td>
+                <td class="p-2 d-flex justify-content-end align-items-center">
+                    <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu"
+                        [matMenuTriggerData]="{transaction:transaction}" dir="rtl">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -39,3 +46,12 @@
         </mat-paginator>
     </div>
 </section>
+
+
+<mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
+    <ng-template matMenuContent let-transaction="transaction">
+        <div class="row">
+            <a class="cursor-pointer text-black" (click)="openEditTransactionDialogClick(transaction)">ویرایش</a>
+        </div>
+    </ng-template>
+</mat-menu>

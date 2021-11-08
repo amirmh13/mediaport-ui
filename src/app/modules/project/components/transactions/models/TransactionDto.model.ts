@@ -7,5 +7,7 @@ export interface TransactionDto {
     estimatedAmount: number;
     amount?: number;
     transactionTime: Date;
+    transactionTimeStr: string;
     createdAt: Date;
+    createdAtStr: string;
   }
