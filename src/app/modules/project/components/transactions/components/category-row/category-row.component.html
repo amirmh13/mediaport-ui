@@ -16,7 +16,7 @@
     </div>
     <div class="col-1 d-flex justify-content-end align-items-center">
         <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu"
-            [matMenuTriggerData]="transactionCategory" dir="rtl">
+            [matMenuTriggerData]="{category :transactionCategory}" dir="rtl">
             <mat-icon>more_vert</mat-icon>
         </button>
     </div>
@@ -34,7 +34,7 @@
                     changeToCurrency}}</div>
                 <div class="col-3 d-flex justify-content-end align-items-center">
                     <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="subMenu"
-                        [matMenuTriggerData]="childCategory" dir="rtl">
+                        [matMenuTriggerData]="{category:childCategory}" dir="rtl">
                         <mat-icon>more_vert</mat-icon>
                     </button>
                 </div>
@@ -44,18 +44,19 @@
     </div>
 </div>
 
+
 <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
-    <ng-template matMenuContent let-name="name" let-id="id" let-code="code">
+    <ng-template matMenuContent let-category="category">
         <div class="row">
-            <span class="cursor-pointer" (click)="editCategory({id:id,name:name,code:code})">ویرایش</span>
+            <span class="cursor-pointer" (click)="editCategory(category)">ویرایش</span>
         </div>
     </ng-template>
 </mat-menu>
 
 <mat-menu #subMenu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
-    <ng-template matMenuContent let-name="name" let-id="id" let-code="code">
+    <ng-template matMenuContent let-category="category">
         <div class="row">
-            <span class="cursor-pointer" (click)="editCategory({id:id,name:name,code:code})">ویرایش</span>
+            <span class="cursor-pointer" (click)="editCategory(category)">ویرایش</span>
         </div>
         <div class="row">
             <span class="cursor-pointer">افزودن هزینه</span>
