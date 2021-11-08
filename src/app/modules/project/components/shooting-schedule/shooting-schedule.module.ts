@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ShootingScheduleRoutingModule } from './shooting-schedule-routing.module';
 import { ShootingScheduleComponent } from './shooting-schedule.component';
-
+import { DragDropModule } from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { ShootingScheduleComponent } from './shooting-schedule.component';
   ],
   imports: [
     CommonModule,
-    ShootingScheduleRoutingModule
+    ShootingScheduleRoutingModule,
+    DragDropModule
   ]
 })
 export class ShootingScheduleModule { }
