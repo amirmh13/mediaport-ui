@@ -39,7 +39,7 @@ export class TransactionsListComponent implements OnInit {
 
   paginateEvent(pageEvent: PageEvent) {
     this.transactionPostBody.page = pageEvent.pageIndex + 1;
-    this.transactionPostBody.pageSize=pageEvent.pageSize;
+    this.transactionPostBody.pageSize = pageEvent.pageSize;
 
     this.getListOfTransactions();
   }

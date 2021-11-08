@@ -11,8 +11,6 @@ export const MATERIAL_COMMON_MODULES = [
     MatDialogModule,
 ];
 
-
-
 export function getPersianPaginatorIntl() {
     const paginatorIntl = new MatPaginatorIntl();
 

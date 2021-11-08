@@ -41,7 +41,7 @@ export class TransactionsComponent implements OnInit {
   openEditTransactionCategoryClick(category: TransactionCategoryDto) {
     this.openAddTransactionCategoryDialog("ویرایش کد", category);
   }
-  
+
   openAddTransactionCategoryDialog(headerText: string, category?: TransactionCategoryDto): void {
     const dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '500px',
