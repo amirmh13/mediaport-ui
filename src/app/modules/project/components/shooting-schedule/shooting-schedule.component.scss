@@ -1,0 +1,26 @@
+.drag-drop-placeholder {
+  background: #ccc;
+  border: dotted 3px #999;
+  min-height: 60px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.done-state-select {
+  font-size: 12px;
+  width: 70px;
+  padding-right: 5px;
+  background: url(/assets/images/noun-arrows.svg) left 0rem top 0.5rem no-repeat #fff;
+  border: 0;
+}
+
+.circle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  &.green {
+    background-color: #1b8800;
+  }
+  &.red {
+    background-color: #f76437;
+  }
+}

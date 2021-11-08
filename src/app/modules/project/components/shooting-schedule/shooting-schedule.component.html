@@ -1,26 +1,66 @@
-<p>shooting-schedule works!</p>
-<div cdkDropListGroup>
-    <div class="example-container">
-      <h2>To do</h2>
-  
-      <div
-        cdkDropList
-        [cdkDropListData]="todo"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of todo" cdkDrag>{{item}}</div>
-      </div>
+<section class="locations col-12 row px-0">
+  <div class="col-12 row justify-content-center justify-content-lg-end border-bottom px-0 py-3">
+    <button mat-raised-button color="primary" class="col-auto rounded-2 px-4">
+      + افزودن روز کاری
+    </button>
+  </div>
+  <div cdkDropListGroup>
+
+    <div class="col-12 row justify-content-between py-3 px-0 mt-2">
+      <div class="col-1 d-flex justify-content-center align-items-center">شماره سکانس</div>
+      <div class="col-1 d-flex justify-content-center align-items-center">ق</div>
+      <div class="col-1 d-flex justify-content-center align-items-center">داخلی / خارجی</div>
+      <div class="col-1 d-flex justify-content-center align-items-center">زمان</div>
+      <div class="col-2 d-flex justify-content-center align-items-center">توضیح صحنه</div>
+      <div class="col-1 d-flex justify-content-center align-items-center">لوکیشن</div>
+      <div class="col-1 d-flex justify-content-center align-items-center">پیش بینی</div>
+      <div class="col-1 d-flex justify-content-center align-items-center">زمان شوت</div>
+      <div class="col-2 d-flex justify-content-end align-items-center"></div>
     </div>
-  
-    <div class="example-container">
-      <h2>Done</h2>
-  
-      <div
-        cdkDropList
-        [cdkDropListData]="done"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)">
-        <div class="example-box" *ngFor="let item of done" cdkDrag>{{item}}</div>
+
+    <div *ngFor="let day of shootingScheduleData">
+      <div cdkDropList [cdkDropListData]="day" (cdkDropListDropped)="daySceneReorder($event)" style="min-height: 60px;">
+        <div cdkDrag class="col-12 row justify-content-between py-3 px-0 mt-2 border rounded-2 bg-white cursor-pointer"
+          *ngFor="let scene of day.scenes" [cdkDragDisabled]="scene.locked" [cdkDragData]="scene">
+          <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.sceneOrder}}</div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.episodeName}}</div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.locationType.name}}</div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.dayStatus.name}}</div>
+          <div class="col-2 d-flex justify-content-center align-items-center">{{scene.briefDescription}}</div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.mainLocation.name}}</div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.productionTimeStr}}</div>
+          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.editTimeStr}}</div>
+          <div class="col-2 d-flex justify-content-end align-items-center">
+            <span class="circle-dot" [ngClass]="{'green': scene.isDone, 'red' : scene.isDone.toString() =='false' }"></span>
+            <select class="done-state-select" (change)="setIsDone($event,scene.sceneId)" [(ngModel)]="scene.isDone">
+              <option [value]="true">انجام شده</option>
+              <option [value]="false">انجام نشده</option>
+            </select>
+            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu"
+              [matMenuTriggerData]="{locked:scene.locked, sceneId:scene.sceneId}" dir="rtl">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 row justify-content-around p-3 mt-2 border rounded-2 bg-secondary text-white cursor-pointer"
+        [ngClass]="{'bg-secondary': !day.warningState, 'bg-warning' : day.warningState }">
+        <div class="col-auto d-flex justify-content-center align-items-center">پایان روز {{day.dayNo}}</div>
+        <div class="col-auto d-flex justify-content-center align-items-center">تعداد صفحات {{day.pageCounts}}</div>
+        <div class="col-auto d-flex justify-content-center align-items-center">زمان پیش بینی شده
+          {{day.estimatedTimeStr}}</div>
+        <div class="col-auto d-flex justify-content-center align-items-center">تاریخ شوت {{day.date}}</div>
       </div>
     </div>
   </div>
+</section>
+
+<mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
+  <ng-template matMenuContent let-sceneId="sceneId" let-locked="locked">
+    <div class="row">
+      <a class="cursor-pointer text-black" *ngIf="locked" (click)="unlockSceneReorder(sceneId)">آزاد کردن سکانس</a>
+      <a class="cursor-pointer text-black" *ngIf="!locked" (click)="lockSceneReorder(sceneId)">قفل کردن سکانس</a>
+    </div>
+  </ng-template>
+</mat-menu>

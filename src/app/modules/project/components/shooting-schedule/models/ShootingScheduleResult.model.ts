@@ -1,4 +1,4 @@
-import { IdTitleDto } from "@shared/models";
+import { IdNameDto } from "@shared/models";
 
 export interface Scene {
     order: number;
@@ -8,15 +8,15 @@ export interface Scene {
     briefDescription: string;
     sceneOrder: number;
     sceneSubOrder: string;
-    mainLocation: IdTitleDto;
-    subLocation: IdTitleDto;
+    mainLocation: IdNameDto;
+    subLocation: IdNameDto;
     productionTime: number;
     editTime: number;
     productionTimeStr: string;
     editTimeStr: string;
     scenePageSize: number;
-    dayStatus: IdTitleDto;
-    locationType: IdTitleDto;
+    dayStatus: IdNameDto;
+    locationType: IdNameDto;
     isDone: boolean;
 }
 

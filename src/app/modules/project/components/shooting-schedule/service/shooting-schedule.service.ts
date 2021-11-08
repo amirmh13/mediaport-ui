@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { IdTitleDto } from '@shared/models';
 import { ShootingScheduleResult } from '../models/ShootingScheduleResult.model'
 import { ShootingScheduleInitInputDto } from '../models/ShootingScheduleInitInputDto.model'
+import { DaySceneReorder } from '../models/DaySceneReorder.model';
+import { LockUnlockSceneOrder } from '../models/LockUnlockSceneOrder.model';
 
 @Injectable({
   providedIn: 'root'
@@ -29,5 +31,17 @@ export class ShootingScheduleService {
 
   initializeShootingSchedule(model: ShootingScheduleInitInputDto): Observable<void> {
     return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/InitializeShootingSchedule`, model);
+  }
+
+  daySceneReorder(model: DaySceneReorder): Observable<void> {
+    return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/DaySceneReorder`, model);
+  }
+
+  lockSceneReorder(model: LockUnlockSceneOrder): Observable<void> {
+    return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/LockSceneReorder`, model);
+  }  
+
+  unlockSceneReorder(model: LockUnlockSceneOrder): Observable<void> {
+    return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/UnlockSceneReorder`, model);
   }
 }

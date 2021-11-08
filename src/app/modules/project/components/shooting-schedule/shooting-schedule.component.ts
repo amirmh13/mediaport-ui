@@ -3,8 +3,9 @@ import { select, Store } from '@ngrx/store';
 import { RootState } from 'src/app/state/App.reducers';
 import { selectProjectId } from '../../state/Project.selectors';
 import { ShootingScheduleService } from './service/shooting-schedule.service'
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ShootingScheduleResult } from './models/ShootingScheduleResult.model';
+import { DaySceneReorder } from './models/DaySceneReorder.model';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -14,11 +15,8 @@ import { ShootingScheduleResult } from './models/ShootingScheduleResult.model';
 export class ShootingScheduleComponent implements OnInit {
 
   currentProjectId: number = 0;
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
   shootingScheduleData: ShootingScheduleResult[] | undefined;
-
+  mamad: string = "1";
   constructor(
     private _store: Store<RootState>,
     private _shootingScheduleService: ShootingScheduleService,
@@ -31,21 +29,46 @@ export class ShootingScheduleComponent implements OnInit {
     });
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(event);
+  lockSceneReorder(sceneId: number) {
+    this._shootingScheduleService.lockSceneReorder({ sceneId, projectId: this.currentProjectId }).subscribe(res => {
+      this.getListOfShootingScheduleDays();
+    });
+  }
 
+  unlockSceneReorder(sceneId: number) {
+    this._shootingScheduleService.unlockSceneReorder({ sceneId, projectId: this.currentProjectId }).subscribe(res => {
+      this.getListOfShootingScheduleDays();
+    });
+  }
+
+  daySceneReorder(event: CdkDragDrop<ShootingScheduleResult>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(event.container.data.scenes, event.previousIndex, event.currentIndex);
     } else {
       transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
+        event.previousContainer.data.scenes,
+        event.container.data.scenes,
         event.previousIndex,
         event.currentIndex,
       );
     }
+
+    this._shootingScheduleService.daySceneReorder({
+      projectId: this.currentProjectId,
+      fromDayId: event.previousContainer.data.id,
+      toDayId: event.container.data.id,
+      sceneId: event.item.data.sceneId,
+      order: (event.currentIndex + 1)
+    }).subscribe(res => {
+      this.getListOfShootingScheduleDays();
+    })
   }
-  
+
+  setIsDone(e: any, sceneId: number) {
+    console.log(e.target.value);
+
+  }
+
   ngOnInit(): void {
     this._store.pipe(select(selectProjectId)).subscribe(projectId => {
       this.currentProjectId = projectId;
@@ -57,8 +80,6 @@ export class ShootingScheduleComponent implements OnInit {
       } else {
         //open modal
       }
-
     });
-
   }
 }

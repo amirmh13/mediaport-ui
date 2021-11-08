@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://mediaportapi.woco.ir/api'
+  apiBaseUrl: 'https://localhost:5001/api'
 };
