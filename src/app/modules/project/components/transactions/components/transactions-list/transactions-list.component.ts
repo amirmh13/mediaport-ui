@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
@@ -7,6 +8,7 @@ import { selectProjectId } from 'src/app/modules/project/state/Project.selectors
 import { RootState } from 'src/app/state/App.reducers';
 import { TransactionDto, TransactionListPostBody } from '../../models';
 import { TransactionsService } from '../../service/transactions.service';
+import { AddTransactionComponent } from '../add-transaction/add-transaction.component';
 
 @Component({
   selector: 'app-transactions-list',
@@ -25,6 +27,7 @@ export class TransactionsListComponent implements OnInit {
   transactions: PaginateDto<TransactionDto> | undefined;
 
   constructor(
+    public dialog: MatDialog,
     private _route: ActivatedRoute,
     private _store: Store<RootState>,
     private _transactionsService: TransactionsService
@@ -42,6 +45,33 @@ export class TransactionsListComponent implements OnInit {
     this.transactionPostBody.pageSize = pageEvent.pageSize;
 
     this.getListOfTransactions();
+  }
+
+  openAddTransactionDialogClick() {
+    this.openAddTransactionDialog("افزودن هزینه");
+  }
+
+  openEditTransactionDialogClick(transaction: TransactionDto) {
+    this.openAddTransactionDialog("ویرایش هزینه", transaction);
+  }
+
+  openAddTransactionDialog(headerText: string, transaction?: TransactionDto): void {
+    const dialogRef = this.dialog.open(AddTransactionComponent, {
+      width: '500px',
+      direction: 'rtl',
+    });
+
+    if (transaction) {
+      const transcationClone = transaction;
+      dialogRef.componentInstance.transaction = { ...transcationClone };
+    }
+    dialogRef.componentInstance.modalHeader = headerText;
+    dialogRef.componentInstance.transactionCategoryId =  this.transactionPostBody.transactionCategoryId;
+    dialogRef.componentInstance.projectId =  this.transactionPostBody.projectId;
+    dialogRef.componentInstance.transactionEmitter.subscribe(res => {
+      this.getListOfTransactions();
+      dialogRef.close();
+    });
   }
 
   ngOnInit(): void {

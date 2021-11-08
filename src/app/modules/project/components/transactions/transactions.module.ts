@@ -9,13 +9,15 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
 import { FormsModule } from '@angular/forms';
 import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AddTransactionComponent } from './components/add-transaction/add-transaction.component';
 
 @NgModule({
   declarations: [
     TransactionsComponent,
     CategoryRowComponent,
     AddCategoryComponent,
-    TransactionsListComponent
+    TransactionsListComponent,
+    AddTransactionComponent
   ],
   imports: [
     CommonModule,
