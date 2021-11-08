@@ -7,12 +7,14 @@ import { CategoryRowComponent } from './components/category-row/category-row.com
 import { ChangeToCurrencyModule } from '@shared/pipes/change-to-currency/change-to-currency.module';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { FormsModule } from '@angular/forms';
+import { TransactionsListComponent } from './components/transactions-list/transactions-list.component';
 
 @NgModule({
   declarations: [
     TransactionsComponent,
     CategoryRowComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    TransactionsListComponent
   ],
   imports: [
     CommonModule,
