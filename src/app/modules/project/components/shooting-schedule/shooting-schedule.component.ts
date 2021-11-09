@@ -16,7 +16,7 @@ export class ShootingScheduleComponent implements OnInit {
 
   currentProjectId: number = 0;
   shootingScheduleData: ShootingScheduleResult[] | undefined;
-  mamad: string = "1";
+
   constructor(
     private _store: Store<RootState>,
     private _shootingScheduleService: ShootingScheduleService,
