@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-init-shooting-schedule',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./init-shooting-schedule.component.scss']
 })
 export class InitShootingScheduleComponent implements OnInit {
-
+ 
+  @Input() projectId: number = 0;
+  @Output() initShootinScheduleEmitter = new EventEmitter<void>();
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

@@ -9,6 +9,7 @@ import { DaySceneReorder } from './models/DaySceneReorder.model';
 import { MatDialog } from '@angular/material/dialog';
 import { SetShootingDayDateComponent } from './components/set-shooting-day-date/set-shooting-day-date.component';
 import { AlertService } from '@shared/services/alert/alert.service';
+import { InitShootingScheduleComponent } from './components/init-shooting-schedule/init-shooting-schedule.component';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -95,25 +96,40 @@ export class ShootingScheduleComponent implements OnInit {
   addNewShootingDayConfirmModal() {
     this._alertService.open('تاییدیه', 'از افزودن روز کاری جدید اطمینان دارید؟', 'بستن', 'بله').then(res => {
       this.addNewShootingDay();
-    })
+    });
   }
 
   addNewShootingDay() {
     this._shootingScheduleService.addNewShootingDay(this.currentProjectId).subscribe(res => {
       this.getListOfShootingScheduleDays();
-    })
+    });
+  }
+
+  openInitShootingScheduleModal() {
+    const dialogRef = this.dialog.open(InitShootingScheduleComponent, {
+      width: '500px',
+      direction: 'rtl',
+      disableClose:true
+    });
+
+    dialogRef.componentInstance.projectId = this.currentProjectId;
+
+    dialogRef.componentInstance.initShootinScheduleEmitter.subscribe(res => {
+      this.getListOfShootingScheduleDays();
+      dialogRef.close();
+    });
   }
 
   ngOnInit(): void {
     this._store.pipe(select(selectProjectId)).subscribe(projectId => {
       this.currentProjectId = projectId;
-    })
+    });
 
     this._shootingScheduleService.shootingScheduleExists(this.currentProjectId).subscribe(res => {
       if (res) {
         this.getListOfShootingScheduleDays();
       } else {
-        //open modal
+        this.openInitShootingScheduleModal();
       }
     });
   }
