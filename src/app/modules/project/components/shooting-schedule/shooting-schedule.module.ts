@@ -5,17 +5,23 @@ import { ShootingScheduleRoutingModule } from './shooting-schedule-routing.modul
 import { ShootingScheduleComponent } from './shooting-schedule.component';
 import { DragDropModule } from '@angular/cdk/drag-drop'
 import { MATERIAL_COMMON_MODULES } from 'src/app/MaterialModulesArray.const';
+import { SetShootingDayDateComponent } from './components/set-shooting-day-date/set-shooting-day-date.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { InitShootingScheduleComponent } from './components/init-shooting-schedule/init-shooting-schedule.component';
 
 @NgModule({
   declarations: [
-    ShootingScheduleComponent
+    ShootingScheduleComponent,
+    SetShootingDayDateComponent,
+    InitShootingScheduleComponent
   ],
   imports: [
     CommonModule,
     ShootingScheduleRoutingModule,
     MATERIAL_COMMON_MODULES,
     DragDropModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule
   ]
 })
 export class ShootingScheduleModule { }

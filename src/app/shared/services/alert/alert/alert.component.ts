@@ -10,6 +10,8 @@ export class AlertComponent implements OnInit {
 
   @Input() title: string = '';
   @Input() text: string = '';
+  @Input() negativeBtnText: string = '';
+  @Input() positiveBtnText: string = '';
   @Output() confirmEmitter = new EventEmitter<void>();
 
   constructor(

@@ -28,6 +28,7 @@ export interface ShootingScheduleResult {
     estimatedTime: number;
     estimatedTimeStr: string;
     date: Date;
+    dateStr: string;
     warningState: boolean;
     scenes: Scene[];
 }

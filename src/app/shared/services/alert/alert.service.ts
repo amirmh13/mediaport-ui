@@ -12,7 +12,7 @@ export class AlertService {
     public dialog: MatDialog,
   ) { }
 
-  open(title: string = '', text: string = ''): Promise<void> {
+  open(title: string = '', text: string = '',negativeBtnText:string ='بازگشت', positiveBtnText:string ='حذف'): Promise<void> {
     return new Promise((resolve, reject) => {
 
       const dialogRef = this.dialog.open(AlertComponent, {
@@ -24,6 +24,8 @@ export class AlertService {
 
       dialogRef.componentInstance.title = title;
       dialogRef.componentInstance.text = text;
+      dialogRef.componentInstance.negativeBtnText=negativeBtnText;
+      dialogRef.componentInstance.positiveBtnText=positiveBtnText;
 
       dialogRef.componentInstance.confirmEmitter.subscribe(result => {
         resolve();

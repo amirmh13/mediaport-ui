@@ -2,9 +2,9 @@
 <p class="col-12 mb-0 px-0" [innerText]="text"></p>
 <div class="col-12 row justify-content-center px-0 mt-5">
     <div class="col row text-center">
-        <a (click)="dialog.closeAll()" class="col text-secondary rounded-2 border border-secondary py-2">بازگشت</a>
+        <a (click)="dialog.closeAll()" class="col text-secondary rounded-2 border border-secondary py-2">{{negativeBtnText}}</a>
     </div>
     <div class="col row text-center">
-        <a (click)="confirmEmitter.emit()" class="col text-danger rounded-2 border border-danger py-2">حذف</a>
+        <a (click)="confirmEmitter.emit()" class="col text-danger rounded-2 border border-danger py-2">{{positiveBtnText}}</a>
     </div>
 </div>

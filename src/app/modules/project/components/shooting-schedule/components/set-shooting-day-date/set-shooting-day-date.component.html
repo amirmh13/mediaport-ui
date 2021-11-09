@@ -1,0 +1,19 @@
+<h2 mat-dialog-title class="text-black fw-bold border-primary border-bottom pb-2">تعیین روز شوت</h2>
+
+
+<form class="" #setDateFrom="ngForm">
+    <mat-dialog-content class="px-2 px-lg-4">
+        <div class="col-12 row px-0 mb-3">
+            <label for="transactionTime" class="form-label text-black px-0">
+                تاریخ شوت
+            </label>
+            <input matInput [matDatepicker]="setDateDatePicker" (click)="setDateDatePicker.open()"
+                class="form-control rounded-2 border-0" readonly id="shootDate" name="shootDate"
+                [(ngModel)]="date">
+            <mat-datepicker #setDateDatePicker></mat-datepicker>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button class="col-4" mat-raised-button color="primary" type="submit" (click)="onSubmitFormClick(setDateFrom)">تایید</button>
+    </mat-dialog-actions>
+</form>

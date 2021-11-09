@@ -7,6 +7,8 @@ import { ShootingScheduleResult } from '../models/ShootingScheduleResult.model'
 import { ShootingScheduleInitInputDto } from '../models/ShootingScheduleInitInputDto.model'
 import { DaySceneReorder } from '../models/DaySceneReorder.model';
 import { LockUnlockSceneOrder } from '../models/LockUnlockSceneOrder.model';
+import { SetShootingDayDate } from '../models/SetShootingDayDate.model';
+import { SetSceneDoneDto } from '../models/SetSceneDone.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +41,21 @@ export class ShootingScheduleService {
 
   lockSceneReorder(model: LockUnlockSceneOrder): Observable<void> {
     return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/LockSceneReorder`, model);
-  }  
+  }
 
   unlockSceneReorder(model: LockUnlockSceneOrder): Observable<void> {
     return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/UnlockSceneReorder`, model);
+  }
+
+  setShootingScheduleDayDate(model: SetShootingDayDate): Observable<void> {
+    return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/SetShootingScheduleDayDate`, model);
+  }
+
+  setSceneDone(model: SetSceneDoneDto): Observable<void> {
+    return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/Episodes/Scenes/SetSceneDone`, model);
+  }
+
+  addNewShootingDay(projectId: number): Observable<void> {
+    return this._http.post<void>(`${environment.apiBaseUrl}/v1/Project/ShootingSchedules/AddNewShootingDay?projectId=` + projectId, {});
   }
 }

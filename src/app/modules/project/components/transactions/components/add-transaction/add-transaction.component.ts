@@ -1,9 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { RootState } from 'src/app/state/App.reducers';
 import { TransactionsService } from '../../service/transactions.service';
-import { select, Store } from '@ngrx/store';
-import { selectProjectId } from 'src/app/modules/project/state/Project.selectors';
 import { EditTransactionPostBody, TransactionDto } from '../../models';
 
 @Component({
