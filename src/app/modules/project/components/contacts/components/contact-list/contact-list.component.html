@@ -1,111 +1,122 @@
 <div *ngIf="contactsList?.length" class="contact-list-wrapper col-12 row align-items-start align-content-start px-0">
 
-    <div class="contact-list-header col-12 d-flex justify-content-between align-items-center border-bottom px-0 pb-3 mb-3">
-        <span class="text-muted fs-4">مخاطبین</span>
-
-        <svg (click)="onAddNewListIconClick()" width="16" height="16" class="ms-2 cursor-pointer">
-            <use xlink:href="/assets/images/svgs.svg#add-folder"></use>
-        </svg>
-    </div>
-
-    <div class="col-12 row justify-content-between align-items-center cfs-12 px-0 mb-2 cursor-pointer">
-        
-
-        <div class="col-12 d-flex align-items-start px-0 mb-2">
-            <div class="col row justify-content-between align-items-center px-0">
-                <div [class.bg-light]="selectedFolderId == null" class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
-                    <a (click)="selectedFolderId = null" (dblclick)="onGoToListClick()">
-                        <svg width="16" height="16" class="col-auto ms-2 px-0">
-                            <use xlink:href="/assets/images/svgs.svg#document"></use>
-                        </svg>
-                        <span class="col px-0">
-                           همه موارد
-                        </span>
-                    </a>
-            
-                    <div class="contact-list-actions col-auto d-flex align-items-center px-0">
-                        <span class="contacts-count d-flex justify-content-center rounded-circle">2</span>
-                        <svg width="16" height="16" class="more-menu">
-                            <!-- <use xlink:href="/assets/images/svgs.svg#menu"></use> -->
-                        </svg>
-                    </div>
-                </div>
-            </div>
+    <div class="col-12 row px-0" (clickOutside)="selectedFolderId = 0; createNewList = false;">
+        <div class="contact-list-header col-12 d-flex justify-content-between align-items-center border-bottom px-0 pb-3 mb-3">
+            <span class="text-muted fs-4">مخاطبین</span>
+    
+            <svg (click)="onAddNewListIconClick()" width="16" height="16" class="ms-2 cursor-pointer">
+                <use xlink:href="/assets/images/svgs.svg#add-folder"></use>
+            </svg>
         </div>
-
-
-        <ng-container *ngFor="let list of contactsList;let last = last">
-            <div class="col-12 d-flex align-items-start px-0" [class.mb-2]="!last" (clickOutside)="clickOutSideEvent(list.id)">
-                <svg *ngIf="list?.children?.length" (click)="showChildrenToggle.checked = !showChildrenToggle.checked" class="col-auto px-0" width="8" height="8" class="ms-0 mt-2" [ngClass]="{'rotate-90': !showChildrenToggle.checked}">
-                    <use xlink:href="/assets/images/svgs.svg#noun-arrows"></use>
-                </svg>
+    
+        <div class="col-12 row justify-content-between align-items-center cfs-12 px-0 mb-2 cursor-pointer">
+            
+    
+            <div class="col-12 d-flex align-items-start px-0 mb-2">
                 <div class="col row justify-content-between align-items-center px-0">
-                    <div [class.bg-light]="selectedFolderId == list.id" class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
-                        <a (click)="onListItemClick(list.id)" (dblclick)="onGoToListClick(list)">
-                            <svg width="16" height="16" class="col-auto ms-2 px-0">
+                    <div [ngClass]="{'text-primary': currentListId == null}" [class.bg-light]="selectedFolderId == null" class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
+                        <a (click)="selectedFolderId = null" (dblclick)="onGoToListClick()">
+                            <svg [class.fill-primary]="currentListId == null" width="16" height="16" class="col-auto ms-2 px-0">
                                 <use xlink:href="/assets/images/svgs.svg#document"></use>
                             </svg>
                             <span class="col px-0">
-                                {{list?.name}}
+                               همه موارد
                             </span>
                         </a>
                 
                         <div class="contact-list-actions col-auto d-flex align-items-center px-0">
-                            <span class="contacts-count d-flex justify-content-center rounded-circle">{{list?.contactCounts}}</span>
-                            <svg width="16" height="16" class="more-menu" [matMenuTriggerFor]="menu">
-                                <use xlink:href="/assets/images/svgs.svg#menu"></use>
+                            <span class="contacts-count d-flex justify-content-center rounded-circle">2</span>
+                            <svg width="16" height="16" class="more-menu">
+                                <!-- <use xlink:href="/assets/images/svgs.svg#menu"></use> -->
                             </svg>
-
-                            <mat-menu #menu="matMenu" direction="rtl" class="rounded-2 py-0">
-                                <div class="row py-0" dir="rtl">
-                                    <span (click)="onDeleteListClick(list)" class="row align-items-center cursor-pointer"> حذف</span>
-                                </div>
-                            </mat-menu>
                         </div>
                     </div>
-            
-            
-                    <div *ngIf="showChildrenToggle.checked" class="col-12 row mt-2 px-0">
-                        <div *ngFor="let folderChild of list?.children" [class.bg-light]="selectedFolderId == folderChild.id" class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
-                            <a (click)="onListItemClick(folderChild.id)" (dblclick)="onGoToListClick(folderChild)">
-                                <svg width="16" height="16" class="col-auto ms-2 px-0">
+                </div>
+            </div>
+    
+    
+            <ng-container *ngFor="let list of contactsList;let last = last">
+                <div class="col-12 d-flex align-items-start px-0" [class.mb-2]="!last" (clickOutside)="clickOutSideEvent(list.id)">
+                    <svg *ngIf="list?.children?.length" (click)="showChildrenToggle.checked = !showChildrenToggle.checked" class="col-auto px-0" width="8" height="8" class="ms-0 mt-2" [ngClass]="{'rotate-90': !showChildrenToggle.checked && !(openedListId == list.id)}">
+                        <use xlink:href="/assets/images/svgs.svg#noun-arrows"></use>
+                    </svg>
+                    <div class="col row justify-content-between align-items-center px-0">
+                        <div [ngClass]="{'text-primary': currentListId == list.id}" [class.bg-light]="selectedFolderId == list.id" class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
+                            <a (click)="onListItemClick(list.id)" (dblclick)="onGoToListClick(list)">
+                                <svg [class.fill-primary]="currentListId == list.id" width="16" height="16" class="col-auto ms-2 px-0">
                                     <use xlink:href="/assets/images/svgs.svg#document"></use>
                                 </svg>
                                 <span class="col px-0">
-                                    {{folderChild?.name}}
+                                    {{list?.name}}
                                 </span>
                             </a>
                     
                             <div class="contact-list-actions col-auto d-flex align-items-center px-0">
-                                <span class="contacts-count d-flex justify-content-center rounded-circle">{{folderChild?.contactCounts}}</span>
-                                <svg width="16" height="16" class="more-menu" [matMenuTriggerFor]="menuChild">
+                                <span class="contacts-count d-flex justify-content-center rounded-circle">{{list?.contactCounts}}</span>
+                                <svg width="16" height="16" class="more-menu" [matMenuTriggerFor]="menu">
                                     <use xlink:href="/assets/images/svgs.svg#menu"></use>
                                 </svg>
-
-                                <mat-menu #menuChild="matMenu" direction="rtl" class="rounded-2 py-0">
+    
+                                <mat-menu #menu="matMenu" direction="rtl" class="rounded-2 py-0">
                                     <div class="row py-0" dir="rtl">
-                                        <span (click)="onDeleteListClick(folderChild)" class="row align-items-center cursor-pointer"> حذف</span>
+                                        <span (click)="onDeleteListClick(list)" class="row align-items-center cursor-pointer"> حذف</span>
                                     </div>
                                 </mat-menu>
                             </div>
                         </div>
-                    </div>
-
-                    <div *ngIf="createNewList && !list.children?.length && selectedFolderId == list.id" class="col-12 row mt-2 px-0">
-                        <div class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
-                            <a class="row align-items-center">
-                                <svg width="16" height="16" class="col-auto ms-2 px-0">
-                                    <use xlink:href="/assets/images/svgs.svg#document"></use>
-                                </svg>
-                                <input (keyup.enter)="onCreateNewListClick(newListName.value)" type="text" class="col form-control border-0 py-0" #newListName>
-                            </a>
+                
+                
+                        <div *ngIf="showChildrenToggle.checked || (openedListId == list.id)" class="col-12 row mt-2 px-0">
+                            <div *ngFor="let folderChild of list?.children" [ngClass]="{'text-primary': currentListId == folderChild.id}" [class.bg-light]="selectedFolderId == folderChild.id" class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
+                                <a (click)="onListItemClick(folderChild.id)" (dblclick)="onGoToListClick(folderChild)">
+                                    <svg [class.fill-primary]="currentListId == folderChild.id" width="16" height="16" class="col-auto ms-2 px-0">
+                                        <use xlink:href="/assets/images/svgs.svg#document"></use>
+                                    </svg>
+                                    <span class="col px-0">
+                                        {{folderChild?.name}}
+                                    </span>
+                                </a>
+                        
+                                <div class="contact-list-actions col-auto d-flex align-items-center px-0">
+                                    <span class="contacts-count d-flex justify-content-center rounded-circle">{{folderChild?.contactCounts}}</span>
+                                    <svg width="16" height="16" class="more-menu" [matMenuTriggerFor]="menuChild">
+                                        <use xlink:href="/assets/images/svgs.svg#menu"></use>
+                                    </svg>
+    
+                                    <mat-menu #menuChild="matMenu" direction="rtl" class="rounded-2 py-0">
+                                        <div class="row py-0" dir="rtl">
+                                            <span (click)="onDeleteListClick(folderChild)" class="row align-items-center cursor-pointer"> حذف</span>
+                                        </div>
+                                    </mat-menu>
+                                </div>
+                            </div>
                         </div>
+    
+                        <div *ngIf="createNewList && !list.children?.length && selectedFolderId == list.id" class="col-12 row mt-2 px-0">
+                            <div class="contact-list col d-flex justify-content-between align-items-center px-2 py-1">
+                                <a class="row align-items-center">
+                                    <svg width="16" height="16" class="col-auto ms-2 px-0">
+                                        <use xlink:href="/assets/images/svgs.svg#document"></use>
+                                    </svg>
+                                    <input (keyup.enter)="onCreateNewListClick(newListName.value)" type="text" class="col form-control border-0 py-0" #newListName>
+                                </a>
+                            </div>
+                        </div>
+                
                     </div>
-            
-                </div>
-                <input [hidden]="true" type="checkbox" [checked]="false" #showChildrenToggle>
-            </div>
-        </ng-container>
+                    <input [hidden]="true" type="checkbox" [checked]="false" #showChildrenToggle>
 
+                </div>
+            </ng-container>
+            <div *ngIf="createNewList && selectedFolderId == 0" class="contact-list col-12 d-flex justify-content-between align-items-center px-2 py-1 mt-2">
+                <a class="row align-items-center">
+                    <svg width="16" height="16" class="col-auto ms-2 px-0">
+                        <use xlink:href="/assets/images/svgs.svg#document"></use>
+                    </svg>
+                    <input (keyup.enter)="onCreateNewListClick(newListName.value)" type="text" class="col form-control border-0 py-0" #newListName>
+                </a>
+            </div>
+    
+        </div>
     </div>
 </div>
