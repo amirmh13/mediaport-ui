@@ -30,12 +30,6 @@ export class ContactListComponent implements OnInit, OnChanges {
         private _alertService: AlertService,
     ) { }
 
-    // getContactsList(): void {
-    //     this._contactService.getListOfContactLists(this.currentProjectId).subscribe(res => {
-    //         this.contactsList = res;
-    //     })
-    // }
-
     onGoToListClick(list?: ContactsListDto): void {
         if (list) this._router.navigate(['projects', this.currentProjectId, 'contacts', list?.id]);
         else this._router.navigate(['projects', this.currentProjectId, 'contacts']);
@@ -70,7 +64,6 @@ export class ContactListComponent implements OnInit, OnChanges {
             parentListId: this.selectedFolderId ? this.selectedFolderId : null,
             name
         }).subscribe(res => {
-            // this.getContactsList();
             this.callContactsListEmitter.emit();
             this.createNewList = false;
         })
@@ -84,8 +77,6 @@ export class ContactListComponent implements OnInit, OnChanges {
             if (foundedChildList) this.openedListId = cl.id;
         })
 
-        console.log(this.openedListId);
-        
     }
 
     ngOnInit(): void {
