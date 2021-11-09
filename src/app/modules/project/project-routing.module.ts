@@ -37,6 +37,12 @@ const routes: Routes = [{
             loadChildren: () => import('../project/components/shooting-schedule/shooting-schedule.module').then(m => m.ShootingScheduleModule),
             data: { name: 'برنامه ریزی' }
         },
+        {
+            path: 'scenes',
+            canActivate: [AuthGuardGuard],
+            loadChildren: () => import('../project/components/scenes/scenes-routing.module').then(m => m.ScenesRoutingModule),
+            data: { name: 'فیلم نامه' }
+        },
         // { path: '**', redirectTo: `${RoutesEnum.elements}`, pathMatch: 'full' }
     ]
 }];
