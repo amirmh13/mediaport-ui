@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ContactsListDto } from '../../models';
 
 @Component({
@@ -9,12 +9,26 @@ import { ContactsListDto } from '../../models';
 export class MoveToListComponent implements OnInit {
 
     @Input() allList: ContactsListDto[] = [];
+    @Output() listIdEmitter = new EventEmitter<number>();
 
+    cloneOfAllList: ContactsListDto[] = [];
     selectedListId: number = 0;
 
     constructor() { }
 
+    onSearchList(term: string): void {
+        if (term.length > 2) {
+            this.allList = this.cloneOfAllList.filter(list => {
+                return list.name.indexOf(term.toLowerCase()) != -1;
+            })
+        }
+        else {
+            this.allList = [...this.cloneOfAllList];
+        }
+    }
+
     ngOnInit(): void {
+        this.cloneOfAllList = [...this.allList];
     }
 
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { AlertService } from '@shared/services/alert/alert.service';
@@ -21,6 +21,7 @@ export class ContactsComponent implements OnInit {
     contacts: ContactDto[] = [];
     contactsPostBody: ContactsPostBody = new ContactsPostBody();
     contactsList: ContactsListDto[] = [];
+    modalRef: MatDialogRef<any, any> | null = null;
 
     constructor(
         private _contactService: ContactsService,
@@ -74,22 +75,37 @@ export class ContactsComponent implements OnInit {
          */
         allList = [...allList, ...this.contactsList];
 
-        const modalRef = this._dialog.open(MoveToListComponent, {
+        this.modalRef = this._dialog.open(MoveToListComponent, {
             direction: 'rtl',
             width: '400px',
             scrollStrategy: new NoopScrollStrategy(),
         })
 
-         /**
-         * concat list children to allList array
-         */
-          this.contactsList.forEach(cl => {
+        /**
+        * concat list children to allList array
+        */
+        this.contactsList.forEach(cl => {
             if (cl.children?.length) allList = [...allList, ...cl.children];
             return
         })
 
-        modalRef.componentInstance.allList = allList;
+        this.modalRef.componentInstance.allList = allList;
+        this.modalRef.componentInstance.listIdEmitter.subscribe((contactListId: number) => {
+            this.addContactToContactList(contactListId, contact.id);
+        });
 
+    }
+
+    addContactToContactList(contactListId: number, projectContactId: number): void {
+        this._contactService.addContactToContactList({
+            projectId: this.currentProjectId,
+            contactListId,
+            projectContactId
+        }).subscribe(res => {
+            this.modalRef?.close();
+            this.getListOfContactsList();
+            this.getListOfContacts();
+        })
     }
 
     ngOnInit(): void {

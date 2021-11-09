@@ -49,3 +49,11 @@
 .row {
     margin: 0;
 }
+
+// background
+@each $color,
+$value in $theme-colors {
+    .fill-#{$color} {
+        fill: $value;
+    }
+}

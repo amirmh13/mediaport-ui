@@ -16,10 +16,12 @@ export class ContactListComponent implements OnInit, OnChanges {
 
     @Input() currentListId: number | null = 0;
     @Input() contactsList: ContactsListDto[] = [];
+    @Output() callContactsListEmitter = new EventEmitter<void>();
 
     currentProjectId: number = 0;
     selectedFolderId: number | null = null;
     createNewList: boolean = false;
+    openedListId: number | undefined = undefined;
 
     constructor(
         private _contactService: ContactsService,
@@ -28,11 +30,11 @@ export class ContactListComponent implements OnInit, OnChanges {
         private _alertService: AlertService,
     ) { }
 
-    getContactsList(): void {
-        this._contactService.getListOfContactLists(this.currentProjectId).subscribe(res => {
-            this.contactsList = res;
-        })
-    }
+    // getContactsList(): void {
+    //     this._contactService.getListOfContactLists(this.currentProjectId).subscribe(res => {
+    //         this.contactsList = res;
+    //     })
+    // }
 
     onGoToListClick(list?: ContactsListDto): void {
         if (list) this._router.navigate(['projects', this.currentProjectId, 'contacts', list?.id]);
@@ -68,22 +70,28 @@ export class ContactListComponent implements OnInit, OnChanges {
             parentListId: this.selectedFolderId ? this.selectedFolderId : null,
             name
         }).subscribe(res => {
-            this.getContactsList();
+            // this.getContactsList();
+            this.callContactsListEmitter.emit();
             this.createNewList = false;
         })
     }
 
     ngOnChanges(): void {
         this.selectedFolderId = this.currentListId ? this.currentListId : null;
+
+        this.contactsList.forEach(cl => {
+            const foundedChildList = cl.children.find(child => child.id == this.currentListId);
+            if (foundedChildList) this.openedListId = cl.id;
+        })
+
+        console.log(this.openedListId);
+        
     }
 
     ngOnInit(): void {
         this._store.pipe(select(selectProjectId)).subscribe(id => {
             this.currentProjectId = id;
         })
-
-        this.getContactsList();
-
     }
 
 }

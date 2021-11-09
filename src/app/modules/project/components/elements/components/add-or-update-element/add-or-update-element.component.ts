@@ -51,6 +51,8 @@ export class AddOrUpdateElementComponent implements OnInit {
     const selectedColor: string = color.replace('#', '');
 
     this.elementPostBody.color = selectedColor;
+
+    if (this.elementPostBody.id) this.setColorForElement(selectedColor);
   }
 
   onSubmitClick(): void {
@@ -64,7 +66,6 @@ export class AddOrUpdateElementComponent implements OnInit {
 
   onDeleteElementClick(element: ElementDto): void {
     this._alertService.open('', `آیا از حذف عنصر ${element.name} اطمینان دارید؟`).then(result => {
-      console.log(element);
       this.deleteElement(element.id);
     })
   }
@@ -87,6 +88,14 @@ export class AddOrUpdateElementComponent implements OnInit {
     }).subscribe(res => {
       this.getListOfElements();
     })
+  }
+
+  setColorForElement(color: string): void {
+    this._elementService.setElementTypeColor({
+      color,
+      projectId: this.currentProjectId,
+      projectElementTypeId: Number(this.elementPostBody.id)
+    }).subscribe(res => { })
   }
 
   ngOnInit(): void {

@@ -4,6 +4,7 @@
             <app-contact-list class="col-12 row px-0"
             [currentListId]="this.contactsPostBody.listId"
             [contactsList]="contactsList"
+            (callContactsListEmitter)="getListOfContactsList()"
             ></app-contact-list>
         </div>
     </div>

@@ -33,4 +33,8 @@ export class ElementsService {
         return this._http.post(`${environment.apiBaseUrl}/v1/Project/Elements/DeleteElement`, body)
     }
 
+    setElementTypeColor(body: { projectId: number; projectElementTypeId: number; color: string; }): Observable<unknown> {
+        return this._http.post(`${environment.apiBaseUrl}/v1/Project/Elements/SetElementTypeColor`, body)
+    }
+
 }
