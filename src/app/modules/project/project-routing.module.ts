@@ -40,7 +40,7 @@ const routes: Routes = [{
         {
             path: 'scenes',
             canActivate: [AuthGuardGuard],
-            loadChildren: () => import('../project/components/scenes/scenes-routing.module').then(m => m.ScenesRoutingModule),
+            loadChildren: () => import('../project/components/scenes/scenes.module').then(m => m.ScenesModule),
             data: { name: 'فیلم نامه' }
         },
         // { path: '**', redirectTo: `${RoutesEnum.elements}`, pathMatch: 'full' }

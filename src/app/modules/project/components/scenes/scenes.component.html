@@ -1,1 +1,19 @@
-<p>scenes works!</p>
+<section class="scenes col-12 row px-0">
+    <header class="col-12 row justify-content-between px-0 py-2 border-bottom">
+        <div class="col-2">
+            <select class="form-control">
+                <option *ngFor='let item of [1,2,3]' [value]="item">{{item}}</option>
+            </select>
+        </div>
+
+        <div class="col-auto d-flex align-items-center px-0">
+            <select class="form-control mx-2 py-2">
+                <option *ngFor='let item of [1,2,3]' [value]="item">{{item}}</option>
+            </select>
+
+            <button mat-raised-button color="primary" class="col-auto rounded-2 px-4">
+                <span>+ افزودن قسمت</span>
+            </button>
+        </div>
+    </header>
+</section>
