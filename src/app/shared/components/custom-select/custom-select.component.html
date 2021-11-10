@@ -1,0 +1,26 @@
+<section class="row align-items-center bg-white rounded-2 px-3 py-2 position-relative" (clickOutside)="isOpen = false">
+    <div (click)="isOpen = !isOpen" class="label-section col-12 row px-0 position-relative cursor-pointer">
+        {{label}}
+
+        <img width="8" height="8" src="/assets/images/noun-arrows.svg" class="position-absolute col-auto px-0 start-0 top-50 translate-middle-y" alt="">
+    </div>
+
+    <div *ngIf="isOpen" class="row options-wrapper position-absolute bg-white shadow rounded-2 top-100 end-0 mt-1 py-2 cursor-pointer px-0">
+        <ng-container *ngIf="!optionsTemp;else contentTemp">
+            <div *ngFor="let option of options" (click)="onOptionClick(option)" class="option-item col-12 row justify-content-between mb-2 px-3 py-1" [class.text-primary]="option[idKey] == model">
+                <span class="col-auto cfs-12 px-0">{{option[labelKey]}}</span>
+    
+                <ng-container *ngIf="extraLabel">
+                    <span class="col-auto cfs-10 px-0">
+                        ویرایش شده در
+                        {{option[extraLabel]}}
+                    </span>
+                </ng-container>
+            </div>
+        </ng-container>
+
+        <ng-template #contentTemp>
+            <ng-template [ngTemplateOutlet]="optionsTemp" [ngTemplateOutletContext]="{options:options, onOptionClick:onOptionClick}"></ng-template>
+        </ng-template>
+    </div>
+</section>

@@ -6,3 +6,5 @@ export * from './UpdateAdditionalInfoPb.model';
 export * from './AddElementToScenePb.model';
 export * from './RemoveElementFromScenePb.model';
 export * from './SceneElementDto.model';
+
+export * from './Mode.enum';

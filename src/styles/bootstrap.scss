@@ -54,6 +54,6 @@
 @each $color,
 $value in $theme-colors {
     .fill-#{$color} {
-        fill: $value;
+        fill: $value !important;
     }
 }

@@ -1,17 +1,37 @@
 <section class="scenes col-12 row px-0">
     <header class="col-12 row justify-content-between px-0 py-2 border-bottom">
         <div class="col-2">
-            <select class="form-control">
-                <option *ngFor='let item of [1,2,3]' [value]="item">{{item}}</option>
-            </select>
+            <mp-select *ngIf="episodes?.length"
+            [idKey]="'id'"
+            [options]="modeSelectOptions"
+            [(model)]="selectedMode"
+            (modelChange)="modeSelectChange($event)"
+            class="row col-auto mx-auto mx-lg-3 mb-2 mb-lg-0"
+            style="width: 220px;" #modeSelect>
+                <ng-template #optionsTemp let-options=options let-onOptionClick=onOptionClick>
+                    <div *ngFor="let option of options;let last = last" class="cfs-12 row align-items-center mb-2" [class.text-primary]="selectedMode == option.id" (click)="modeSelect.onOptionClick(option)" [class.mb-2]="!last">
+                        <svg width="16" height="16" class="col-auto fill-{{selectedMode == option.id ? 'primary':'secondary'}} px-0 ms-3">
+                            <use [attr.xlink:href]="'/assets/images/svgs.svg#' + option.svgId"></use>
+                        </svg>
+                        {{option.name}}
+                    </div>
+                </ng-template>
+            </mp-select>
         </div>
 
-        <div class="col-auto d-flex align-items-center px-0">
-            <select class="form-control mx-2 py-2">
-                <option *ngFor='let item of [1,2,3]' [value]="item">{{item}}</option>
-            </select>
+        <div class="col-auto row col-auto align-items-center px-0">
+           <mp-select *ngIf="episodes?.length"
+           [idKey]="'id'"
+           [labelKey]="'title'"
+           [options]="episodes"
+           [extraLabel]="'lastUpdateTimeStr'"
+           [(model)]="selectedEpisodeId"
+           (modelChange)="episodeSelectChange($event)"
+           class="row col-auto mx-auto mx-lg-3 mb-2 mb-lg-0"
+           style="width: 220px;">
+           </mp-select>
 
-            <button mat-raised-button color="primary" class="col-auto rounded-2 px-4">
+            <button mat-raised-button color="primary" (click)="onOpenAddEpisodeModalClick()" class="col-auto rounded-2 mx-auto mx-lg-0 px-4">
                 <span>+ افزودن قسمت</span>
             </button>
         </div>
