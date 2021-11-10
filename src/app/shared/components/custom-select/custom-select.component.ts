@@ -38,20 +38,6 @@ export class CustomSelectComponent implements OnInit, OnChanges {
     this.fillLabel();
   }
 
-  ngOnInit(): void {
-
-    // this.options = [
-    //   { name: 'قسمت اول', id: 1 },
-    //   { name: 'قسمت دوم', id: 2 },
-    //   { name: 'قسمت سوم', id: 3 },
-    //   { name: 'قسمت چهارم', id: 4 },
-    //   { name: 'قسمت پنجم', id: 5 },
-    //   { name: 'قسمت ششم', id: 6 },
-    //   { name: 'قسمت هفتم', id: 7 },
-    //   { name: 'قسمت هشتم', id: 8 },
-    //   { name: 'قسمت نهم', id: 9 },
-    //   { name: 'قسمت دهم', id: 10 },
-    // ]
-  }
+  ngOnInit(): void { }
 
 }

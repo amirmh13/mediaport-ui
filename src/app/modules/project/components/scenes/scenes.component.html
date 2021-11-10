@@ -8,7 +8,7 @@
             (modelChange)="modeSelectChange($event)"
             class="row col-auto mx-auto mx-lg-3 mb-2 mb-lg-0"
             style="width: 220px;" #modeSelect>
-                <ng-template #optionsTemp let-options=options let-onOptionClick=onOptionClick>
+                <ng-template #optionsTemp let-options=options>
                     <div *ngFor="let option of options;let last = last" class="cfs-12 row align-items-center mb-2" [class.text-primary]="selectedMode == option.id" (click)="modeSelect.onOptionClick(option)" [class.mb-2]="!last">
                         <svg width="16" height="16" class="col-auto fill-{{selectedMode == option.id ? 'primary':'secondary'}} px-0 ms-3">
                             <use [attr.xlink:href]="'/assets/images/svgs.svg#' + option.svgId"></use>
