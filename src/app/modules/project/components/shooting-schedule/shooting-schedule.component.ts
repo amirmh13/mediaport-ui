@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SetShootingDayDateComponent } from './components/set-shooting-day-date/set-shooting-day-date.component';
 import { AlertService } from '@shared/services/alert/alert.service';
 import { InitShootingScheduleComponent } from './components/init-shooting-schedule/init-shooting-schedule.component';
+import { ShootingScheduleInitInputDto } from './models/ShootingScheduleInitInputDto.model';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -105,18 +106,24 @@ export class ShootingScheduleComponent implements OnInit {
     });
   }
 
+  initializeShootingSchedule(model: ShootingScheduleInitInputDto) {
+
+  }
+
   openInitShootingScheduleModal() {
     const dialogRef = this.dialog.open(InitShootingScheduleComponent, {
       width: '500px',
       direction: 'rtl',
-      disableClose:true
+      disableClose: true
     });
 
     dialogRef.componentInstance.projectId = this.currentProjectId;
 
     dialogRef.componentInstance.initShootinScheduleEmitter.subscribe(res => {
-      this.getListOfShootingScheduleDays();
-      dialogRef.close();
+      this._shootingScheduleService.initializeShootingSchedule(res).subscribe(r => {
+        this.getListOfShootingScheduleDays();
+        dialogRef.close();
+      })
     });
   }
 

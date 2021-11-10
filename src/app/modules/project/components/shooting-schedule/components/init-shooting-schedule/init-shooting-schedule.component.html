@@ -1,1 +1,55 @@
-<p>init-shooting-schedule works!</p>
+<h2 mat-dialog-title class="text-black fw-bold border-primary border-bottom pb-2">تنظیمات اولیه برنامه ریزی</h2>
+
+
+<form class="" *ngIf='pageStep==1' #initScheduleFirstStepForm="ngForm">
+    <mat-dialog-content class="px-2 px-lg-4">
+        <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="breakType" id="pageBreakType"
+                [value]="shootingScheduleBreakDownTypeEnum.page" required [(ngModel)]="breakDownType">
+            <label class="form-control" for="pageBreakType">
+                <span>صفحه</span>
+                <input class="form-control bg-white mt-4" required type="number" name="pageBreakValue"
+                    placeholder="تعداد صفحات" *ngIf="breakDownType==shootingScheduleBreakDownTypeEnum.page"
+                    [(ngModel)]="breakDownValue" />
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="breakType" id="hourBreakType"
+                [value]="shootingScheduleBreakDownTypeEnum.workDay" required [(ngModel)]="breakDownType">
+            <label class="form-control" for="hourBreakType">
+                <span>ساعت</span>
+                <input class="form-control bg-white mt-4" required type="number" name="hourBreakValue"
+                    placeholder="ساعت کاری در روز" *ngIf="breakDownType==shootingScheduleBreakDownTypeEnum.workDay"
+                    [(ngModel)]="breakDownValue" />
+            </label>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <a class="col-4" mat-raised-button color="primary" (click)="onStepOneSubmit(initScheduleFirstStepForm)">مرحله
+            بعد</a>
+    </mat-dialog-actions>
+</form>
+
+<form class="" *ngIf='pageStep==2' #initScheduleSecondStep="ngForm">
+    <mat-dialog-content class="px-2 px-lg-4">
+        <div class="row mb-3">
+            <label for="firstOrderable" class="col-sm-3 col-form-label">اولویت اول</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="firstOrderable" name="firstOrderable" [(ngModel)]="firstOrderable">
+                    <option *ngFor="let item of orderableTypes" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label for="secondOrderable" class="col-sm-3 col-form-label">اولویت دوم</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="secondOrderable" name="secondOrderable" [(ngModel)]="secondOrderable">
+                    <option *ngFor="let item of orderableTypes" [value]="item.id">{{item.name}}</option>
+                </select>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <a class="col-4" mat-raised-button color="primary" (click)="onStepTwoSubmit(initScheduleSecondStep)">ثبت</a>
+    </mat-dialog-actions>
+</form>
