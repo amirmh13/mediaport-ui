@@ -1,14 +1,15 @@
-import { MatButtonModule } from "@angular/material/button";
-import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatPaginatorIntl } from '@angular/material/paginator';
+import { DialogLayoutModule } from "@shared/components/dialog-layout/dialog-layout.module";
 
 export const MATERIAL_COMMON_MODULES = [
-    MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MatDialogModule,
+    /**
+     * Contains MatDialog, MatButton and dialog layout stuff
+     */
+    DialogLayoutModule,
 ];
 
 export function getPersianPaginatorIntl() {

@@ -24,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             horizontalPosition: 'right',
           });
 
-          ref.instance.message = err.error.message;
+          ref.instance.message = err.error.message || 'خطایی رخ داد!';
 
         }
 

@@ -1,0 +1,14 @@
+@import '_base';
+
+.scenes {
+
+    .scene-brief-wrapper {
+        height: calc(100vh - 195px);
+        overflow: hidden;
+
+        &:hover {
+            overflow: auto;
+            @include customScrollbar(7px);
+        }
+    }
+}

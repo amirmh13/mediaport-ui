@@ -28,6 +28,12 @@ a {
     cursor: pointer;
 }
 
+.pages-header {
+    position: sticky;
+    top: 74px;
+    z-index: 401;
+    background: $body-bg;
+}
 
 .mat-dialog-content {
     @include customScrollbar(7px);

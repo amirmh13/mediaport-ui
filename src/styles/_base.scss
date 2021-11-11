@@ -76,6 +76,7 @@ $rotates: 45, 90, 180, 270, 360;
     }
 
     scrollbar-color: $color #dee0e2;
+    overscroll-behavior: contain;
 }
 
 @mixin responsive ($size) {

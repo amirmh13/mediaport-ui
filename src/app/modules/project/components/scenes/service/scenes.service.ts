@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IdNameDto } from '@shared/models';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AddElementToScenePb, AddScenePb, AddSubScenePb, RemoveElementFromScenePb, SceneDto, SceneElementDto, UpdateAdditionalInfoPb, UpdateSceneScriptPb } from '../models';
+import { AddElementToScenePb, AddScenePb, AddSubScenePb, RemoveElementFromScenePb, SceneDto, SceneElementDto, ScenesListPb, UpdateAdditionalInfoPb, UpdateSceneScriptPb } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class ScenesService {
     return this._http.get<IdNameDto[]>(`${environment.apiBaseUrl}/v1/Project/Episodes/Scenes/GetListOfLocationTypes`, { params: { projectId } })
   }
 
-  getListOfScenes(body: { projectId: number; projectEpisodeId: number }): Observable<SceneDto[]> {
+  getListOfScenes(body: ScenesListPb): Observable<SceneDto[]> {
     return this._http.post<SceneDto[]>(`${environment.apiBaseUrl}/v1/Project/Episodes/Scenes/GetListOfScenes`, body)
   }
 

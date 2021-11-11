@@ -1,11 +1,11 @@
-export interface AddScenePb {
-    projectId: number;
-    projectEpisodeId: number;
-    briefDescription: string;
-    dayStatusId: number;
-    locationTypeId: number;
-    projectLocationId: number;
-    projectLocationSubalternId: number;
-    productionTime: number;
-    editTime: number;
+export class AddScenePb {
+    projectId: number = 0;
+    projectEpisodeId: number = 0;
+    briefDescription: string = '';
+    dayStatusId: number = 0;
+    locationTypeId: number = 0;
+    projectLocationId: number = 0;
+    projectLocationSubalternId: number = 0;
+    productionTime: number = 0;
+    editTime: number = 0;
 }

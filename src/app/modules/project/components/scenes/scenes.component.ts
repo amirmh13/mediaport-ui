@@ -5,7 +5,9 @@ import { select, Store } from '@ngrx/store';
 import { RootState } from 'src/app/state/App.reducers';
 import { selectProjectId } from '../../state/Project.selectors';
 import { AddEpisodeComponent } from './components/add-episode/add-episode.component';
-import { Mode } from './models';
+import { AddOrUpdateSceneComponent } from './components/add-or-update-scene/add-or-update-scene.component';
+import { Mode } from './enums';
+import { AddScenePb, SceneDto, ScenesListPb } from './models';
 import { AddEpisodePb, EpisodeDto, EpisodesService } from './service/episodes.service';
 import { ScenesService } from './service/scenes.service';
 
@@ -25,6 +27,8 @@ export class ScenesComponent implements OnInit {
     { name: 'خرد کردن', id: Mode.CHOPPING, svgId: 'page-collection-secondary' },
     { name: 'نمای کلی', id: Mode.OVERVIEW, svgId: 'documents-secondary' },
   ];
+  scenesListPostBody = new ScenesListPb();
+  scenesList: SceneDto[] = [];
 
   constructor(
     private _scenesService: ScenesService,
@@ -33,9 +37,17 @@ export class ScenesComponent implements OnInit {
     private _dialog: MatDialog,
   ) { }
 
-  getListOfEpisodes(): void {
+  getListOfEpisodes(initialize: boolean = false): void {
     this._episodesService.getListOfEpisodes(this.currentProjectId).subscribe(res => {
       this.episodes = res;
+
+      if (this.episodes?.length && initialize) {
+        this.selectedEpisodeId = this.episodes[0].id;
+        this.scenesListPostBody.projectEpisodeId = this.selectedEpisodeId;
+
+        this.getListOfScenes();
+      }
+
     })
   }
 
@@ -46,6 +58,8 @@ export class ScenesComponent implements OnInit {
 
   episodeSelectChange(id: number): void {
     console.log(id);
+    this.scenesListPostBody.projectEpisodeId = id;
+    this.getListOfScenes();
   }
 
   onOpenAddEpisodeModalClick(): void {
@@ -65,6 +79,33 @@ export class ScenesComponent implements OnInit {
     console.log(mode);
   }
 
+  getListOfScenes(): void {
+    this.scenesListPostBody.projectId = this.currentProjectId;
+    this._scenesService.getListOfScenes(this.scenesListPostBody).subscribe(res => {
+      console.log(res);
+      this.scenesList = res;
+      // this.scenesList = [...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList, ...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList, ...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList, ...this.scenesList];
+    })
+  }
+
+  onOpenAddSceneDialog(): void {
+    const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
+      direction: 'rtl',
+    });
+
+    dialogRef.componentInstance.submitEmitter.subscribe(async (addScenePb) => {
+      addScenePb.projectId = this.currentProjectId;
+      addScenePb.projectEpisodeId = this.selectedEpisodeId;
+
+      await this.addScene(addScenePb);
+      dialogRef.close();
+    })
+  }
+
+  async addScene(postBody: AddScenePb): Promise<void> {
+    await this._scenesService.addScene(postBody).toPromise();
+  }
+
   ngOnInit(): void {
     this._store.pipe(select(selectProjectId)).subscribe(projectId => {
       this.currentProjectId = projectId;
@@ -72,7 +113,7 @@ export class ScenesComponent implements OnInit {
 
     this.selectedMode = Mode.EDITOR;
 
-    this.getListOfEpisodes();
+    this.getListOfEpisodes(true);
   }
 
 }

@@ -1,6 +1,6 @@
-<h2 mat-dialog-title class="text-black fw-bold border-primary border-bottom pb-2">افزودن قسمت جدید</h2>
+<mp-dialog-header>افزودن قسمت جدید</mp-dialog-header>
 
-<form class="" #locationFrom="ngForm">
+<form>
     <mat-dialog-content class="px-2 px-lg-4">
         <div class="col-12 row px-0 mb-3">
             <label for="title" class="form-label text-black px-0">
@@ -15,7 +15,5 @@
             <textarea name="description" id="description" [(ngModel)]="addEpisodePb.description" cols="30" rows="3" class="form-control rounded-2 border-0"></textarea>
         </div>
     </mat-dialog-content>
-    <mat-dialog-actions align="center">
-        <button class="col-4" mat-raised-button color="primary" [disabled]="!addEpisodePb?.title" type="submit" (click)="onSubmitClick()">تایید</button>
-    </mat-dialog-actions>
+    <mp-dialog-footer [disabled]="!addEpisodePb?.title" (onSubmit)="onSubmitClick()"></mp-dialog-footer>
 </form>
