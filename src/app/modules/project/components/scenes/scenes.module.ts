@@ -10,6 +10,7 @@ import { AddEpisodeComponent } from './components/add-episode/add-episode.compon
 import { AddOrUpdateSceneComponent } from './components/add-or-update-scene/add-or-update-scene.component';
 import { SceneCardComponent } from './components/scene-card/scene-card.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { QuillModule } from 'ngx-quill';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     MATERIAL_COMMON_MODULES,
     CustomSelectModule,
     EditorModule,
+    QuillModule.forRoot()
   ]
 })
 export class ScenesModule { }

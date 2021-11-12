@@ -59,9 +59,10 @@
 <tr [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
     <td colspan="8" class="border-0">
         <!-- <textarea class="form-control" cols="30" rows="5"></textarea> -->
-        <editor
+        <!-- <editor
         apiKey="q1is9qcqqkljgu3r45ddfeqiliuq4whlvv8p1bkqzkplm4dw"
         [init]="editorConfigs"
-      ></editor>
+      ></editor> -->
+        <quill-editor [styles]="{height: '200px'}" [modules]="configs.modules" [(ngModel)]="scene.briefDescription"></quill-editor>
     </td>
 </tr>
