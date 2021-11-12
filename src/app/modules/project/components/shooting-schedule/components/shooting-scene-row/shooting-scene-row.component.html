@@ -3,8 +3,8 @@
     <div class="col-1 d-flex justify-content-center align-items-center">{{scene.episodeName}}</div>
     <div class="col-1 d-flex justify-content-center align-items-center">{{scene.locationType.name}}</div>
     <div class="col-1 d-flex justify-content-center align-items-center">{{scene.dayStatus.name}}</div>
-    <div class="col-2 d-flex justify-content-center align-items-center">{{scene.briefDescription}}</div>
-    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.mainLocation.name}}</div>
+    <div class="col-2 d-flex justify-content-center align-items-center">{{scene?.briefDescription || ''}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.mainLocation?.name || ''}}</div>
     <div class="col-1 d-flex justify-content-center align-items-center">{{scene.productionTimeStr}}</div>
     <div class="col-1 d-flex justify-content-center align-items-center">{{scene.editTimeStr}}</div>
     <div class="col-2 d-flex justify-content-end align-items-center">
