@@ -25,12 +25,12 @@
 
 
     <main class="col-12 row align-items-start px-0">
-        <aside class="col-lg-3 col-xxl-2 row bg-white position-sticky px-0" style="top: 131px; height: calc(100vh - 139px);">
+        <aside class="col-lg-3 col-xxl-2 row bg-white position-sticky px-0 d-none d-lg-flex" style="top: 131px; height: calc(100vh - 139px);">
             <div class="col-12 row align-content-between position-relative overflow-auto px-0">
                 <div class="scene-brief-wrapper col-12 row align-content-start p-0">
                     <div *ngFor="let scene of scenesList;let last = last" class="scene-brief-card col-12 cfs-12 row hstack justify-content-between py-1" [class.mb-1]="!last" style="background-color: #FFEBD3;">
                         <div class="col-auto px-0">
-                            <span class="col-auto px-0 ms-2">{{scene.order}}{{scene.subOrder ? ' ' + scene.subOrder : ''}}</span>
+                            <span class="col-auto px-0 ms-2">{{scene.order}}{{scene.subOrder ? '' + scene.subOrder : ''}}</span>
                             {{scene.locationType.name ?? ''}}
                             {{(scene.dayStatus.name && scene.locationType.name) ? '- ' + scene.dayStatus.name  : ''}}
                             {{(scene.mainLocation && scene.dayStatus.name) ? '- ' + scene.mainLocation.name  : ''}}
@@ -45,7 +45,57 @@
             </div>
         </aside>
         <div class="col-lg-9 col-xxl-10 row align-items-start align-content-start ps-0">
-            <div *ngFor="let item of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" class="py-3" style="margin-bottom: 50px;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Maiores illo, est quo adipisci sunt obcaecati illum rem temporibus eos deleniti delectus, odit mollitia esse error nobis quam? Saepe, qui commodi.</div>
+            <!-- <div *ngIf="1" class="table-responsive overflow-auto px-0 py-3 mb-2">
+                <div class="scene-table-header col-md-12 d-inline-flex d-md-flex justify-content-lg-between text-muted mb-3">
+                    <div class="col-2 col-lg-1 text-black px-2 px-lg-0">
+
+                    </div>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        روز سکانس
+                    </span>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        محل سکانس
+                    </span>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        خلاصه سکانس
+                    </span>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        لوکیشن اصلی
+                    </span>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        لوکیشن فرعی
+                    </span>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        زمان تولید
+                    </span>
+                    <span class="col-3 col-lg text-center px-2 px-lg-0">
+                        زمان تدوین
+                    </span>
+                </div>
+
+                <mp-scene-card *ngFor="let scene of scenesList" [scene]="scene" class="d-flex px-0"></mp-scene-card>
+            </div> -->
+            <div class="table-responsive">
+                <table class="scenes-table table align-middle">
+                    <tr>
+                        <th></th>
+                        <th> روز سکانس</th>
+                        <th> محل سکانس</th>
+                        <th> خلاصه سکانس</th>
+                        <th>لوکیشن اصلی</th>
+                        <th> لوکیشن فرعی</th>
+                        <th>زمان تولید</th>
+                        <th>زمان تدوین</th>
+                    </tr>
+                    <ng-container *ngFor="let scene of scenesList">
+
+                        
+                            <mp-scene-card [scene]="scene" style="display: contents;"></mp-scene-card>
+                       
+                        
+                    </ng-container>
+                </table>
+            </div>
         </div>
     </main>
 </section>

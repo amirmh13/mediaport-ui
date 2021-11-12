@@ -11,4 +11,9 @@
             @include customScrollbar(7px);
         }
     }
+
+    .scenes-table {
+        border-collapse: inherit; 
+        border-spacing: 0 0.5rem;
+    }
 }

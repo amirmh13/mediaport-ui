@@ -8,13 +8,16 @@ import { MATERIAL_COMMON_MODULES } from 'src/app/MaterialModulesArray.const';
 import { CustomSelectModule } from '@shared/components/custom-select/custom-select.module';
 import { AddEpisodeComponent } from './components/add-episode/add-episode.component';
 import { AddOrUpdateSceneComponent } from './components/add-or-update-scene/add-or-update-scene.component';
+import { SceneCardComponent } from './components/scene-card/scene-card.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
   declarations: [
     ScenesComponent,
     AddEpisodeComponent,
-    AddOrUpdateSceneComponent
+    AddOrUpdateSceneComponent,
+    SceneCardComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +25,7 @@ import { AddOrUpdateSceneComponent } from './components/add-or-update-scene/add-
     FormsModule,
     MATERIAL_COMMON_MODULES,
     CustomSelectModule,
+    EditorModule,
   ]
 })
 export class ScenesModule { }
