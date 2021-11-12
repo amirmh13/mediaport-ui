@@ -1,4 +1,4 @@
-<div class="col-12 row p-3 mt-2 border rounded-2 bg-white">
+<div class="col-md-12 row justify-content-between align-items-center bg-white rounded-2 border border-2 py-2 px-3 mb-2">
     <div class="col-1 d-flex justify-content-between align-items-center">
         <a (click)="openDetail=!openDetail">
             <img src="/assets/images/arrow-down.svg" *ngIf="transactionCategory?.children?.length!=0">
@@ -55,12 +55,13 @@
 
 <mat-menu #subMenu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
     <ng-template matMenuContent let-category="category">
-        <div class="row"><a class="cursor-pointer text-black" (click)="editCategory(category)">ویرایش</a>        </div>
+        <div class="row"><a class="cursor-pointer text-black" (click)="editCategory(category)">ویرایش</a></div>
         <div class="row">
             <a class="cursor-pointer text-black" (click)="openAddTransactionDialogClick(category.id)">افزودن هزینه</a>
         </div>
         <div class="row">
-            <a [routerLink]="['/projects', projectId, 'transactions',category.id]" class="cursor-pointer text-black">لیست تراکنش ها</a>
+            <a [routerLink]="['/projects', projectId, 'transactions',category.id]"
+                class="cursor-pointer text-black">لیست تراکنش ها</a>
         </div>
     </ng-template>
 </mat-menu>

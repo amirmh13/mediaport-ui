@@ -40,7 +40,7 @@
         </tbody>
     </table>
     <div class="col-12">
-        <mat-paginator dir="rtl" class="border rounded-2 bg-white" [length]="transactions?.recordCount"
+        <mat-paginator dir="rtl" class="border border-2 rounded-2 bg-white" [length]="transactions?.recordCount"
             [pageSize]="transactionPostBody?.pageSize" [pageSizeOptions]="[5, 10, 25, 100]"
             (page)="paginateEvent($event)">
         </mat-paginator>
