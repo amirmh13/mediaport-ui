@@ -91,14 +91,19 @@ export class ScenesComponent implements OnInit {
   onOpenAddSceneDialog(): void {
     const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
       direction: 'rtl',
+      width: '450px'
     });
+
+    dialogRef.componentInstance.currentProjectId = this.currentProjectId;
 
     dialogRef.componentInstance.submitEmitter.subscribe(async (addScenePb) => {
       addScenePb.projectId = this.currentProjectId;
       addScenePb.projectEpisodeId = this.selectedEpisodeId;
+      // addScenePb.projectLocationSubalternId = 1;
 
       await this.addScene(addScenePb);
       dialogRef.close();
+      this.getListOfScenes();
     })
   }
 

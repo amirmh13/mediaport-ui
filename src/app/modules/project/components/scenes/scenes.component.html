@@ -1,7 +1,7 @@
 <section class="scenes col-12 row px-0">
     <header class="pages-header col-12 row justify-content-between px-0 py-2 border-bottom">
         <div class="col-lg-2 px-0">
-            <mp-select *ngIf="episodes?.length" [idKey]="'id'" [options]="modeSelectOptions" [(model)]="selectedMode" (modelChange)="modeSelectChange($event)" class="row col-auto mx-auto ms-lg-3 me-lg-0 mb-2 mb-lg-0" style="width: 220px;" #modeSelect>
+            <mp-select [idKey]="'id'" [options]="modeSelectOptions" [(model)]="selectedMode" (modelChange)="modeSelectChange($event)" class="row col-auto mx-auto ms-lg-3 me-lg-0 mb-2 mb-lg-0" style="width: 220px;" #modeSelect>
                 <ng-template #optionsTemp let-options=options>
                     <div *ngFor="let option of options;let last = last" class="cfs-12 row align-items-center mb-2" [class.text-primary]="selectedMode == option.id" (click)="modeSelect.onOptionClick(option)" [class.mb-2]="!last">
                         <svg width="16" height="16" class="col-auto fill-{{selectedMode == option.id ? 'primary':'secondary'}} px-0 ms-3">
@@ -33,8 +33,8 @@
                             <span class="col-auto px-0 ms-2">{{scene.order}}{{scene.subOrder ? ' ' + scene.subOrder : ''}}</span>
                             {{scene.locationType.name ?? ''}}
                             {{(scene.dayStatus.name && scene.locationType.name) ? '- ' + scene.dayStatus.name  : ''}}
-                            {{(scene.mainLocation && scene.dayStatus.name) ? '- ' + scene.mainLocation  : ''}}
-                            {{(scene.subLocation && scene.mainLocation) ? '- ' + scene.subLocation + '-'  : ''}}
+                            {{(scene.mainLocation && scene.dayStatus.name) ? '- ' + scene.mainLocation.name  : ''}}
+                            {{(scene.subLocation && scene.mainLocation) ? '- ' + scene.subLocation.name + '-'  : ''}}
                         </div>
                     </div>
                 </div>

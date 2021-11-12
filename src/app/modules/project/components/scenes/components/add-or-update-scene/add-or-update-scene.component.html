@@ -4,15 +4,60 @@
     <mat-dialog-content class="px-2 px-lg-4">
         <div class="col-12 row px-0 mb-3">
             <label for="title" class="form-label text-black px-0">
-                عنوان
+                محل سکانس
             </label>
-            <input type="text" id="title" name="title" class="form-control rounded-2 border-0" required>
+            <select class="form-control" name="locationTypeId" [(ngModel)]="addScenePb.locationTypeId">
+                <option *ngFor="let locationType of locationTypes" [ngValue]="locationType.id">{{locationType.name}}</option>
+            </select>
+        </div>
+        <div class="col-12 row px-0 mb-3">
+            <label for="title" class="form-label text-black px-0">
+                زمان سکانس
+            </label>
+            <select class="form-control" name="dayStatusId" [(ngModel)]="addScenePb.dayStatusId">
+                <option *ngFor="let dayStatus of dayStatuses" [ngValue]="dayStatus.id">{{dayStatus.name}}</option>
+            </select>
         </div>
         <div class="col-12 row px-0 mb-3">
             <label for="description" class="form-label text-black px-0">
-                توضیحات
+                خلاصه سکانس
             </label>
-            <textarea name="description" id="description" cols="30" rows="3" class="form-control rounded-2 border-0"></textarea>
+            <textarea [(ngModel)]="addScenePb.briefDescription" name="briefDescription" id="description" cols="30" rows="3" class="form-control rounded-2 border-0"></textarea>
+        </div>
+        <div class="col-12 row px-0 mb-3">
+            <label for="title" class="form-label text-black px-0">
+                لوکیشین اصلی 
+            </label>
+            <select class="form-control" name="projectLocationId" [(ngModel)]="addScenePb.projectLocationId">
+                <option *ngFor="let location of locations" [ngValue]="location.id">{{location.title}}</option>
+            </select>
+        </div>
+        <div class="col-12 row px-0 mb-3">
+            <label for="description" class="form-label text-black px-0">
+               زمان تولید
+            </label>
+            <div class="col-12 row px-0">
+                <div class="col-lg-6 pe-lg-0">
+                    <input type="number" name="hour" class="form-control" placeholder="ساعت" #productionTimeHour>
+                </div>
+                <div class="col-lg-6 ps-lg-0">
+                    <input type="number" class="form-control" placeholder="دقیقه" #productionTimeMinute>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 row px-0 mb-3">
+            <label for="description" class="form-label text-black px-0">
+               زمان تدوین
+            </label>
+            <div class="col-12 row px-0">
+                <div class="col-lg-6 pe-lg-0">
+                    <input type="text" class="form-control" placeholder="ساعت" #editTimeHour>
+                </div>
+                <div class="col-lg-6 ps-lg-0">
+                    <input type="text" class="form-control" placeholder="دقیقه" #editTimeMinute>
+                </div>
+            </div>
         </div>
     </mat-dialog-content>
 
