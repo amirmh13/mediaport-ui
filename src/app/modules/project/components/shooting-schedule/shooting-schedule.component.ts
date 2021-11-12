@@ -5,12 +5,10 @@ import { selectProjectId } from '../../state/Project.selectors';
 import { ShootingScheduleService } from './service/shooting-schedule.service'
 import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ShootingScheduleResult } from './models/ShootingScheduleResult.model';
-import { DaySceneReorder } from './models/DaySceneReorder.model';
 import { MatDialog } from '@angular/material/dialog';
 import { SetShootingDayDateComponent } from './components/set-shooting-day-date/set-shooting-day-date.component';
 import { AlertService } from '@shared/services/alert/alert.service';
 import { InitShootingScheduleComponent } from './components/init-shooting-schedule/init-shooting-schedule.component';
-import { ShootingScheduleInitInputDto } from './models/ShootingScheduleInitInputDto.model';
 
 @Component({
   selector: 'app-shooting-schedule',
@@ -29,22 +27,9 @@ export class ShootingScheduleComponent implements OnInit {
     private _alertService: AlertService
   ) { }
 
-
   getListOfShootingScheduleDays() {
     this._shootingScheduleService.getListOfShootingScheduleDays(this.currentProjectId).subscribe(res => {
       this.shootingScheduleData = res;
-    });
-  }
-
-  lockSceneReorder(sceneId: number) {
-    this._shootingScheduleService.lockSceneReorder({ sceneId, projectId: this.currentProjectId }).subscribe(res => {
-      this.getListOfShootingScheduleDays();
-    });
-  }
-
-  unlockSceneReorder(sceneId: number) {
-    this._shootingScheduleService.unlockSceneReorder({ sceneId, projectId: this.currentProjectId }).subscribe(res => {
-      this.getListOfShootingScheduleDays();
     });
   }
 
@@ -69,14 +54,6 @@ export class ShootingScheduleComponent implements OnInit {
     }).subscribe(res => {
       this.getListOfShootingScheduleDays();
     })
-  }
-
-  setIsDone(e: any, sceneId: number) {
-    this._shootingScheduleService.setSceneDone({
-      done: JSON.parse(e.target.value),
-      projectId: this.currentProjectId,
-      sceneId: sceneId
-    }).subscribe(res => { });
   }
 
   openSetShootDateModal(dayId: number, date?: Date) {
@@ -104,10 +81,6 @@ export class ShootingScheduleComponent implements OnInit {
     this._shootingScheduleService.addNewShootingDay(this.currentProjectId).subscribe(res => {
       this.getListOfShootingScheduleDays();
     });
-  }
-
-  initializeShootingSchedule(model: ShootingScheduleInitInputDto) {
-
   }
 
   openInitShootingScheduleModal() {

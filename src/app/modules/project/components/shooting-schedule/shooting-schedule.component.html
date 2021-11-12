@@ -4,8 +4,7 @@
       + افزودن روز کاری
     </button>
   </div>
-  <div cdkDropListGroup>
-
+  <div cdkDropListGroup class="cfs-12">
     <div class="col-12 row justify-content-between py-3 px-0 mt-2">
       <div class="col-1 d-flex justify-content-center align-items-center">شماره سکانس</div>
       <div class="col-1 d-flex justify-content-center align-items-center">ق</div>
@@ -20,37 +19,18 @@
 
     <div *ngFor="let day of shootingScheduleData">
       <div cdkDropList [cdkDropListData]="day" (cdkDropListDropped)="daySceneReorder($event)" style="min-height: 60px;">
-        <div cdkDrag class="col-12 row justify-content-between py-3 px-0 mt-2 border rounded-2 bg-white cursor-pointer"
-          *ngFor="let scene of day.scenes" [cdkDragDisabled]="scene.locked" [cdkDragData]="scene">
+        <app-shooting-scene-row *ngFor="let scene of day.scenes" cdkDrag [cdkDragDisabled]="scene.locked"
+          [cdkDragData]="scene" [scene]="scene" [currentProjectId]="currentProjectId"
+          (getListOfShootingScheduleEmitter)="getListOfShootingScheduleDays()">
           <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.sceneOrder}}</div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.episodeName}}</div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.locationType.name}}</div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.dayStatus.name}}</div>
-          <div class="col-2 d-flex justify-content-center align-items-center">{{scene.briefDescription}}</div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.mainLocation.name}}</div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.productionTimeStr}}</div>
-          <div class="col-1 d-flex justify-content-center align-items-center">{{scene.editTimeStr}}</div>
-          <div class="col-2 d-flex justify-content-end align-items-center">
-            <span class="circle-dot"
-              [ngClass]="{'green': scene.isDone, 'red' : scene.isDone.toString() =='false' }"></span>
-            <select class="done-state-select" (change)="setIsDone($event,scene.sceneId)" [(ngModel)]="scene.isDone">
-              <option [value]="true">انجام شده</option>
-              <option [value]="false">انجام نشده</option>
-            </select>
-            <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu"
-              [matMenuTriggerData]="{locked:scene.locked, sceneId:scene.sceneId}" dir="rtl">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-          </div>
-        </div>
+        </app-shooting-scene-row>
       </div>
-      <div class="col-12 row justify-content-around p-3 mt-2 border rounded-2 text-white"
+
+      <div class="col-md-12 d-flex justify-content-around align-items-center border border-2 rounded-2 text-white py-3 px-3 mb-2 mt-2"
         [ngClass]="{'bg-dark-gray': !day.warningState, 'bg-day-warning' : day.warningState }">
         <div class="col-auto d-flex justify-content-center align-items-center">پایان روز {{day.dayNo}}</div>
         <div class="col-auto d-flex justify-content-center align-items-center">تعداد صفحات {{day.pageCounts}}</div>
-        <div class="col-auto d-flex justify-content-center align-items-center">زمان پیش بینی شده
-          {{day.estimatedTimeStr}}</div>
+        <div class="col-auto d-flex justify-content-center align-items-center">زمان پیش بینی شده {{day.estimatedTimeStr}}</div>
         <div class="col-auto d-flex justify-content-center align-items-center cursor-pointer">
           <span *ngIf="day.date" (click)="openSetShootDateModal(day.id,day.date)"> تاریخ شوت: {{day.dateStr}} </span>
           <span *ngIf="!day.date" (click)="openSetShootDateModal(day.id)">انتخاب تاریخ شوت</span>
@@ -61,12 +41,3 @@
     </div>
   </div>
 </section>
-
-<mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
-  <ng-template matMenuContent let-sceneId="sceneId" let-locked="locked">
-    <div class="row">
-      <a class="cursor-pointer text-black" *ngIf="locked" (click)="unlockSceneReorder(sceneId)">آزاد کردن سکانس</a>
-      <a class="cursor-pointer text-black" *ngIf="!locked" (click)="lockSceneReorder(sceneId)">قفل کردن سکانس</a>
-    </div>
-  </ng-template>
-</mat-menu>

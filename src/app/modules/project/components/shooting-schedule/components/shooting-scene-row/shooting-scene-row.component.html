@@ -1,0 +1,31 @@
+<div class="col-md-12 d-flex justify-content-between align-items-center bg-white rounded-2 border border-2 py-2 px-3 mb-2 cursor-pointer">
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.sceneOrder}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.episodeName}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.locationType.name}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.dayStatus.name}}</div>
+    <div class="col-2 d-flex justify-content-center align-items-center">{{scene.briefDescription}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.mainLocation.name}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.productionTimeStr}}</div>
+    <div class="col-1 d-flex justify-content-center align-items-center">{{scene.editTimeStr}}</div>
+    <div class="col-2 d-flex justify-content-end align-items-center">
+        <span class="circle-dot" [ngClass]="{'green': scene.isDone, 'red' : scene.isDone.toString() =='false' }"></span>
+        <select class="done-state-select" (change)="setIsDone($event,scene.sceneId)" [(ngModel)]="scene.isDone">
+            <option [value]="true">انجام شده</option>
+            <option [value]="false">انجام نشده</option>
+        </select>
+        <button (click)="$event.stopPropagation()" mat-icon-button [matMenuTriggerFor]="menu"
+            [matMenuTriggerData]="{locked:scene.locked, sceneId:scene.sceneId}" dir="rtl">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+    </div>
+</div>
+
+<mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
+    <ng-template matMenuContent let-sceneId="sceneId" let-locked="locked">
+        <div class="row">
+            <a class="cursor-pointer text-black" *ngIf="locked" (click)="unlockSceneReorder(sceneId)">آزاد کردن
+                سکانس</a>
+            <a class="cursor-pointer text-black" *ngIf="!locked" (click)="lockSceneReorder(sceneId)">قفل کردن سکانس</a>
+        </div>
+    </ng-template>
+</mat-menu>
