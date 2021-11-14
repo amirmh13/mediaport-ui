@@ -28,6 +28,9 @@ a {
     cursor: pointer;
 }
 
+.rtl * { direction: rtl}
+.ltr * { direction: ltr}
+
 .pages-header {
     position: sticky;
     top: 74px;
@@ -41,4 +44,9 @@ a {
 
 .mat-menu-panel {
     min-height: auto !important;
+}
+
+.ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg {
+    left: 0 !important;
+    right: unset !important;
 }

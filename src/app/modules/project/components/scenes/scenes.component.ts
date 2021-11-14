@@ -10,6 +10,7 @@ import { Mode } from './enums';
 import { AddScenePb, SceneDto, ScenesListPb } from './models';
 import { AddEpisodePb, EpisodeDto, EpisodesService } from './service/episodes.service';
 import { ScenesService } from './service/scenes.service';
+import { UtilitiesService } from '@shared/services/utilities/utilities.service';
 
 @Component({
   selector: 'app-scenes',
@@ -29,12 +30,14 @@ export class ScenesComponent implements OnInit {
   ];
   scenesListPostBody = new ScenesListPb();
   scenesList: SceneDto[] = [];
+  selectedSceneId: string = '';
 
   constructor(
     private _scenesService: ScenesService,
     private _episodesService: EpisodesService,
     private _store: Store<RootState>,
     private _dialog: MatDialog,
+    private _utilitiesService: UtilitiesService,
   ) { }
 
   getListOfEpisodes(initialize: boolean = false): void {
@@ -109,6 +112,11 @@ export class ScenesComponent implements OnInit {
 
   async addScene(postBody: AddScenePb): Promise<void> {
     await this._scenesService.addScene(postBody).toPromise();
+  }
+
+  onBriefSceneClick(id:string):void {
+    this._utilitiesService.scrollToElement(id);
+    this.selectedSceneId = id;
   }
 
   ngOnInit(): void {

@@ -1,35 +1,4 @@
-<!-- <div class="scene-card col-md-12 d-flex justify-content-lg-between align-items-center rounded-2 py-4 px-3 mb-1" style="background-color: #FFEBD3;border: 2px solid #F19D41;">
-    <div class="col-2 col-lg-1 text-black px-2 px-lg-0">
-        <img (click)="isOpen = !isOpen" class="ms-2 cursor-pointer" src="/assets/images/noun-arrows.svg" alt="">
-        {{scene?.order}}{{scene?.subOrder ? '' + scene?.subOrder : ''}}
-    </div>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{scene?.dayStatus?.name}}
-    </span>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{ scene?.locationType?.name}}
-    </span>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{scene?.briefDescription | slice: 0 : 100}}
-    </span>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{scene?.mainLocation?.name ?? '-'}}
-    </span>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{scene?.subLocation?.name ?? '-'}}
-    </span>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{scene?.productionTimeStr ?? '-'}}
-    </span>
-    <span class="col-3 col-lg text-center px-2 px-lg-0">
-        {{scene?.editTimeStr ?? '-'}}
-    </span>
-
-</div>
-<div [@openCloseAnimation]="isOpen" class="col-12 row bg-white p-2 mb-2">
-    <textarea class="form-control" cols="30" rows="5"></textarea>
-</div> -->
-<tr class="rounded-2" style="background-color: #FFEBD3;border: 2px solid #F19D41;">
+<tr [id]="id" class="rounded-2" style="background-color: #FFEBD3;border: 2px solid #F19D41;">
     <td class="px-3 py-4 rounded-end border-end border-top border-bottom">
         <img (click)="isOpen = !isOpen" class="ms-2 cursor-pointer" src="/assets/images/noun-arrows.svg" alt="">
         {{scene?.order}}{{scene?.subOrder ? '' + scene?.subOrder : ''}}
@@ -40,8 +9,7 @@
     <td class="px-3 py-4 border-top border-bottom">
         {{ scene?.locationType?.name}}
     </td>
-    <td class="px-3 py-4 border-top border-bottom">
-        {{scene?.briefDescription | slice: 0 : 100}}
+    <td [innerHtml]="scene?.briefDescription | slice: 0 : 100" class="px-3 py-4 border-top border-bottom">
     </td>
     <td class="px-3 py-4 border-top border-bottom">
         {{scene?.mainLocation?.name ?? '-'}}
@@ -53,16 +21,11 @@
         {{scene?.productionTimeStr ?? '-'}}
     </td>
     <td class="px-3 py-4 rounded-start border-start border-top border-bottom">
-        {{scene?.editTimeStr ?? '-'}}
+        {{scene?.editTimeStr ?? '-'}} {{isOpen}}
     </td>
 </tr>
 <tr [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
     <td colspan="8" class="border-0">
-        <!-- <textarea class="form-control" cols="30" rows="5"></textarea> -->
-        <!-- <editor
-        apiKey="q1is9qcqqkljgu3r45ddfeqiliuq4whlvv8p1bkqzkplm4dw"
-        [init]="editorConfigs"
-      ></editor> -->
-        <quill-editor [styles]="{height: '200px'}" [modules]="configs.modules" [(ngModel)]="scene.briefDescription"></quill-editor>
+        <quill-editor [styles]="{height: '200px', direction: 'rtl'}" [classes]="'rtl'" [placeholder]="'خلاصه سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene"></quill-editor>
     </td>
 </tr>

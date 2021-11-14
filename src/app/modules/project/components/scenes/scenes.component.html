@@ -27,8 +27,8 @@
     <main class="col-12 row align-items-start px-0">
         <aside class="col-lg-3 col-xxl-2 row bg-white position-sticky px-0 d-none d-lg-flex" style="top: 131px; height: calc(100vh - 139px);">
             <div class="col-12 row align-content-between position-relative overflow-auto px-0">
-                <div class="scene-brief-wrapper col-12 row align-content-start p-0">
-                    <div *ngFor="let scene of scenesList;let last = last" class="scene-brief-card col-12 cfs-12 row hstack justify-content-between py-1" [class.mb-1]="!last" style="background-color: #FFEBD3;">
+                <div class="scene-brief-wrapper col-12 row align-content-start p-0 cursor-pointer">
+                    <div *ngFor="let scene of scenesList;let last = last" (click)="onBriefSceneClick('scene-'+scene.id)" class="scene-brief-card col-12 cfs-12 row hstack justify-content-between py-1" [class.mb-1]="!last" style="background-color: #FFEBD3;">
                         <div class="col-auto px-0">
                             <span class="col-auto px-0 ms-2">{{scene.order}}{{scene.subOrder ? '' + scene.subOrder : ''}}</span>
                             {{scene.locationType.name ?? ''}}
@@ -88,11 +88,7 @@
                         <th>زمان تدوین</th>
                     </tr>
                     <ng-container *ngFor="let scene of scenesList">
-
-                        
-                            <mp-scene-card [scene]="scene" style="display: contents;"></mp-scene-card>
-                       
-                        
+                        <mp-scene-card [scene]="scene" style="display: contents;" [isOpen]="selectedSceneId === 'scene-'+scene.id" [id]="'scene-'+scene.id"></mp-scene-card>
                     </ng-container>
                 </table>
             </div>
