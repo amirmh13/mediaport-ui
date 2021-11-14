@@ -86,9 +86,15 @@
                         <th> لوکیشن فرعی</th>
                         <th>زمان تولید</th>
                         <th>زمان تدوین</th>
+                        <th></th>
                     </tr>
                     <ng-container *ngFor="let scene of scenesList">
-                        <mp-scene-card [scene]="scene" style="display: contents;" [isOpen]="selectedSceneId === 'scene-'+scene.id" [id]="'scene-'+scene.id"></mp-scene-card>
+                        <mp-scene-card
+                        [scene]="scene"
+                        [isOpen]="selectedSceneId === 'scene-'+scene.id"
+                        [id]="'scene-'+scene.id"
+                        (addSubSceneEmitter)="onOpeAddSubSceneDialog($event)"
+                        style="display: contents;" ></mp-scene-card>
                     </ng-container>
                 </table>
             </div>

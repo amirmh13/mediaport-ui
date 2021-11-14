@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { openCloseAnimation } from '@shared/animations';
 import { QuillConfig, QuillModules } from 'ngx-quill';
 import { SceneDto } from '../../models';
@@ -14,6 +14,7 @@ export class SceneCardComponent implements OnInit {
   @Input() scene: SceneDto | any = null;
   @Input() isOpen: boolean = false;
   @Input() id: string = '';
+  @Output() addSubSceneEmitter = new EventEmitter<SceneDto>();
 
   modules: QuillModules = {
     toolbar: [

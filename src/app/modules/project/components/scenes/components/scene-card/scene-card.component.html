@@ -20,12 +20,34 @@
     <td class="px-3 py-4 border-top border-bottom">
         {{scene?.productionTimeStr ?? '-'}}
     </td>
-    <td class="px-3 py-4 rounded-start border-start border-top border-bottom">
+    <td class="px-3 py-4 border-top border-bottom">
         {{scene?.editTimeStr ?? '-'}}
+    </td>
+    <td class="px-3 py-4 text-start rounded-start border-start border-top border-bottom">
+        <button (click)="$event.stopPropagation()" class="px-0" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
+            <ng-template matMenuContent let-category="category">
+                <div class="row mb-2">
+                    <a class="cursor-pointer text-black">ویرایش</a>
+                </div>
+                <div class="row mb-2">
+                    <a (click)="addSubSceneEmitter.emit(scene)" class="cursor-pointer text-black">افزودن زیرسکانس</a>
+                </div>
+                <div class="row mb-2">
+                    <a class="cursor-pointer text-black">حذف</a>
+                </div>
+                <div class="row">
+                    <a class="cursor-pointer text-black">حذف بصورت کلی</a>
+                </div>
+            </ng-template>
+        </mat-menu>
     </td>
 </tr>
 <tr [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
-    <td colspan="8" class="border-0">
+    <td colspan="9" class="border-0">
         <quill-editor [styles]="{height: '200px', direction: 'rtl'}" [classes]="'rtl'" [placeholder]="'خلاصه سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene"></quill-editor>
     </td>
 </tr>

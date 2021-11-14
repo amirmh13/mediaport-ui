@@ -18,6 +18,17 @@
                 <option *ngFor="let dayStatus of dayStatuses" [ngValue]="dayStatus.id">{{dayStatus.name}}</option>
             </select>
         </div>
+        <div *ngIf="projectEpisodeSceneId" class="col-12 row px-0 mb-3">
+            <label for="title" class="form-label text-black px-0">
+                اولویت 
+            </label>
+            <select class="form-control" name="dayStatusId" [(ngModel)]="addScenePb.subOrder">
+                <option [value]="'A'">A</option>
+                <option [value]="'B'">B</option>
+                <option [value]="'C'">C</option>
+                <option [value]="'D'">D</option>
+            </select>
+        </div>
         <div class="col-12 row px-0 mb-3">
             <label for="description" class="form-label text-black px-0">
                 خلاصه سکانس

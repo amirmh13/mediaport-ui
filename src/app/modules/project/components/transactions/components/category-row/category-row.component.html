@@ -55,13 +55,14 @@
 
 <mat-menu #subMenu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
     <ng-template matMenuContent let-category="category">
-        <div class="row"><a class="cursor-pointer text-black" (click)="editCategory(category)">ویرایش</a></div>
-        <div class="row">
+        <div class="row mb-2">
+            <a class="cursor-pointer text-black" (click)="editCategory(category)">ویرایش</a>
+        </div>
+        <div class="row mb-2">
             <a class="cursor-pointer text-black" (click)="openAddTransactionDialogClick(category.id)">افزودن هزینه</a>
         </div>
         <div class="row">
-            <a [routerLink]="['/projects', projectId, 'transactions',category.id]"
-                class="cursor-pointer text-black">لیست تراکنش ها</a>
+            <a [routerLink]="['/projects', projectId, 'transactions',category.id]" class="cursor-pointer text-black">لیست تراکنش ها</a>
         </div>
     </ng-template>
 </mat-menu>

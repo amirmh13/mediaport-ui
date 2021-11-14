@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 import { IdNameDto } from '@shared/models';
 import { LocationDto } from '../../../locations/models';
 import { LocationsService } from '../../../locations/service/locations.service';
-import { AddScenePb } from '../../models';
+import { AddScenePb, AddSubScenePb } from '../../models';
 import { ScenesService } from '../../service/scenes.service';
 
 @Component({
@@ -12,9 +12,10 @@ import { ScenesService } from '../../service/scenes.service';
 })
 export class AddOrUpdateSceneComponent implements OnInit {
 
-  @Input() addScenePb = new AddScenePb();
+  @Input() addScenePb = new AddSubScenePb();
   @Input() currentProjectId: number = 0;
-  @Output() submitEmitter = new EventEmitter<AddScenePb>();
+  @Input() projectEpisodeSceneId: number = 0;
+  @Output() submitEmitter = new EventEmitter<AddSubScenePb>();
 
   @ViewChild('productionTimeHour') productionTimeHour: ElementRef | null = null;
   @ViewChild('productionTimeMinute') productionTimeMinute: ElementRef | null = null;
@@ -33,6 +34,7 @@ export class AddOrUpdateSceneComponent implements OnInit {
   onSubmitClick(): void {
     this.addScenePb.productionTime = this.convertHourMinuteToSecond(+this.productionTimeHour?.nativeElement.value, +this.productionTimeMinute?.nativeElement.value);
     this.addScenePb.editTime = this.convertHourMinuteToSecond(+this.editTimeHour?.nativeElement.value, +this.editTimeMinute?.nativeElement.value);
+    if(this.projectEpisodeSceneId) this.addScenePb.projectEpisodeSceneId = this.projectEpisodeSceneId;
 
     this.submitEmitter.emit(this.addScenePb);
   }

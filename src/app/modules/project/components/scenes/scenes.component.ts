@@ -7,7 +7,7 @@ import { selectProjectId } from '../../state/Project.selectors';
 import { AddEpisodeComponent } from './components/add-episode/add-episode.component';
 import { AddOrUpdateSceneComponent } from './components/add-or-update-scene/add-or-update-scene.component';
 import { Mode } from './enums';
-import { AddScenePb, SceneDto, ScenesListPb } from './models';
+import { AddScenePb, AddSubScenePb, SceneDto, ScenesListPb } from './models';
 import { AddEpisodePb, EpisodeDto, EpisodesService } from './service/episodes.service';
 import { ScenesService } from './service/scenes.service';
 import { UtilitiesService } from '@shared/services/utilities/utilities.service';
@@ -87,24 +87,25 @@ export class ScenesComponent implements OnInit {
     this._scenesService.getListOfScenes(this.scenesListPostBody).subscribe(res => {
       console.log(res);
       this.scenesList = res;
-      // this.scenesList = [...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList, ...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList, ...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList,...this.scenesList, ...this.scenesList];
     })
   }
 
-  onOpenAddSceneDialog(): void {
+  onOpenAddSceneDialog(projectEpisodeSceneId?: number): void {
     const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
       direction: 'rtl',
       width: '450px'
     });
 
     dialogRef.componentInstance.currentProjectId = this.currentProjectId;
+    if (projectEpisodeSceneId) dialogRef.componentInstance.projectEpisodeSceneId = projectEpisodeSceneId;
 
     dialogRef.componentInstance.submitEmitter.subscribe(async (addScenePb) => {
       addScenePb.projectId = this.currentProjectId;
       addScenePb.projectEpisodeId = this.selectedEpisodeId;
-      // addScenePb.projectLocationSubalternId = 1;
 
-      await this.addScene(addScenePb);
+      if (addScenePb.projectEpisodeSceneId) await this.addSubScene(addScenePb);
+      else await this.addScene(addScenePb);
+
       dialogRef.close();
       this.getListOfScenes();
     })
@@ -114,9 +115,17 @@ export class ScenesComponent implements OnInit {
     await this._scenesService.addScene(postBody).toPromise();
   }
 
-  onBriefSceneClick(id:string):void {
+  async addSubScene(postBody: AddSubScenePb): Promise<void> {
+    await this._scenesService.addSubScene(postBody).toPromise();
+  }
+
+  onBriefSceneClick(id: string): void {
     this._utilitiesService.scrollToElement(id);
     this.selectedSceneId = id;
+  }
+
+  onOpeAddSubSceneDialog(scene: SceneDto): void {
+    this.onOpenAddSceneDialog(scene.id);
   }
 
   ngOnInit(): void {
