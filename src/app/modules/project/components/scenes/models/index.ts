@@ -7,3 +7,4 @@ export * from './AddElementToScenePb.model';
 export * from './RemoveElementFromScenePb.model';
 export * from './SceneElementDto.model';
 export * from './ScenesListPb.model';
+export * from './SceneDetail.model';

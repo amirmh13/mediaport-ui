@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { IdNameDto } from '@shared/models';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AddElementToScenePb, AddScenePb, AddSubScenePb, RemoveElementFromScenePb, SceneDto, SceneElementDto, ScenesListPb, UpdateAdditionalInfoPb, UpdateSceneScriptPb } from '../models';
+import { AddElementToScenePb, AddScenePb, AddSubScenePb, RemoveElementFromScenePb, SceneDetail, SceneDto, SceneElementDto, ScenesListPb, UpdateAdditionalInfoPb, UpdateSceneScriptPb } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +56,9 @@ export class ScenesService {
 
   getListOfSceneElements(body: { projectId: number; episodeId: number; episodeSceneId: number; }): Observable<SceneElementDto[]> {
     return this._http.post<SceneElementDto[]>(`${environment.apiBaseUrl}/v1/Project/Episodes/Scenes/GetListOfSceneElements`, body)
+  }
+
+  getSceneDetailWithPrevNext(body: { sceneId: number; episodeId: number; projectId: number; }): Observable<SceneDetail> {
+    return this._http.post<SceneDetail>(`${environment.apiBaseUrl}/v1/Project/Episodes/Scenes/GetSceneDetailWithPrevNext`, body)
   }
 }

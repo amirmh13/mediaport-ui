@@ -13,6 +13,7 @@ export class SceneCardComponent implements OnInit {
 
   @Input() scene: SceneDto | any = null;
   @Input() isOpen: boolean = false;
+  @Input() isDetail: boolean = false;
   @Input() id: string = '';
   @Output() addSubSceneEmitter = new EventEmitter<SceneDto>();
 

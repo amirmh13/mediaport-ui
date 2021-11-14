@@ -38,7 +38,7 @@ const routes: Routes = [{
             data: { name: 'برنامه ریزی' }
         },
         {
-            path: 'scenes',
+            path: 'episode-scenes',
             canActivate: [AuthGuardGuard],
             loadChildren: () => import('../project/components/scenes/scenes.module').then(m => m.ScenesModule),
             data: { name: 'فیلم نامه' }

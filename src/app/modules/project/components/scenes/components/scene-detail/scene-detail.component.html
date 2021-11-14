@@ -1,0 +1,57 @@
+<div class="scene-detail section col-12 row px-0">
+    <header class="pages-header col-12 row justify-content-between px-0 py-2 border-bottom">
+        <div class="col-lg-2 px-0">
+            <mp-select [idKey]="'id'" [options]="modeSelectOptions" [(model)]="selectedMode" (modelChange)="modeSelectChange($event)" class="row col-auto mx-auto ms-lg-3 me-lg-0 mb-2 mb-lg-0" style="width: 220px;" #modeSelect>
+                <ng-template #optionsTemp let-options=options>
+                    <div *ngFor="let option of options;let last = last" class="cfs-12 row align-items-center mb-2" [class.text-primary]="selectedMode == option.id" (click)="modeSelect.onOptionClick(option)" [class.mb-2]="!last">
+                        <svg width="16" height="16" class="col-auto fill-{{selectedMode == option.id ? 'primary':'secondary'}} px-0 ms-3">
+                            <use [attr.xlink:href]="'/assets/images/svgs.svg#' + option.svgId"></use>
+                        </svg>
+                        {{option.name}}
+                    </div>
+                </ng-template>
+            </mp-select>
+        </div>
+
+        <div class="col-auto row col-auto align-items-center px-0">
+            <mp-select *ngIf="episodes?.length" [idKey]="'id'" [labelKey]="'title'" [options]="episodes" [extraLabel]="'lastUpdateTimeStr'" [(model)]="episodeId" (modelChange)="episodeSelectChange($event)" class="row col-auto mx-auto mx-lg-3 mb-2 mb-lg-0" style="width: 220px;">
+            </mp-select>
+        </div>
+    </header>
+
+    <main class="col-12 row px-0">
+        <aside class="col-lg-3 col-xxl-2 row bg-white position-sticky px-0 d-none d-lg-flex" style="top: 131px; height: calc(100vh - 139px);">
+            <div *ngIf="sceneDetail" class="col-12 row align-content-between position-relative overflow-auto px-0">
+                <div class="scene-brief-wrapper col-12 row align-content-start p-0 cursor-pointer">
+                    <div class="scene-brief-card col-12 cfs-12 row hstack justify-content-between py-1" style="background-color: #FFEBD3;">
+                        <div class="col-auto px-0">
+                            <span class="col-auto px-0 ms-2">{{sceneDetail?.order}}{{sceneDetail?.subOrder ? '' + sceneDetail?.subOrder : ''}}</span>
+                            {{sceneDetail?.locationType?.name ?? ''}}
+                            {{(sceneDetail?.dayStatus?.name && sceneDetail?.locationType?.name) ? '- ' + sceneDetail?.dayStatus?.name  : ''}}
+                            {{(sceneDetail?.mainLocation && sceneDetail?.dayStatus?.name) ? '- ' + sceneDetail?.mainLocation?.name  : ''}}
+                            {{(sceneDetail?.subLocation && sceneDetail?.mainLocation) ? '- ' + sceneDetail?.subLocation?.name + '-'  : ''}}
+                        </div>
+                    </div>
+                </div>
+
+                <div  class="border border-secondary col-10 rounded-2 text-secondary text-center px-3 py-2 mx-auto mb-1 cursor-pointer">
+                    + افزودن اجزا
+                </div>
+            </div>
+        </aside>
+        <div class="col-lg-9 col-xxl-10 row align-items-start align-content-start ps-0 py-3">
+            <div *ngIf="sceneDetail" class="table-responsive">
+                <div class="col-12 row justify-content-between px-0 mb-2">
+                    <span [ngClass]="{'cursor-pointer': !!sceneDetail.nextSceneId, 'disabled': ! !!sceneDetail.nextSceneId}" (click)="! !!sceneDetail.nextSceneId; onGoToNextOrPrevScene(sceneDetail.nextSceneId)" class="col-auto text-primary bg-white shadow-sm rounded-3 px-3 py-1">سکانس بعدی</span>
+                    <span [ngClass]="{'cursor-pointer': !!sceneDetail.previousSceneId, 'disabled': ! !!sceneDetail.previousSceneId}" (click)="! !!sceneDetail.previousSceneId; onGoToNextOrPrevScene(sceneDetail.previousSceneId)" class="col-auto text-primary bg-white shadow-sm rounded-3 px-3 py-1">سکانس قبلی</span>
+                </div>
+                <table class="mp-table table align-middle">
+                    <mp-scene-card [scene]="sceneDetail" [isDetail]="true" style="display: contents;">
+                    </mp-scene-card>
+                </table>
+            </div>
+
+        </div>
+    </main>
+
+</div>

@@ -11,6 +11,7 @@ import { AddScenePb, AddSubScenePb, SceneDto, ScenesListPb } from './models';
 import { AddEpisodePb, EpisodeDto, EpisodesService } from './service/episodes.service';
 import { ScenesService } from './service/scenes.service';
 import { UtilitiesService } from '@shared/services/utilities/utilities.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scenes',
@@ -38,6 +39,7 @@ export class ScenesComponent implements OnInit {
     private _store: Store<RootState>,
     private _dialog: MatDialog,
     private _utilitiesService: UtilitiesService,
+    private _router: Router,
   ) { }
 
   getListOfEpisodes(initialize: boolean = false): void {
@@ -51,6 +53,14 @@ export class ScenesComponent implements OnInit {
         this.getListOfScenes();
       }
 
+    })
+  }
+
+  getListOfScenes(): void {
+    this.scenesListPostBody.projectId = this.currentProjectId;
+    this._scenesService.getListOfScenes(this.scenesListPostBody).subscribe(res => {
+      console.log(res);
+      this.scenesList = res;
     })
   }
 
@@ -79,15 +89,15 @@ export class ScenesComponent implements OnInit {
   }
 
   modeSelectChange(mode: number): void {
-    console.log(mode);
-  }
-
-  getListOfScenes(): void {
-    this.scenesListPostBody.projectId = this.currentProjectId;
-    this._scenesService.getListOfScenes(this.scenesListPostBody).subscribe(res => {
-      console.log(res);
-      this.scenesList = res;
-    })
+    switch (mode) {
+      case Mode.EDITOR:
+        this._router.navigate(['projects', this.currentProjectId, 'episode-scenes','editor']);
+        break;
+      case Mode.CHOPPING:
+        const firstSceneId: number | '' = this.scenesList[0]?.id || '';
+        this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.selectedEpisodeId,'detail', firstSceneId]);
+        break;
+    }
   }
 
   onOpenAddSceneDialog(projectEpisodeSceneId?: number): void {

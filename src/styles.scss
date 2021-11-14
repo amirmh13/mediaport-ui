@@ -28,14 +28,28 @@ a {
     cursor: pointer;
 }
 
-.rtl * { direction: rtl}
-.ltr * { direction: ltr}
+.rtl * {
+    direction: rtl
+}
+
+.ltr * {
+    direction: ltr
+}
+
+.disabled {
+    opacity: .5;
+}
 
 .pages-header {
     position: sticky;
     top: 74px;
     z-index: 401;
     background: $body-bg;
+}
+
+.mp-table {
+    border-collapse: inherit;
+    border-spacing: 0 0.5rem;
 }
 
 .mat-dialog-content {

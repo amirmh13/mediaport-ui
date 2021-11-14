@@ -1,4 +1,4 @@
-<tr [id]="id" class="rounded-2" style="background-color: #FFEBD3;border: 2px solid #F19D41;">
+<tr [id]="id" style="background-color: #FFEBD3;border-color:#F19D41;">
     <td class="px-3 py-4 rounded-end border-end border-top border-bottom">
         <img (click)="isOpen = !isOpen" class="ms-2 cursor-pointer" src="/assets/images/noun-arrows.svg" alt="">
         {{scene?.order}}{{scene?.subOrder ? '' + scene?.subOrder : ''}}
@@ -20,10 +20,10 @@
     <td class="px-3 py-4 border-top border-bottom">
         {{scene?.productionTimeStr ?? '-'}}
     </td>
-    <td class="px-3 py-4 border-top border-bottom">
+    <td class="px-3 py-4 border-top border-bottom" [ngClass]="{'rounded-start border-start': isDetail}">
         {{scene?.editTimeStr ?? '-'}}
     </td>
-    <td class="px-3 py-4 text-start rounded-start border-start border-top border-bottom">
+    <td *ngIf="!isDetail" class="px-3 py-4 text-start rounded-start border-start border-top border-bottom">
         <button (click)="$event.stopPropagation()" class="px-0" mat-icon-button [matMenuTriggerFor]="menu" dir="rtl">
             <mat-icon>more_vert</mat-icon>
         </button>
@@ -48,6 +48,6 @@
 </tr>
 <tr [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
     <td colspan="9" class="border-0">
-        <quill-editor [styles]="{height: '200px', direction: 'rtl'}" [classes]="'rtl'" [placeholder]="'خلاصه سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene"></quill-editor>
+        <quill-editor [styles]="{minHeight: '200px', direction: 'rtl'}" [classes]="'rtl'" [placeholder]="'خلاصه سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene"></quill-editor>
     </td>
 </tr>
