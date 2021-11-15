@@ -1,0 +1,16 @@
+<mp-dialog-header>افزودن جز جدید</mp-dialog-header>
+<form>
+    <mat-dialog-content class="px-2 px-lg-4">
+        <div class="col-12 row px-0 mb-3">
+            <label for="title" class="form-label text-black px-0">
+               نام جز  
+            </label>
+            <select class="form-control" name="locationTypeId">
+                <option>select...</option>
+            </select>
+        </div>
+        
+    </mat-dialog-content>
+
+    <mp-dialog-footer (onSubmit)="onSubmitClick()"></mp-dialog-footer>
+</form>

@@ -1,4 +1,4 @@
-export interface ElementType {
+export interface ElementTypeDto {
     id: number;
     name: string;
     color: string;

@@ -27,7 +27,7 @@
     <main class="col-12 row align-items-start px-0">
         <aside class="col-lg-3 col-xxl-2 row bg-white position-sticky px-0 d-none d-lg-flex" style="top: 131px; height: calc(100vh - 139px);">
             <div class="col-12 row align-content-between position-relative overflow-auto px-0">
-                <div class="scene-brief-wrapper col-12 row align-content-start p-0 cursor-pointer">
+                <div class="sidebar-wrapper col-12 row align-content-start p-0 cursor-pointer">
                     <div *ngFor="let scene of scenesList;let last = last" (click)="onBriefSceneClick('scene-'+scene.id)" class="scene-brief-card col-12 cfs-12 row hstack justify-content-between py-1" [class.mb-1]="!last" style="background-color: #FFEBD3;">
                         <div class="col-auto px-0">
                             <span class="col-auto px-0 ms-2">{{scene.order}}{{scene.subOrder ? '' + scene.subOrder : ''}}</span>

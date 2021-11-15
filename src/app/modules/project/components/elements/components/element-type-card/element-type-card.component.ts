@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ElementType } from '../../models';
+import { ElementTypeDto } from '../../models';
 
 @Component({
   selector: 'app-element-type-card',
@@ -8,8 +8,8 @@ import { ElementType } from '../../models';
 })
 export class ElementTypeCardComponent implements OnInit {
 
-  @Input() elementType: ElementType | null = null;
-  @Output() elementTypeClickEmitter = new EventEmitter<ElementType | null>();
+  @Input() elementType: ElementTypeDto | null = null;
+  @Output() elementTypeClickEmitter = new EventEmitter<ElementTypeDto | null>();
   @Output() removeEmitter = new EventEmitter<void>();
 
   constructor() { }

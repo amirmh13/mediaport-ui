@@ -10,6 +10,7 @@ import { SceneCardComponent } from './components/scene-card/scene-card.component
 import { SceneDetailComponent } from './components/scene-detail/scene-detail.component';
 import { ScenesRoutingModule } from './scenes-routing.module';
 import { ScenesComponent } from './scenes.component';
+import { AddElementComponent } from './components/add-element/add-element.component';
 
 
 
@@ -19,7 +20,8 @@ import { ScenesComponent } from './scenes.component';
     AddEpisodeComponent,
     AddOrUpdateSceneComponent,
     SceneCardComponent,
-    SceneDetailComponent
+    SceneDetailComponent,
+    AddElementComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,7 @@ import { AlertService } from '@shared/services/alert/alert.service';
 import { RootState } from 'src/app/state/App.reducers';
 import { selectProjectId } from '../../state/Project.selectors';
 import { AddOrUpdateElementComponent } from './components/add-or-update-element/add-or-update-element.component';
-import { AddElementPostBody, ElementType } from './models';
+import { AddElementPostBody, ElementTypeDto } from './models';
 import { ElementsService } from './services/elements.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { ElementsService } from './services/elements.service';
 })
 export class ElementsComponent implements OnInit {
 
-    elementTypes: ElementType[] = [];
+    elementTypes: ElementTypeDto[] = [];
     currentProjectId: number = 0;
 
     constructor(
@@ -32,7 +32,7 @@ export class ElementsComponent implements OnInit {
         })
     }
 
-    onOpenAddOrUpdateModal(elementType?: ElementType | null): void {
+    onOpenAddOrUpdateModal(elementType?: ElementTypeDto | null): void {
         const modalRef = this.dialog.open(AddOrUpdateElementComponent, {
             width: '400px',
             direction: 'rtl',
@@ -55,7 +55,7 @@ export class ElementsComponent implements OnInit {
 
     }
 
-    onDeleteClick(elementType: ElementType): void {
+    onDeleteClick(elementType: ElementTypeDto): void {
         const modalTitle: string = 'حذف جز';
         const modalText: string = `آیا از حذف جز ${elementType.name} اطمینان دارید؟`;
 
