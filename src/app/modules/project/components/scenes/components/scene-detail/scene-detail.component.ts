@@ -5,6 +5,7 @@ import { selectProjectId } from 'src/app/modules/project/state/Project.selectors
 import { RootState } from 'src/app/state/App.reducers';
 import { Mode } from '../../enums';
 import { SceneDetail, SceneDto } from '../../models';
+import { ScenesBase } from '../../ScenesBase.class';
 import { EpisodeDto, EpisodesService } from '../../service/episodes.service';
 import { ScenesService } from '../../service/scenes.service';
 
@@ -13,28 +14,22 @@ import { ScenesService } from '../../service/scenes.service';
   templateUrl: './scene-detail.component.html',
   styleUrls: ['./scene-detail.component.scss']
 })
-export class SceneDetailComponent implements OnInit {
+export class SceneDetailComponent extends ScenesBase implements OnInit {
 
   episodeId: number = 0;
   sceneId: number = 0;
   sceneDetail: SceneDetail | null = null;
-  scenesList: SceneDto[] = [];
-  currentProjectId: number = 0;
   episodes: EpisodeDto[] = [];
-  modeSelectOptions = [
-    { name: 'ویرایشگر', id: Mode.EDITOR, svgId: 'edit-secondary' },
-    { name: 'خرد کردن', id: Mode.CHOPPING, svgId: 'page-collection-secondary' },
-    { name: 'نمای کلی', id: Mode.OVERVIEW, svgId: 'documents-secondary' },
-  ];
-  selectedMode: number = 0;
 
   constructor(
+    public _router: Router,
     private _route: ActivatedRoute,
-    private _router: Router,
     private _scenesService: ScenesService,
     private _episodeService: EpisodesService,
     private _store: Store<RootState>,
-  ) { }
+  ) {
+    super(_router);
+  }
 
   getSceneDetail(): void {
     this._scenesService.getSceneDetailWithPrevNext({
@@ -55,29 +50,16 @@ export class SceneDetailComponent implements OnInit {
   }
 
   async getListOfScenes(): Promise<void> {
-    const scenesList = await this._scenesService.getListOfScenes({
+    this.scenesList = await this._scenesService.getListOfScenes({
       projectId: this.currentProjectId,
       projectEpisodeId: this.episodeId,
     }).toPromise();
-    this.scenesList = scenesList;
   }
 
   async episodeSelectChange(id: number): Promise<void> {
     await this.getListOfScenes();
     const firstSceneId: number | '' = this.scenesList[0]?.id || '';
     this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.episodeId, 'detail', firstSceneId]);
-  }
-
-  modeSelectChange(mode: number): void {
-    switch (mode) {
-      case Mode.EDITOR:
-        this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', 'editor']);
-        break;
-      case Mode.CHOPPING:
-        const firstSceneId: number | '' = this.scenesList[0]?.id || '';
-        this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.episodeId, 'detail', firstSceneId]);
-        break;
-    }
   }
 
   onGoToNextOrPrevScene(id: number): void {
@@ -100,7 +82,6 @@ export class SceneDetailComponent implements OnInit {
         this.getSceneDetail();
         this.getListOfScenes();
       }
-
     })
 
     this.selectedMode = Mode.CHOPPING;

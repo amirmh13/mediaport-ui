@@ -12,35 +12,29 @@ import { AddEpisodePb, EpisodeDto, EpisodesService } from './service/episodes.se
 import { ScenesService } from './service/scenes.service';
 import { UtilitiesService } from '@shared/services/utilities/utilities.service';
 import { Router } from '@angular/router';
+import { ScenesBase } from './ScenesBase.class';
 
 @Component({
   selector: 'app-scenes',
   templateUrl: './scenes.component.html',
   styleUrls: ['./scenes.component.scss']
 })
-export class ScenesComponent implements OnInit {
+export class ScenesComponent extends ScenesBase implements OnInit {
 
   episodes: EpisodeDto[] = [];
-  currentProjectId: number = 0;
-  selectedEpisodeId: number = 0;
-  selectedMode: number = 0;
-  modeSelectOptions = [
-    { name: 'ویرایشگر', id: Mode.EDITOR, svgId: 'edit-secondary' },
-    { name: 'خرد کردن', id: Mode.CHOPPING, svgId: 'page-collection-secondary' },
-    { name: 'نمای کلی', id: Mode.OVERVIEW, svgId: 'documents-secondary' },
-  ];
   scenesListPostBody = new ScenesListPb();
-  scenesList: SceneDto[] = [];
   selectedSceneId: string = '';
 
   constructor(
+    public _router: Router,
     private _scenesService: ScenesService,
     private _episodesService: EpisodesService,
     private _store: Store<RootState>,
     private _dialog: MatDialog,
     private _utilitiesService: UtilitiesService,
-    private _router: Router,
-  ) { }
+  ) {
+    super(_router);
+  }
 
   getListOfEpisodes(initialize: boolean = false): void {
     this._episodesService.getListOfEpisodes(this.currentProjectId).subscribe(res => {
@@ -86,18 +80,6 @@ export class ScenesComponent implements OnInit {
       await this.addEpisode(result);
       dialogRef.close();
     })
-  }
-
-  modeSelectChange(mode: number): void {
-    switch (mode) {
-      case Mode.EDITOR:
-        this._router.navigate(['projects', this.currentProjectId, 'episode-scenes','editor']);
-        break;
-      case Mode.CHOPPING:
-        const firstSceneId: number | '' = this.scenesList[0]?.id || '';
-        this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.selectedEpisodeId,'detail', firstSceneId]);
-        break;
-    }
   }
 
   onOpenAddSceneDialog(projectEpisodeSceneId?: number): void {
