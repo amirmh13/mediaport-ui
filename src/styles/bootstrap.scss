@@ -50,6 +50,18 @@
     margin: 0;
 }
 
+.form-check {
+    min-height: $form-check-min-height;
+    padding-left: unset;
+    padding-right: $form-check-padding-start;
+    margin-bottom: $form-check-margin-bottom;
+  
+    .form-check-input {
+      float: right;
+      margin-right: $form-check-padding-start * -1;
+    }
+  }
+
 // background
 @each $color,
 $value in $theme-colors {

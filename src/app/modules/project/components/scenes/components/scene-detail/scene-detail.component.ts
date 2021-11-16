@@ -84,6 +84,13 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
       direction: 'rtl',
       width: '450px'
     });
+
+    dialogRef.componentInstance.elementTypesList = this.elementTypesList;
+    dialogRef.componentInstance.projectId = this.currentProjectId;
+    dialogRef.componentInstance.callElementTypes.subscribe(() => {
+      this.getListOfElementTypesList();
+      dialogRef.close();
+    })
   }
 
   ngOnInit(): void {

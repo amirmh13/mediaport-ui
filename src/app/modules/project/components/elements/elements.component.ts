@@ -6,7 +6,7 @@ import { AlertService } from '@shared/services/alert/alert.service';
 import { RootState } from 'src/app/state/App.reducers';
 import { selectProjectId } from '../../state/Project.selectors';
 import { AddOrUpdateElementComponent } from './components/add-or-update-element/add-or-update-element.component';
-import { AddElementPostBody, ElementTypeDto } from './models';
+import { AddElementTypePb, ElementTypeDto } from './models';
 import { ElementsService } from './services/elements.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class ElementsComponent implements OnInit {
         })
 
         if (elementType) {
-            const convertedElementType: AddElementPostBody = {
+            const convertedElementType: AddElementTypePb = {
                 color: elementType.color,
                 name: elementType.name,
                 id: elementType.id,

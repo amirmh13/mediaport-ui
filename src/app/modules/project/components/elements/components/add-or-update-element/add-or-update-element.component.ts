@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { AlertService } from '@shared/services/alert/alert.service';
 import { selectProjectId } from 'src/app/modules/project/state/Project.selectors';
 import { RootState } from 'src/app/state/App.reducers';
-import { AddElementPostBody, ElementDto } from '../../models';
+import { AddElementTypePb, ElementDto } from '../../models';
 import { ElementsService } from '../../services/elements.service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ElementsService } from '../../services/elements.service';
 })
 export class AddOrUpdateElementComponent implements OnInit {
 
-  @Input() elementPostBody: AddElementPostBody = new AddElementPostBody();
+  @Input() elementPostBody: AddElementTypePb = new AddElementTypePb();
   @Output() callListEmitter = new EventEmitter<void>();
 
   elements: ElementDto[] = [];

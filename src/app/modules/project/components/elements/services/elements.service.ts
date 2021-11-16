@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AddElementPostBody, ElementDto, ElementTypeDto, UpdateElementPb } from '../models';
+import { AddElementPb, AddElementTypePb, ElementDto, ElementTypeDto, UpdateElementPb } from '../models';
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +17,7 @@ export class ElementsService {
         return this._http.get<ElementTypeDto[]>(`${environment.apiBaseUrl}/v1/Project/Elements/GetListOfElementTypes`, { params: { projectId } })
     }
 
-    addElementType(body: AddElementPostBody): Observable<number> {
+    addElementType(body: AddElementTypePb): Observable<number> {
         return this._http.post<number>(`${environment.apiBaseUrl}/v1/Project/Elements/AddElementType`, body)
     }
 
@@ -27,6 +27,10 @@ export class ElementsService {
 
     updateElement(body: UpdateElementPb): Observable<unknown> {
         return this._http.post(`${environment.apiBaseUrl}/v1/Project/Elements/UpdateElement`, body)
+    }
+
+    addElement(body: AddElementPb): Observable<number> {
+        return this._http.post<number>(`${environment.apiBaseUrl}/v1/Project/Elements/AddElement`, body)
     }
 
     deleteElement(body: { projectId: number; id: number }): Observable<unknown> {
