@@ -23,14 +23,11 @@
         <aside class="col-lg-3 col-xxl-2 row bg-white position-sticky px-0 d-none d-lg-flex" style="top: 131px; height: calc(100vh - 139px);">
             <div *ngIf="sceneDetail" class="col-12 row align-content-between position-relative overflow-auto px-0">
                 <div class="sidebar-wrapper col-12 row align-content-start p-0 cursor-pointer py-2">
-                    <div *ngFor="let elementType of elementTypesList;let last = last" class="element-type-brief-card col-12 cfs-12 row hstack py-2" [class.border-bottom]="!last">
-                        <img width="6" height="6" class="col-auto px-0 ms-1" src="/assets//images/arrow-down.svg">
-                        <span class="element-type-color rounded-circle mx-1" [ngStyle]="{'background': elementType.color ? '#'+elementType.color : '#e9e9e9'}"></span>
-                        
-                        <div class="col-auto px-0 mx-2">
-                            {{elementType.name}} ({{elementType.elementCount}})
-                        </div>
-                    </div>
+                    <app-element-type-row
+                    *ngFor="let elementType of elementTypesList;let last = last"
+                    [elementType]="elementType"
+                    class="col-12 row"
+                    [class.border-bottom]="!last"></app-element-type-row>
                 </div>
 
                 <div (click)="onOpenAddElementDialog()" class="border border-secondary col-10 rounded-2 text-secondary text-center px-3 py-2 mx-auto mb-1 cursor-pointer">
