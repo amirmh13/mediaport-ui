@@ -1,4 +1,4 @@
-@import '_base';
+@use '_base' as base;
 
 $layout_bg_color: #232227;
 
@@ -11,9 +11,9 @@ $layout_bg_color: #232227;
         height: 100vh;
         z-index: 1;
         overflow-y: auto;
-        @include hideDefaultScrollbar();
+        @include base.hideDefaultScrollbar();
 
-        @include responsive(768px) {
+        @include base.responsive(768px) {
             position: fixed;
             transform: translateX(-10000px);
         }
@@ -24,11 +24,11 @@ $layout_bg_color: #232227;
 
         header {
             z-index: 999;
-            background-color: $body-bg;
+            background-color: base.$body-bg;
         }
 
         .main-section {
-            background-color: $body-bg;;
+            background-color: base.$body-bg;;
         }
     }
 }

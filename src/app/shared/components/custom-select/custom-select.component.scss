@@ -1,14 +1,14 @@
-@import '_base';
+@use '_base' as base;
 
 .options-wrapper {
     max-height: 200px;
     overflow: auto;
     z-index: 2;
-    @include customScrollbar(6px);
+    @include base.customScrollbar(6px);
 
     .option-item {
         &:hover {
-            background-color: lighten($text-muted, 45%);
+            background-color: lighten(base.$text-muted, 45%);
         }
     }
 }

@@ -1,25 +1,15 @@
-@import './_base';
+@use './_base' as base;
 
 .contact-cell {
-    @include responsive(768px) {
+    @include base.responsive(768px) {
         width: 100px !important;
         margin: 0 .5rem;
     }
 }
 
 .contact-cell-lg {
-    @include responsive(768px) {
+    @include base.responsive(768px) {
         width: 150px !important;
         margin: 0 .5rem;
     }
 }
-
-// table {
-//     border-collapse: separate;
-//     border-spacing: 0px .5rem;
-
-//     th,
-//     td {
-//         padding: 5px 15px;
-//     }
-// }

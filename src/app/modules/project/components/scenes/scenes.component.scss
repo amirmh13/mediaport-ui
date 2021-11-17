@@ -1,4 +1,4 @@
-@import "_base";
+@use "_base" as base;
 
 .sidebar-wrapper {
   height: calc(100vh - 195px);
@@ -6,6 +6,6 @@
 
   &:hover {
     overflow: auto;
-    @include customScrollbar(7px);
+    @include base.customScrollbar(7px);
   }
 }

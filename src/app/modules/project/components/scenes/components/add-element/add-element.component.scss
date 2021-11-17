@@ -1,7 +1,7 @@
-@import '_base';
+@use '_base' as base;
 
 .element-types-wrapper {
     max-height: 200px;
 
-    @include customScrollbar(6px);
+    @include base.customScrollbar(6px);
 }
