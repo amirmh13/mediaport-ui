@@ -14,7 +14,7 @@
 
         <input type="text" (input)="onSearchList(searchInput.value)" name="elementName" id="elementName" class="form-control mb-3" placeholder="نام دسته" #searchInput>
 
-        <div class="element-types-wrapper overflow-auto">
+        <div class="element-types-wrapper overflow-auto px-2">
             <ng-container *ngFor="let elementType of elementTypesList">
                 <div class="form-check mb-2">
                     <label class="form-check-label" for="flexRadioDefault1">
