@@ -1,0 +1,28 @@
+<div class="element-type-brief-card col-12 cfs-12 row hstack py-2 px-0" [class.bg-light]="isOpen">
+    <div (click)="onOpenElementsListClick()" class="col-12 row align-items-center">
+        <img width="6" height="6" class="col-auto px-0 ms-1"
+            src="/assets//images/arrow-down.svg">
+        <span class="element-type-color rounded-circle mx-1"
+            [ngStyle]="{'background': elementType?.color ? '#'+elementType?.color : '#e9e9e9'}"></span>
+
+        <div class="col-auto px-0 mx-2">
+            {{elementType?.name}} ({{elementType?.elementCount}})
+        </div>
+    </div>
+
+    <div [@openCloseAnimation]="isOpen" class="col-12 row bg-light px-0 pe-3 mt-3">
+        <div *ngFor="let element of elementsList;let last = last" class="col-12 row hover px-0" [class.mb-2]="!last">
+            <svg width="16" height="16" class="col-auto more-menu show-on-hover px-0" [matMenuTriggerFor]="menu">
+                <use xlink:href="/assets/images/svgs.svg#menu"></use>
+            </svg>
+            <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2 py-0">
+                <div class="row py-0" dir="rtl">
+                    <span (click)="onEditClick(element)" class="row align-items-center cursor-pointer mb-2">ویرایش</span>
+                    <span (click)="onDeleteClick(element)" class="row align-items-center cursor-pointer">حذف</span>
+                </div>
+            </mat-menu>
+
+            <span class="col me-2">{{element.name}}</span>
+        </div>
+    </div>
+</div>

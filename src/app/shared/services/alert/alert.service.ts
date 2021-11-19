@@ -9,13 +9,13 @@ import { AlertComponent } from './alert/alert.component';
 export class AlertService {
 
   constructor(
-    public dialog: MatDialog,
+    private _dialog: MatDialog,
   ) { }
 
-  open(title: string = '', text: string = '',negativeBtnText:string ='بازگشت', positiveBtnText:string ='حذف'): Promise<void> {
+  open(title: string = '', text: string = '', negativeBtnText: string = 'بازگشت', positiveBtnText: string = 'حذف'): Promise<void> {
     return new Promise((resolve, reject) => {
 
-      const dialogRef = this.dialog.open(AlertComponent, {
+      const dialogRef = this._dialog.open(AlertComponent, {
         width: '356px',
         panelClass: 'row',
         direction: 'rtl',
@@ -24,10 +24,10 @@ export class AlertService {
 
       dialogRef.componentInstance.title = title;
       dialogRef.componentInstance.text = text;
-      dialogRef.componentInstance.negativeBtnText=negativeBtnText;
-      dialogRef.componentInstance.positiveBtnText=positiveBtnText;
+      dialogRef.componentInstance.negativeBtnText = negativeBtnText;
+      dialogRef.componentInstance.positiveBtnText = positiveBtnText;
 
-      dialogRef.componentInstance.confirmEmitter.subscribe(result => {
+      dialogRef.componentInstance.confirmEmitter.subscribe(() => {
         resolve();
         dialogRef.close();
       });

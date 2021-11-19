@@ -1,0 +1,12 @@
+<mp-dialog-header>افزودن عنصر جدید</mp-dialog-header>
+
+<mat-dialog-content>
+    <div class="col-12 row px-0 mb-3">
+        <label for="elementName" class="form-label text-black px-0">
+            نام جز
+        </label>
+        <input type="text" [(ngModel)]="element.name" name="elementName" id="elementName" class="form-control">
+    </div>
+</mat-dialog-content>
+
+<mp-dialog-footer (onSubmit)="editElement()"></mp-dialog-footer>

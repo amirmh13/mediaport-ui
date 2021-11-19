@@ -26,7 +26,8 @@
                     <app-element-type-row
                     *ngFor="let elementType of elementTypesList;let last = last"
                     [elementType]="elementType"
-                    class="col-12 row"
+                    [projectId]="currentProjectId"
+                    class="col-12 row px-0"
                     [class.border-bottom]="!last"></app-element-type-row>
                 </div>
 

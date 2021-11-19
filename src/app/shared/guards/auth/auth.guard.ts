@@ -6,21 +6,22 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class AuthGuardGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
 
     constructor(
         private _authService: AuthService,
         private router: Router,
-    ) {}
+    ) { }
 
     canActivate(
         route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable < boolean | UrlTree > | Promise < boolean | UrlTree > | boolean | UrlTree {
-          
+        state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
         if (this._authService.getToken && !this._authService.refreshTokenIsExpired()) return true;
-        
-       else {
-            this.router.navigateByUrl('/auth/login');
+
+        else {
+            const url: string = state.url;
+            this.router.navigate(['/auth/login'], { queryParams: { returnUrl: url } });
             return false;
         }
     }

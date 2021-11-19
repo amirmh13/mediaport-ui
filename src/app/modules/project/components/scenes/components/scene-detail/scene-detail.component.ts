@@ -46,7 +46,6 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
     }).subscribe(res => {
       this.sceneDetail = res;
       console.log(this.sceneDetail);
-
     })
   }
 

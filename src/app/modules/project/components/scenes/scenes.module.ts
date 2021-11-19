@@ -11,7 +11,8 @@ import { SceneDetailComponent } from './components/scene-detail/scene-detail.com
 import { ScenesRoutingModule } from './scenes-routing.module';
 import { ScenesComponent } from './scenes.component';
 import { AddElementComponent } from './components/add-element/add-element.component';
-import { ElementTypeRowComponent } from './components/scene-detail/element-type-row/element-type-row.component';
+import { ElementTypeRowComponent } from './components/element-type-row/element-type-row.component';
+import { EditElementComponent } from './components/edit-element/edit-element.component';
 
 
 
@@ -23,7 +24,8 @@ import { ElementTypeRowComponent } from './components/scene-detail/element-type-
     SceneCardComponent,
     SceneDetailComponent,
     AddElementComponent,
-    ElementTypeRowComponent
+    ElementTypeRowComponent,
+    EditElementComponent
   ],
   imports: [
     CommonModule,

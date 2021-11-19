@@ -28,6 +28,18 @@ a {
     cursor: pointer;
 }
 
+.hover {
+    .show-on-hover {
+        visibility: hidden;
+    }
+
+    &:hover {
+        .show-on-hover {
+            visibility: visible;
+        }
+    }
+}
+
 .rtl * {
     direction: rtl
 }

@@ -1,5 +1,5 @@
 <section class="contacts col-12 row px-0 mt-2">
-    <div class="col-lg-2 row position-sticky px-0" style="top: 80px;">
+    <aside class="col-lg-2 row position-sticky px-0" style="top: 80px;">
         <div class="col-12 row bg-white p-3 h-100">
             <app-contact-list class="col-12 row px-0"
             [currentListId]="this.contactsPostBody.listId"
@@ -7,8 +7,8 @@
             (callContactsListEmitter)="getListOfContactsList()"
             ></app-contact-list>
         </div>
-    </div>
-    <div class="col-lg-10 row align-items-start align-content-start ps-0" style="height: 1000px;">
+    </aside>
+    <main class="col-lg-10 row align-items-start align-content-start ps-0" style="height: 1000px;">
         <div class="top-section col-12 row justify-content-end px-0 pb-2 border-bottom">
             <div class="d-flex col-lg-auto px-0">
                 <div class="position-relative col-auto px-0 mx-3">
@@ -50,5 +50,5 @@
 
 
 
-    </div>
+    </main>
 </section>
