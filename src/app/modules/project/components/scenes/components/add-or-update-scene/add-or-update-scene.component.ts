@@ -49,11 +49,6 @@ export class AddOrUpdateSceneComponent implements OnInit {
     })
   }
 
-  ngmCh(e: any): void {
-    console.log(e);
-
-  }
-
   getListOfDayStatuses(): void {
     this._scenesService.getListOfDayStatuses(this.currentProjectId).subscribe(res => {
       this.dayStatuses = res;
