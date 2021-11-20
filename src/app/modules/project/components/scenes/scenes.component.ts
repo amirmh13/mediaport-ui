@@ -85,7 +85,8 @@ export class ScenesComponent extends ScenesBase implements OnInit {
   onOpenAddSceneDialog(projectEpisodeSceneId?: number): void {
     const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
       direction: 'rtl',
-      width: '450px'
+      minWidth: '50vw',
+      maxWidth: '90vw',
     });
 
     dialogRef.componentInstance.currentProjectId = this.currentProjectId;
