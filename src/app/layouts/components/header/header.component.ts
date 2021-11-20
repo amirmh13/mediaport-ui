@@ -12,17 +12,17 @@ import { selectCurrentRoute } from 'src/app/state/App.selectors';
 export class HeaderComponent implements OnInit {
 
     currentRoute: string = '';
+    currentProjectName: string = '';
 
     constructor(
-        private store: Store < RootState > ,
-        private route:ActivatedRoute,
-    ) {}
+        private _store: Store<RootState>,
+        private _route: ActivatedRoute,
+    ) { }
 
     ngOnInit(): void {
-        this.store.pipe(
-            select(selectCurrentRoute)
-        ).subscribe(res => {
-            this.currentRoute = res;
+        this._store.subscribe(res => {
+            this.currentRoute = res.app.currentRoute;
+            this.currentProjectName = res.project.projectName;
         })
     }
 

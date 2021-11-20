@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { ProjectIdAction } from "./Project.actions";
+import { ProjectIdAction, ProjectNameAction } from "./Project.actions";
 
 export interface ProjectState {
     projectId: number;
@@ -16,5 +16,8 @@ export const projectReducer = createReducer(
     initialState,
     on(ProjectIdAction, (state, { projectId }) => {
         return { ...state, ...{ projectId } }
+    }),
+    on(ProjectNameAction, (state, { projectName }) => {
+        return { ...state, ...{ projectName } }
     })
 )

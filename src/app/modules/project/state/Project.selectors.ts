@@ -11,3 +11,8 @@ export const selectProjectId = createSelector(
     selectProject,
     (state: ProjectState) => state.projectId
 );
+
+export const selectProjectName = createSelector(
+    selectProject,
+    (state: ProjectState) => state.projectName
+);
