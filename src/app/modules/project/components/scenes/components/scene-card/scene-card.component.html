@@ -31,10 +31,10 @@
         <mat-menu #menu="matMenu" xPosition="before" direction="rtl" class="rounded-2">
             <ng-template matMenuContent let-category="category">
                 <div class="row mb-2">
-                    <a (click)="addSubSceneEmitter.emit(scene)" class="cursor-pointer text-black">افزودن زیرسکانس</a>
+                    <a (click)="addSubSceneEmitter.emit()" class="cursor-pointer text-black">افزودن زیرسکانس</a>
                 </div>
                 <div class="row mb-2">
-                    <a class="cursor-pointer text-black">ویرایش</a>
+                    <a (click)="editSceneEmitter.emit()" class="cursor-pointer text-black">ویرایش</a>
                 </div>
                 <div class="row mb-2">
                     <a class="cursor-pointer text-black">غیرفعال سازی</a>

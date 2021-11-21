@@ -1,24 +1,29 @@
-<mp-dialog-header>افزودن سکانس جدید</mp-dialog-header>
+<mp-dialog-header>
+    <ng-container *ngIf="addScenePb.id">ویرایش سکانس</ng-container>
+    <ng-container *ngIf="!addScenePb.id">{{projectEpisodeSceneId ? 'افزودن زیر سکانس جدید' : 'افزودن سکانس جدید'}}</ng-container>
+</mp-dialog-header>
 
 <form>
     <mat-dialog-content class="px-2 px-lg-4">
-        <div class="col-12 row px-0 mb-3">
-            <label for="title" class="form-label text-black px-0">
-                محل سکانس
-            </label>
-            <select class="form-control" name="locationTypeId" [(ngModel)]="addScenePb.locationTypeId">
-                <option *ngFor="let locationType of locationTypes" [ngValue]="locationType.id">{{locationType.name}}</option>
-            </select>
+        <div class="col-12 row px-0">
+            <div class="col-12 col-lg-6 row mb-3">
+                <label for="title" class="form-label text-black px-0">
+                    محل سکانس
+                </label>
+                <select class="form-control" name="locationTypeId" [(ngModel)]="addScenePb.locationTypeId">
+                    <option *ngFor="let locationType of locationTypes" [ngValue]="locationType.id">{{locationType.name}}</option>
+                </select>
+            </div>
+            <div class="col-12 col-lg-6 row mb-3">
+                <label for="title" class="form-label text-black px-0">
+                    زمان سکانس
+                </label>
+                <select class="form-control" name="dayStatusId" [(ngModel)]="addScenePb.dayStatusId">
+                    <option *ngFor="let dayStatus of dayStatuses" [ngValue]="dayStatus.id">{{dayStatus.name}}</option>
+                </select>
+            </div>
         </div>
-        <div class="col-12 row px-0 mb-3">
-            <label for="title" class="form-label text-black px-0">
-                زمان سکانس
-            </label>
-            <select class="form-control" name="dayStatusId" [(ngModel)]="addScenePb.dayStatusId">
-                <option *ngFor="let dayStatus of dayStatuses" [ngValue]="dayStatus.id">{{dayStatus.name}}</option>
-            </select>
-        </div>
-        <div *ngIf="projectEpisodeSceneId" class="col-12 row px-0 mb-3">
+        <div *ngIf="projectEpisodeSceneId || addScenePb.subOrder" class="col-12 row px-2 mb-3">
             <label for="title" class="form-label text-black px-0">
                 اولویت 
             </label>
@@ -29,13 +34,13 @@
                 <option [value]="'D'">D</option>
             </select>
         </div>
-        <div class="col-12 row px-0 mb-3">
+        <div class="col-12 row px-2 mb-3">
             <label for="description" class="form-label text-black px-0">
                 خلاصه سکانس
             </label>
             <textarea [(ngModel)]="addScenePb.briefDescription" name="briefDescription" id="description" cols="30" rows="3" class="form-control rounded-2 border-0"></textarea>
         </div>
-        <div class="col-12 row px-0 mb-3">
+        <div class="col-12 row px-2 mb-3">
             <label for="title" class="form-label text-black px-0">
                 لوکیشین اصلی 
             </label>
@@ -43,31 +48,67 @@
                 <option *ngFor="let location of locations" [ngValue]="location.id">{{location.title}}</option>
             </select>
         </div>
-        <div class="col-12 row px-0 mb-3">
-            <label for="description" class="form-label text-black px-0">
+        <div class="col-12 row mb-3">
+            <label for="description" class="form-label text-black">
                زمان تولید
             </label>
             <div class="col-12 row px-0">
-                <div class="col-lg-6 pe-lg-0">
+                <div class="col-lg-4 mb-2 mb-lg-0">
                     <input type="number" name="hour" class="form-control" placeholder="ساعت" #productionTimeHour>
                 </div>
-                <div class="col-lg-6 ps-lg-0">
+                <div class="col-lg-4 mb-2 mb-lg-0">
                     <input type="number" class="form-control" placeholder="دقیقه" #productionTimeMinute>
+                </div>
+                <div class="col-lg-4">
+                    <input type="number" class="form-control" placeholder="ثانیه" #productionTimeSecond>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 row px-0 mb-3">
-            <label for="description" class="form-label text-black px-0">
+        <div class="col-12 row mb-3">
+            <label for="description" class="form-label text-black">
                زمان تدوین
             </label>
             <div class="col-12 row px-0">
-                <div class="col-lg-6 pe-lg-0">
+                <div class="col-lg-4 mb-2 mb-lg-0">
                     <input type="text" class="form-control" placeholder="ساعت" #editTimeHour>
                 </div>
-                <div class="col-lg-6 ps-lg-0">
+                <div class="col-lg-4 mb-2 mb-lg-0">
                     <input type="text" class="form-control" placeholder="دقیقه" #editTimeMinute>
                 </div>
+                <div class="col-lg-4">
+                    <input type="text" class="form-control" placeholder="ثانیه" #editTimeSecond>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 row">
+            <div class="col-12 row mb-3">
+                <label for="sceneNote" class="form-label text-black px-0">
+                    توضیحات سکانس
+                </label>
+                <textarea [(ngModel)]="addScenePb.sceneNote" name="sceneNote" id="sceneNote" cols="30" rows="3" class="form-control rounded-2 border-0"></textarea>
+            </div>
+        </div>
+        <div class="col-12 row px-0">
+            <div class="col-12 col-lg-6 row mb-3">
+                <label class="form-label text-black px-0">
+                    سال سکانس
+                </label>
+                <input type="text" name="sceneTime" class="form-control" [(ngModel)]="addScenePb.sceneTime">
+            </div>
+            <div class="col-12 col-lg-6 row mb-3">
+                <label class="form-label text-black px-0">
+                    شهر سکانس
+                </label>
+                <input type="text" name="sceneCity" class="form-control" [(ngModel)]="addScenePb.sceneCity">
+            </div>
+        </div>
+        <div class="col-12 row px-0">
+            <div class="col-12 col-lg-6 row mb-3">
+                <label class="form-label text-black px-0">
+                    صفحه سکانس
+                </label>
+                <input type="number" name="scenePageSize" class="form-control" [(ngModel)]="addScenePb.scenePageSize">
             </div>
         </div>
     </mat-dialog-content>

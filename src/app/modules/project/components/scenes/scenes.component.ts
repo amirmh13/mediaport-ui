@@ -82,7 +82,7 @@ export class ScenesComponent extends ScenesBase implements OnInit {
     })
   }
 
-  onOpenAddSceneDialog(projectEpisodeSceneId?: number): void {
+  onOpenAddSceneDialogClick(projectEpisodeSceneId?: number): void {
     const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
       direction: 'rtl',
       minWidth: '50vw',
@@ -97,6 +97,7 @@ export class ScenesComponent extends ScenesBase implements OnInit {
       addScenePb.projectEpisodeId = this.selectedEpisodeId;
 
       if (addScenePb.projectEpisodeSceneId) await this.addSubScene(addScenePb);
+      // else if(addScenePb['id'])
       else await this.addScene(addScenePb);
 
       dialogRef.close();
@@ -118,7 +119,44 @@ export class ScenesComponent extends ScenesBase implements OnInit {
   }
 
   onOpeAddSubSceneDialog(scene: SceneDto): void {
-    this.onOpenAddSceneDialog(scene.id);
+    this.onOpenAddSceneDialogClick(scene.id);
+  }
+
+  onEditScene(scene: SceneDto): void {
+    const convertedScene: AddSubScenePb = {
+      briefDescription: scene.briefDescription,
+      dayStatusId: scene.dayStatus?.id || 0,
+      editTime: scene.editTime,
+      locationTypeId: scene.locationType?.id || 0,
+      productionTime: scene.productionTime,
+      projectLocationId: scene.mainLocation?.id || null,
+      projectLocationSubalternId: scene.subLocation?.id || null,
+      sceneCity: scene.sceneCity,
+      sceneNote: scene.sceneNote,
+      scenePageSize: scene.scenePageSize,
+      sceneTime: scene.sceneTime,
+      subOrder: scene.subOrder,
+      projectId: this.currentProjectId,
+      projectEpisodeId: this.selectedEpisodeId,
+      id: scene.id
+    }
+
+    const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
+      direction: 'rtl',
+      minWidth: '50vw',
+      maxWidth: '90vw',
+    });
+
+    dialogRef.componentInstance.currentProjectId = this.currentProjectId;
+    dialogRef.componentInstance.addScenePb = convertedScene;
+
+    dialogRef.componentInstance.submitEmitter.subscribe(async (addScenePb) => {
+
+      // TODO Call edit endpoint
+
+      dialogRef.close();
+      this.getListOfScenes();
+    })
   }
 
   ngOnInit(): void {

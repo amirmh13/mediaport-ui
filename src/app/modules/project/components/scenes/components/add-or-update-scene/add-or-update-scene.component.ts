@@ -19,8 +19,10 @@ export class AddOrUpdateSceneComponent implements OnInit {
 
   @ViewChild('productionTimeHour') productionTimeHour: ElementRef | null = null;
   @ViewChild('productionTimeMinute') productionTimeMinute: ElementRef | null = null;
+  @ViewChild('productionTimeSecond') productionTimeSecond: ElementRef | null = null;
   @ViewChild('editTimeHour') editTimeHour: ElementRef | null = null;
   @ViewChild('editTimeMinute') editTimeMinute: ElementRef | null = null;
+  @ViewChild('editTimeSecond') editTimeSecond: ElementRef | null = null;
 
   locationTypes: IdNameDto[] = [];
   dayStatuses: IdNameDto[] = [];
@@ -32,15 +34,23 @@ export class AddOrUpdateSceneComponent implements OnInit {
   ) { }
 
   onSubmitClick(): void {
-    this.addScenePb.productionTime = this.convertHourMinuteToSecond(+this.productionTimeHour?.nativeElement.value, +this.productionTimeMinute?.nativeElement.value);
-    this.addScenePb.editTime = this.convertHourMinuteToSecond(+this.editTimeHour?.nativeElement.value, +this.editTimeMinute?.nativeElement.value);
-    if(this.projectEpisodeSceneId) this.addScenePb.projectEpisodeSceneId = this.projectEpisodeSceneId;
+    this.addScenePb.productionTime = this.convertHourMinuteToSecond(
+      +this.productionTimeHour?.nativeElement.value,
+      +this.productionTimeMinute?.nativeElement.value,
+      +this.productionTimeSecond?.nativeElement.value,
+    );
+    this.addScenePb.editTime = this.convertHourMinuteToSecond(
+      +this.editTimeHour?.nativeElement.value,
+      +this.editTimeMinute?.nativeElement.value,
+      +this.editTimeSecond?.nativeElement.value,
+    );
+    if (this.projectEpisodeSceneId) this.addScenePb.projectEpisodeSceneId = this.projectEpisodeSceneId;
 
     this.submitEmitter.emit(this.addScenePb);
   }
 
-  convertHourMinuteToSecond(hour: number, minute: number): number {
-    return (hour * 3600) + (minute * 60);
+  convertHourMinuteToSecond(hour: number, minute: number, second: number): number {
+    return (hour * 3600) + (minute * 60) + second;
   }
 
   getListOfLocationTypes(): void {

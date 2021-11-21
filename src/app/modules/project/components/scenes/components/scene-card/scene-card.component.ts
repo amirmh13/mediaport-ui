@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { openCloseAnimation } from '@shared/animations';
 import { QuillConfig, QuillModules } from 'ngx-quill';
-import { SceneDto } from '../../models';
+import { AddSubScenePb, SceneDto } from '../../models';
 
 @Component({
   selector: 'mp-scene-card',
@@ -11,11 +11,12 @@ import { SceneDto } from '../../models';
 })
 export class SceneCardComponent implements OnInit {
 
-  @Input() scene: SceneDto | any = null;
+  @Input() scene!: SceneDto;
   @Input() isOpen: boolean = false;
   @Input() isDetail: boolean = false;
   @Input() id: string = '';
-  @Output() addSubSceneEmitter = new EventEmitter<SceneDto>();
+  @Output() addSubSceneEmitter = new EventEmitter<void>();
+  @Output() editSceneEmitter = new EventEmitter<void>();
 
   modules: QuillModules = {
     toolbar: [

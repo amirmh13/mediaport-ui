@@ -39,7 +39,7 @@
                     </div>
                 </div>
 
-                <div (click)="onOpenAddSceneDialog()" class="border border-secondary col-10 rounded-2 text-secondary text-center px-3 py-2 mx-auto mb-1 cursor-pointer">
+                <div (click)="onOpenAddSceneDialogClick()" class="border border-secondary col-10 rounded-2 text-secondary text-center px-3 py-2 mx-auto mb-1 cursor-pointer">
                     + افزودن سکانس
                 </div>
             </div>
@@ -63,7 +63,8 @@
                         [scene]="scene"
                         [isOpen]="selectedSceneId === 'scene-'+scene.id"
                         [id]="'scene-'+scene.id"
-                        (addSubSceneEmitter)="onOpeAddSubSceneDialog($event)"
+                        (addSubSceneEmitter)="onOpeAddSubSceneDialog(scene)"
+                        (editSceneEmitter)="onEditScene(scene)"
                         style="display: contents;" ></mp-scene-card>
                     </ng-container>
                 </table>
