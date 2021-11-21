@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IdNameDto } from '@shared/models';
 import { LocationDto } from '../../../locations/models';
 import { LocationsService } from '../../../locations/service/locations.service';
@@ -10,19 +10,19 @@ import { ScenesService } from '../../service/scenes.service';
   templateUrl: './add-or-update-scene.component.html',
   styleUrls: ['./add-or-update-scene.component.scss']
 })
-export class AddOrUpdateSceneComponent implements OnInit {
+export class AddOrUpdateSceneComponent implements OnInit, AfterViewInit {
 
   @Input() addScenePb = new AddSubScenePb();
   @Input() currentProjectId: number = 0;
   @Input() projectEpisodeSceneId: number = 0;
   @Output() submitEmitter = new EventEmitter<AddSubScenePb>();
 
-  @ViewChild('productionTimeHour') productionTimeHour: ElementRef | null = null;
-  @ViewChild('productionTimeMinute') productionTimeMinute: ElementRef | null = null;
-  @ViewChild('productionTimeSecond') productionTimeSecond: ElementRef | null = null;
-  @ViewChild('editTimeHour') editTimeHour: ElementRef | null = null;
-  @ViewChild('editTimeMinute') editTimeMinute: ElementRef | null = null;
-  @ViewChild('editTimeSecond') editTimeSecond: ElementRef | null = null;
+  @ViewChild('productionTimeHour') productionTimeHour!: ElementRef;
+  @ViewChild('productionTimeMinute') productionTimeMinute!: ElementRef;
+  @ViewChild('productionTimeSecond') productionTimeSecond!: ElementRef;
+  @ViewChild('editTimeHour') editTimeHour!: ElementRef;
+  @ViewChild('editTimeMinute') editTimeMinute!: ElementRef;
+  @ViewChild('editTimeSecond') editTimeSecond!: ElementRef;
 
   locationTypes: IdNameDto[] = [];
   dayStatuses: IdNameDto[] = [];
@@ -35,14 +35,14 @@ export class AddOrUpdateSceneComponent implements OnInit {
 
   onSubmitClick(): void {
     this.addScenePb.productionTime = this.convertHourMinuteToSecond(
-      +this.productionTimeHour?.nativeElement.value,
-      +this.productionTimeMinute?.nativeElement.value,
-      +this.productionTimeSecond?.nativeElement.value,
+      +this.productionTimeHour.nativeElement.value,
+      +this.productionTimeMinute.nativeElement.value,
+      +this.productionTimeSecond.nativeElement.value,
     );
     this.addScenePb.editTime = this.convertHourMinuteToSecond(
-      +this.editTimeHour?.nativeElement.value,
-      +this.editTimeMinute?.nativeElement.value,
-      +this.editTimeSecond?.nativeElement.value,
+      +this.editTimeHour.nativeElement.value,
+      +this.editTimeMinute.nativeElement.value,
+      +this.editTimeSecond.nativeElement.value,
     );
     if (this.projectEpisodeSceneId) this.addScenePb.projectEpisodeSceneId = this.projectEpisodeSceneId;
 
@@ -75,10 +75,34 @@ export class AddOrUpdateSceneComponent implements OnInit {
     })
   }
 
+  convertSecondToHourMinute(sec: number): { h: number; m: number, s: number; } {
+    let h = Math.floor(sec / 3600); // get hours
+    let m = Math.floor((sec - (h * 3600)) / 60); // get minutes
+    let s = sec - (h * 3600) - (m * 60); //  get seconds
+
+    return { h, m, s };
+  }
+
   ngOnInit(): void {
     this.getListOfLocationTypes();
     this.getListOfDayStatuses();
     this.getListOfLocations();
+  }
+
+  ngAfterViewInit(): void {
+    if (this.addScenePb.productionTime) {
+      const { h, m, s } = this.convertSecondToHourMinute(this.addScenePb.productionTime);
+      this.productionTimeHour.nativeElement.value = h;
+      this.productionTimeMinute.nativeElement.value = m;
+      this.productionTimeSecond.nativeElement.value = s;
+    }
+
+    if (this.addScenePb.editTime) {
+      const { h, m, s } = this.convertSecondToHourMinute(this.addScenePb.editTime);
+      this.editTimeHour.nativeElement.value = h;
+      this.editTimeMinute.nativeElement.value = m;
+      this.editTimeSecond.nativeElement.value = s;
+    }
   }
 
 }
