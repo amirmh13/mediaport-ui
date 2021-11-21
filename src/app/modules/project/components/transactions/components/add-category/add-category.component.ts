@@ -15,34 +15,32 @@ export class AddCategoryComponent implements OnInit {
 
   @Input() transactionCategory!: TransactionCategoryDto;
   @Input() modalHeader: string = "";
-
   @Output() transactionCategoryEmitter = new EventEmitter<void>();
 
   projectId: number = 0;
 
-  constructor(private store: Store<RootState>,
-    private _transactionService: TransactionsService) { }
+  constructor(
+    private _store: Store<RootState>,
+    private _transactionService: TransactionsService,
+  ) { }
 
 
   onSubmitFormClick(locationForm: NgForm): void {
     if (this.transactionCategory.id == 0) {
-      this.addCategory(
-        {
-          code: this.transactionCategory.code,
-          name: this.transactionCategory.name,
-          parentId: this.transactionCategory.parentId,
-          projectId: this.projectId
-        }
-      )
+      this.addCategory({
+        code: this.transactionCategory.code,
+        name: this.transactionCategory.name,
+        parentId: this.transactionCategory.parentId,
+        projectId: this.projectId
+      })
+
     } else {
-      this.updateCategory(
-        {
-          code: this.transactionCategory.code,
-          id: this.transactionCategory.id,
-          name: this.transactionCategory.name,
-          projectId: this.projectId
-        }
-      )
+      this.updateCategory({
+        code: this.transactionCategory.code,
+        id: this.transactionCategory.id,
+        name: this.transactionCategory.name,
+        projectId: this.projectId
+      })
     }
   }
 
@@ -60,8 +58,8 @@ export class AddCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(selectProjectId)).subscribe(res => {
-      this.projectId = res;
+    this._store.pipe(select(selectProjectId)).subscribe(projectId => {
+      this.projectId = projectId;
     });
   }
 
