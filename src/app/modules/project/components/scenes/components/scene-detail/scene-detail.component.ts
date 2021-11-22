@@ -7,11 +7,13 @@ import { RootState } from 'src/app/state/App.reducers';
 import { ElementTypeDto } from '../../../elements/models';
 import { ElementsService } from '../../../elements/services/elements.service';
 import { Mode } from '../../enums';
-import { SceneDetail } from '../../models';
+import { AddSubScenePb, SceneDetail, SceneDto } from '../../models';
 import { ScenesBase } from '../../ScenesBase.class';
 import { EpisodeDto, EpisodesService } from '../../service/episodes.service';
 import { ScenesService } from '../../service/scenes.service';
+import { episodeIdAction } from '../../state/Scenes.actions';
 import { AddElementComponent } from '../add-element/add-element.component';
+import { AddOrUpdateSceneComponent } from '../add-or-update-scene/add-or-update-scene.component';
 
 @Component({
   selector: 'app-scene-detail',
@@ -92,6 +94,43 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
     })
   }
 
+  onEditScene(): void {
+    const convertedScene: AddSubScenePb = {
+      briefDescription: this.sceneDetail!.briefDescription,
+      dayStatusId: this.sceneDetail!.dayStatus?.id || 0,
+      editTime: this.sceneDetail!.editTime,
+      locationTypeId: this.sceneDetail!.locationType?.id || 0,
+      productionTime: this.sceneDetail!.productionTime,
+      projectLocationId: this.sceneDetail!.mainLocation?.id || null,
+      projectLocationSubalternId: this.sceneDetail!.subLocation?.id || null,
+      sceneCity: this.sceneDetail!.sceneCity,
+      sceneNote: this.sceneDetail!.sceneNote,
+      scenePageSize: this.sceneDetail!.scenePageSize,
+      sceneTime: this.sceneDetail!.sceneTime,
+      subOrder: this.sceneDetail!.subOrder,
+      projectId: this.currentProjectId,
+      projectEpisodeId: this.selectedEpisodeId,
+      id: this.sceneDetail!.id
+    }
+
+    const dialogRef = this._dialog.open(AddOrUpdateSceneComponent, {
+      direction: 'rtl',
+      minWidth: '50vw',
+      maxWidth: '90vw',
+    });
+
+    dialogRef.componentInstance.currentProjectId = this.currentProjectId;
+    dialogRef.componentInstance.addScenePb = convertedScene;
+
+    dialogRef.componentInstance.submitEmitter.subscribe(async (addScenePb) => {
+
+      // TODO Call edit endpoint
+
+      dialogRef.close();
+      this.getListOfScenes();
+    })
+  }
+
   ngOnInit(): void {
     this._store.pipe(select(selectProjectId)).subscribe(projectId => {
       this.currentProjectId = projectId;
@@ -108,6 +147,8 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
       if (this.episodeId && this.sceneId) {
         this.getSceneDetail();
         this.getListOfScenes();
+
+        this._store.dispatch(episodeIdAction({ episodeId: this.episodeId }));
       }
     })
 

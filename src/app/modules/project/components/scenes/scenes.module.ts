@@ -13,6 +13,8 @@ import { ScenesComponent } from './scenes.component';
 import { AddElementComponent } from './components/add-element/add-element.component';
 import { ElementTypeRowComponent } from './components/element-type-row/element-type-row.component';
 import { EditElementComponent } from './components/edit-element/edit-element.component';
+import { StoreModule } from '@ngrx/store';
+import { sceneReducer } from './state/Scenes.reducers';
 
 
 
@@ -33,7 +35,8 @@ import { EditElementComponent } from './components/edit-element/edit-element.com
     FormsModule,
     MATERIAL_COMMON_MODULES,
     CustomSelectModule,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    StoreModule.forFeature('scenes', sceneReducer),
   ]
 })
 export class ScenesModule { }

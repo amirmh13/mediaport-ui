@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { LayoutsModule } from './layouts/layouts.module';
 import { getPersianPaginatorIntl } from './MaterialModulesArray.const';
 import { projectReducer } from './modules/project/state/Project.reducers';
-import { ErrorSnackBarComponent } from './shared/interceptors/error/error-snack-bar/error-snack-bar.component';
+import { SnackbarComponent } from './shared/components/snackbar/snackbar.component';
 import { AlertComponent } from './shared/services/alert/alert/alert.component';
 import { appReducer } from './state/App.reducers';
 
@@ -25,7 +25,7 @@ import { appReducer } from './state/App.reducers';
 @NgModule({
     declarations: [
         AppComponent,
-        ErrorSnackBarComponent,
+        SnackbarComponent,
         AlertComponent,
     ],
     imports: [

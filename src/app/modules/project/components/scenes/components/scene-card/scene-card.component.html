@@ -1,6 +1,6 @@
 <tr [id]="id" style="background-color: #FFEBD3;border-color:#F19D41;">
     <td class="px-3 py-4 rounded-end border-end border-top border-bottom">
-        <img (click)="isOpen = !isOpen" class="ms-2 cursor-pointer" src="/assets/images/noun-arrows.svg" alt="">
+        <img (click)="$event.stopPropagation();isOpen = !isOpen" class="ms-2 cursor-pointer" src="/assets/images/noun-arrows.svg" alt="">
         {{scene?.order}}{{scene?.subOrder ? '' + scene?.subOrder : ''}}
     </td>
     <td class="px-3 py-4 border-top border-bottom">
@@ -47,7 +47,62 @@
     </td>
 </tr>
 <tr [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
-    <td colspan="9" class="border-0">
-        <quill-editor [styles]="{minHeight: '200px', direction: 'rtl'}" [classes]="'rtl'" [placeholder]="'خلاصه سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene"></quill-editor>
+    <td colspan="9" class="position-relative border-0">
+        <quill-editor [styles]="{minHeight: '200px', direction: 'rtl'}" [classes]="'rtl'"
+            [placeholder]="'متن سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene">
+            <div quill-editor-toolbar>
+                <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                <span class="ql-formats">
+                    <button type="button" class="ql-direction" value="rtl"></button>
+                </span>
+                <span class="ql-formats">
+                    <button type="button" class="ql-indent" value="+1"></button>
+                    <button type="button" class="ql-indent" value="-1"></button>
+                </span>
+                <span class="ql-formats">
+                    <button type="button" class="ql-blockquote"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-color"></select>
+                    <select class="ql-background"></select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <select class="ql-align">
+                        <option selected></option>
+                        <option value="center"></option>
+                        <option value="right"></option>
+                        <option value="justify"></option>
+                    </select>
+                </span>
+                <span class="ql-formats">
+                    <button class="ql-link"></button>
+                </span>
+                <span class="ql-formats">
+                    <select class="ql-size">
+                        <option value="small"></option>
+                        <option selected></option>
+                        <option value="large"></option>
+                        <option value="huge"></option>
+                    </select>
+                    <select class="ql-header">
+                        <option value="1"></option>
+                        <option value="2"></option>
+                        <option value="3"></option>
+                        <option value="4"></option>
+                        <option value="5"></option>
+                        <option value="6"></option>
+                        <option selected="selected"></option>
+                    </select>
+                </span>
+                <a (click)="saveScript()" class="btn btn-outline-primary py-1 px-3 fw-bold cursor-pointer mx-5">ذخیره متن</a>
+            </div>
+        </quill-editor>
     </td>
 </tr>

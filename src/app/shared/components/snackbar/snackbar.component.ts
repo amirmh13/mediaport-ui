@@ -3,15 +3,15 @@ import { MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-error-snack-bar',
-  templateUrl: './error-snack-bar.component.html',
-  styleUrls: ['./error-snack-bar.component.scss']
+  templateUrl: './snackbar.component.html',
+  styleUrls: ['./snackbar.component.scss']
 })
-export class ErrorSnackBarComponent implements OnInit {
+export class SnackbarComponent implements OnInit {
 
   @Input() message:string = '';
 
   constructor(
-    public snackBarRef: MatSnackBarRef<ErrorSnackBarComponent>,
+    public snackBarRef: MatSnackBarRef<SnackbarComponent>,
   ) { }
 
   ngOnInit(): void {

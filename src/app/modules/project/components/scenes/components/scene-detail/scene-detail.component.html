@@ -43,7 +43,13 @@
                     <span [ngClass]="{'cursor-pointer': !!sceneDetail.previousSceneId, 'disabled': ! !!sceneDetail.previousSceneId}" (click)="! !!sceneDetail.previousSceneId; onGoToNextOrPrevScene(sceneDetail.previousSceneId)" class="col-auto text-primary bg-white shadow-sm rounded-3 px-3 py-1">سکانس قبلی</span>
                 </div>
                 <table class="mp-table table align-middle">
-                    <mp-scene-card [scene]="sceneDetail" [isDetail]="true" style="display: contents;">
+                    <mp-scene-card
+                    [scene]="sceneDetail"
+                    [isDetail]="true"
+                    [isOpen]="true"
+                    (click)="onEditScene()"
+                    class="cursor-pointer"
+                    style="display: contents;">
                     </mp-scene-card>
                 </table>
             </div>

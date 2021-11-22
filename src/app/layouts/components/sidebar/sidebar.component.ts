@@ -34,16 +34,16 @@ export class SidebarComponent implements OnInit {
     ];
 
     constructor(
-        private store: Store < RootState > ,
+        private _store: Store < RootState > ,
         private router: Router,
     ) {}
 
     onSidebarItemClick(item: sidebarItem): void {
-        this.store.dispatch(currentRouteAction({ currentRoute: item.title }));
+        this._store.dispatch(currentRouteAction({ currentRoute: item.title }));
     }
 
     ngOnInit(): void {
-        this.store.pipe(
+        this._store.pipe(
             select(selectProjectId)
         ).subscribe(res => {
             this.currentProjectId = res;

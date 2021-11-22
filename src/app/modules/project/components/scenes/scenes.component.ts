@@ -13,6 +13,8 @@ import { ScenesService } from './service/scenes.service';
 import { UtilitiesService } from '@shared/services/utilities/utilities.service';
 import { Router } from '@angular/router';
 import { ScenesBase } from './ScenesBase.class';
+import { SceneState } from './state/Scenes.reducers';
+import { episodeIdAction } from './state/Scenes.actions';
 
 @Component({
   selector: 'app-scenes',
@@ -44,6 +46,8 @@ export class ScenesComponent extends ScenesBase implements OnInit {
         this.selectedEpisodeId = this.episodes[0].id;
         this.scenesListPostBody.projectEpisodeId = this.selectedEpisodeId;
 
+        this._store.dispatch(episodeIdAction({ episodeId: this.selectedEpisodeId }));
+
         this.getListOfScenes();
       }
 
@@ -64,8 +68,10 @@ export class ScenesComponent extends ScenesBase implements OnInit {
   }
 
   episodeSelectChange(id: number): void {
-    console.log(id);
     this.scenesListPostBody.projectEpisodeId = id;
+
+    this._store.dispatch(episodeIdAction({ episodeId: id }));
+    
     this.getListOfScenes();
   }
 
