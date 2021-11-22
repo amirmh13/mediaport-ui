@@ -46,7 +46,7 @@
         </mat-menu>
     </td>
 </tr>
-<tr [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
+<tr (click)="$event.stopPropagation()" [@openCloseAnimation]="isOpen" class="bg-white p-2 mb-2">
     <td colspan="9" class="position-relative border-0">
         <quill-editor [styles]="{minHeight: '200px', direction: 'rtl'}" [classes]="'rtl'"
             [placeholder]="'متن سکانس ...'" [modules]="modules" [(ngModel)]="scene.scene">
