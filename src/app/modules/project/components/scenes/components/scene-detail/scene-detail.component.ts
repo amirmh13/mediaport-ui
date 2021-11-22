@@ -29,15 +29,15 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
   elementTypesList: ElementTypeDto[] = [];
 
   constructor(
-    public _router: Router,
+    public router: Router,
+    public store: Store<RootState>,
     private _route: ActivatedRoute,
     private _scenesService: ScenesService,
     private _elementService: ElementsService,
     private _episodeService: EpisodesService,
-    private _store: Store<RootState>,
     private _dialog: MatDialog,
   ) {
-    super(_router);
+    super(router, store);
   }
 
   getSceneDetail(): void {
@@ -47,7 +47,6 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
       sceneId: this.sceneId,
     }).subscribe(res => {
       this.sceneDetail = res;
-      console.log(this.sceneDetail);
     })
   }
 
@@ -73,11 +72,11 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
   async episodeSelectChange(id: number): Promise<void> {
     await this.getListOfScenes();
     const firstSceneId: number | '' = this.scenesList[0]?.id || '';
-    this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.episodeId, 'detail', firstSceneId]);
+    this.router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.episodeId, 'detail', firstSceneId]);
   }
 
   onGoToNextOrPrevScene(id: number): void {
-    this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.episodeId, 'detail', id]);
+    this.router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.episodeId, 'detail', id]);
   }
 
   onOpenAddElementDialog(): void {
@@ -132,7 +131,7 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this._store.pipe(select(selectProjectId)).subscribe(projectId => {
+    this.store.pipe(select(selectProjectId)).subscribe(projectId => {
       this.currentProjectId = projectId;
       this.getListOfEpisodes();
       this.getListOfElementTypesList();
@@ -143,12 +142,14 @@ export class SceneDetailComponent extends ScenesBase implements OnInit {
 
       this.episodeId = +params.episodeId;
       this.sceneId = +params.sceneId;
+      console.log(this.episodeId, this.sceneId);
+      
 
       if (this.episodeId && this.sceneId) {
         this.getSceneDetail();
         this.getListOfScenes();
 
-        this._store.dispatch(episodeIdAction({ episodeId: this.episodeId }));
+        this.store.dispatch(episodeIdAction({ episodeId: this.episodeId }));
       }
     })
 

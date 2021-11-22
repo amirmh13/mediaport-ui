@@ -1,5 +1,7 @@
 import { Directive } from "@angular/core";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
+import { RootState } from "src/app/state/App.reducers";
 import { Mode } from "./enums";
 import { SceneDto } from "./models";
 
@@ -15,18 +17,30 @@ export class ScenesBase {
     selectedMode: number = 0;
     selectedEpisodeId: number = 0;
 
+    currentEpisodeId!: number;
+    currentSceneId!: number;
+
     constructor(
-        public _router: Router,
-    ) { }
+        public router: Router,
+        public store: Store<RootState>,
+    ) {
+        store.subscribe(state => {
+            this.currentEpisodeId = state.scenes?.episodeId;
+            this.currentSceneId = state.scenes.sceneId;
+        });
+    }
 
     modeSelectChange(mode: number): void {
         switch (mode) {
             case Mode.EDITOR:
-                this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', 'editor']);
+                this.router.navigate(['projects', this.currentProjectId, 'episode-scenes']);
                 break;
             case Mode.CHOPPING:
-                const firstSceneId: number | '' = this.scenesList[0]?.id || '';
-                this._router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.selectedEpisodeId, 'detail', firstSceneId]);
+                const firstSceneId: number | '' = this.scenesList[0]?.id || this.currentSceneId || '';
+                this.router.navigate(['projects', this.currentProjectId, 'episode-scenes', this.selectedEpisodeId || this.currentEpisodeId, 'detail', firstSceneId]);
+                break;
+            case Mode.OVERVIEW:
+                this.router.navigate(['projects', this.currentProjectId, 'episode-scenes', 'overview']);
                 break;
         }
     }

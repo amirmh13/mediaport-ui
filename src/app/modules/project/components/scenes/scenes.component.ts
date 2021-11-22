@@ -1,19 +1,18 @@
 import { NoopScrollStrategy } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
+import { UtilitiesService } from '@shared/services/utilities/utilities.service';
 import { RootState } from 'src/app/state/App.reducers';
 import { selectProjectId } from '../../state/Project.selectors';
 import { AddEpisodeComponent } from './components/add-episode/add-episode.component';
 import { AddOrUpdateSceneComponent } from './components/add-or-update-scene/add-or-update-scene.component';
 import { Mode } from './enums';
 import { AddScenePb, AddSubScenePb, SceneDto, ScenesListPb } from './models';
+import { ScenesBase } from './ScenesBase.class';
 import { AddEpisodePb, EpisodeDto, EpisodesService } from './service/episodes.service';
 import { ScenesService } from './service/scenes.service';
-import { UtilitiesService } from '@shared/services/utilities/utilities.service';
-import { Router } from '@angular/router';
-import { ScenesBase } from './ScenesBase.class';
-import { SceneState } from './state/Scenes.reducers';
 import { episodeIdAction } from './state/Scenes.actions';
 
 @Component({
@@ -29,13 +28,13 @@ export class ScenesComponent extends ScenesBase implements OnInit {
 
   constructor(
     public _router: Router,
+    public store: Store<RootState>,
     private _scenesService: ScenesService,
     private _episodesService: EpisodesService,
-    private _store: Store<RootState>,
     private _dialog: MatDialog,
     private _utilitiesService: UtilitiesService,
   ) {
-    super(_router);
+    super(_router, store);
   }
 
   getListOfEpisodes(initialize: boolean = false): void {
@@ -46,7 +45,7 @@ export class ScenesComponent extends ScenesBase implements OnInit {
         this.selectedEpisodeId = this.episodes[0].id;
         this.scenesListPostBody.projectEpisodeId = this.selectedEpisodeId;
 
-        this._store.dispatch(episodeIdAction({ episodeId: this.selectedEpisodeId }));
+        this.store.dispatch(episodeIdAction({ episodeId: this.selectedEpisodeId }));
 
         this.getListOfScenes();
       }
@@ -57,7 +56,6 @@ export class ScenesComponent extends ScenesBase implements OnInit {
   getListOfScenes(): void {
     this.scenesListPostBody.projectId = this.currentProjectId;
     this._scenesService.getListOfScenes(this.scenesListPostBody).subscribe(res => {
-      console.log(res);
       this.scenesList = res;
     })
   }
@@ -70,7 +68,7 @@ export class ScenesComponent extends ScenesBase implements OnInit {
   episodeSelectChange(id: number): void {
     this.scenesListPostBody.projectEpisodeId = id;
 
-    this._store.dispatch(episodeIdAction({ episodeId: id }));
+    this.store.dispatch(episodeIdAction({ episodeId: id }));
     
     this.getListOfScenes();
   }
@@ -166,7 +164,7 @@ export class ScenesComponent extends ScenesBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this._store.pipe(select(selectProjectId)).subscribe(projectId => {
+    this.store.pipe(select(selectProjectId)).subscribe(projectId => {
       this.currentProjectId = projectId;
     })
 

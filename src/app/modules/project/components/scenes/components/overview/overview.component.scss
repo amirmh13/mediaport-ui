@@ -1,0 +1,15 @@
+@use "_base" as base;
+
+.sidebar-wrapper {
+  height: calc(100vh - 140px);
+  overflow: hidden;
+
+  &:hover {
+    overflow: auto;
+    @include base.customScrollbar(7px);
+  }
+}
+
+.ql-snow {
+    display: none !important;
+}

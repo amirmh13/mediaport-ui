@@ -15,6 +15,7 @@ import { ElementTypeRowComponent } from './components/element-type-row/element-t
 import { EditElementComponent } from './components/edit-element/edit-element.component';
 import { StoreModule } from '@ngrx/store';
 import { sceneReducer } from './state/Scenes.reducers';
+import { OverviewComponent } from './components/overview/overview.component';
 
 
 
@@ -27,7 +28,8 @@ import { sceneReducer } from './state/Scenes.reducers';
     SceneDetailComponent,
     AddElementComponent,
     ElementTypeRowComponent,
-    EditElementComponent
+    EditElementComponent,
+    OverviewComponent
   ],
   imports: [
     CommonModule,
