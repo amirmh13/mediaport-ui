@@ -42,7 +42,7 @@ const routes: Routes = [{
             loadChildren: () => import('../project/components/scenes/scenes.module').then(m => m.ScenesModule),
             data: { name: 'فیلم نامه' }
         },
-        // { path: '**', redirectTo: `${RoutesEnum.elements}`, pathMatch: 'full' }
+        { path: '**', redirectTo: `/error`, pathMatch: 'full' }
     ]
 }];
 
