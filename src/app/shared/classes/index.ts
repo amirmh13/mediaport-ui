@@ -1,0 +1,1 @@
+export * from './JalaliDateAdapter.class';

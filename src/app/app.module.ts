@@ -8,7 +8,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
-import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from '@shared/classes/JalaliDateAdapter';
+import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from '@shared/classes';
 import { AppInterceptor } from '@shared/interceptors/app/app.interceptor';
 import { AuthInterceptor } from '@shared/interceptors/auth/auth.interceptor';
 import { ErrorInterceptor } from '@shared/interceptors/error/error.interceptor';
