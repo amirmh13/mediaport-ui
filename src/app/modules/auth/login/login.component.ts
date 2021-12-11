@@ -19,7 +19,6 @@ export class LoginComponent implements OnInit {
 
     constructor(
         private _authenticationService: AuthenticationService,
-        private _authService: AuthService,
         private _router: Router,
         private _route: ActivatedRoute,
     ) { }
@@ -27,9 +26,8 @@ export class LoginComponent implements OnInit {
     onFormSubmit(loginForm: NgForm) {
         if (loginForm.valid) {
             this._authenticationService.login(this.loginPostBody).subscribe(res => {
-                this._authService.setToken = res.accessToken;
-                this._authService.setRefreshToken = res.refreshToken;
                 loginForm.resetForm();
+                
                 if (this._route.snapshot.queryParams?.returnUrl) {
                     this._router.navigateByUrl(this._route.snapshot.queryParams.returnUrl);
                 } else {
