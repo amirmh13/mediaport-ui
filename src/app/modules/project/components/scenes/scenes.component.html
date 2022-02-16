@@ -31,7 +31,7 @@
                     <div *ngFor="let scene of scenesList;let last = last" (click)="onBriefSceneClick('scene-'+scene.id)" class="scene-brief-card col-12 cfs-12 row hstack justify-content-between py-1" [class.mb-1]="!last" style="background-color: #FFEBD3;">
                         <div class="col-auto px-0">
                             <span class="col-auto px-0 ms-2">{{scene.order}}{{scene.subOrder ? '' + scene.subOrder : ''}}</span>
-                            {{scene.locationType.name ?? ''}}
+                            {{scene.locationType.name}}
                             {{(scene.dayStatus.name && scene.locationType.name) ? '- ' + scene.dayStatus.name  : ''}}
                             {{(scene.mainLocation && scene.dayStatus.name) ? '- ' + scene.mainLocation.name  : ''}}
                             {{(scene.subLocation && scene.mainLocation) ? '- ' + scene.subLocation.name + '-'  : ''}}
